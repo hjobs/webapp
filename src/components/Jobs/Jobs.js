@@ -4,7 +4,7 @@ import 'whatwg-fetch';
 import Job from './Job';
 import ApplyModal from './ApplyModal';
 
-
+import Variable from '../../var';
 
 const data = [
   {
@@ -52,10 +52,13 @@ class Jobs extends React.Component {
       modalShown: false,
       data: null
     };
+    this.variable = new Variable();
   }
 
   componentDidMount() {
-    fetch('http://localhost:3003/jobs', {
+    const url = this.variable.baseUrl + 'jobs';
+    console.log("Jobs.component did mount, url = " + url);
+    fetch(url, {
       method: 'GET',
       headers: {
         "Content-Type": "application/json"
