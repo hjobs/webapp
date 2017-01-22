@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 
-class About extends React.Component {
+class Home extends React.Component {
   render() {
     return (
       <div className="container-fluid home flex-col">
@@ -16,19 +16,25 @@ class About extends React.Component {
             <Grid>
               <Row className="show-grid">
                 <Col xs={24} sm={12} md={12} lg={12} className="flex-row flex-vhCenter">
-                  <div className="div-circle div-circle-big flex-row flex-vhCenter">
-                    <h3>Looking for a Quick Job?</h3>
+                  <div
+                    onClick={() => { this.props.goToPage(2, "casual"); }}
+                    className="div-circle div-circle-big flex-row flex-vhCenter">
+                    <h3>Looking for a quick job?</h3>
                   </div>
                 </Col>
                 <Col xs={24} sm={12} md={12} lg={12} className="flex-row flex-vhCenter">
-                  <div className="div-circle div-circle-big flex-row flex-vhCenter">
-                    <h3>Looking for a Longer Term Job?</h3>
+                  <div
+                    onClick={() => { this.props.goToPage(2, "stable"); }}
+                    className="div-circle div-circle-big flex-row flex-vhCenter">
+                    <h3>Looking for a stable job?</h3>
                   </div>
                 </Col>
               </Row>
               <Row className="show-grid">
                 <Col xs={24} sm={12} md={12} lg={12} className="flex-row flex-vhCenter">
-                  <div className="div-circle div-circle-small flex-row flex-vhCenter">
+                  <div
+                    onClick={() => { this.props.goToPage(3); }}
+                    className="div-circle div-circle-small flex-row flex-vhCenter">
                     First big Circle Here
                   </div>
                 </Col>
@@ -115,4 +121,8 @@ class About extends React.Component {
   }
 }
 
-export default About;
+Home.propTypes = {
+  goToPage: React.PropTypes.func.isRequired
+};
+
+export default Home;

@@ -6,45 +6,6 @@ import ApplyModal from './ApplyModal';
 
 import Variable from '../../var';
 
-const data = [
-  {
-    imgSrc: 'http://placehold.it/150x150',
-    title: 'Job Title Here',
-    name: 'HotelName Here',
-    date: new Date(1479095519606)
-  },
-  {
-    imgSrc: 'http://placehold.it/150x150',
-    title: 'Job Title Here',
-    name: 'HotelName Here \n HotelName Here a;sdlkfjas;ldkfjas;dlkfjas;dlfkajsd;lfkasjdf',
-    date: new Date(1479095519606)
-  },
-  {
-    imgSrc: 'http://placehold.it/150x150',
-    title: 'Job Title Here',
-    name: 'HotelName Here',
-    date: new Date(1479095519606)
-  },
-  {
-    imgSrc: 'http://placehold.it/150x150',
-    title: 'Job Title Here',
-    name: 'HotelName Here',
-    date: new Date(1479095519606)
-  },
-  {
-    imgSrc: 'http://placehold.it/150x150',
-    title: 'Job Title Here',
-    name: 'HotelName Here',
-    date: new Date(1479095519606)
-  },
-  {
-    imgSrc: 'http://placehold.it/150x150',
-    title: 'Job Title Here',
-    name: 'HotelName Here',
-    date: new Date(1479095519606)
-  }
-];
-
 class Jobs extends React.Component {
   constructor(props) {
     super(props);
@@ -55,8 +16,20 @@ class Jobs extends React.Component {
     this.variable = new Variable();
   }
 
-  componentDidMount() {
-    const url = this.variable.baseUrl + 'jobs';
+  componentWillMount() {
+    this.refresh();
+  }
+
+  componentDidUpdate(prevProps) {
+    console.log(this.props);
+    console.log(prevProps);
+    if (this.props.viewType !== prevProps.viewType) {
+      this.refresh();
+    }
+  }
+
+  refresh() {
+    const url = this.variable.baseUrl + 'employee/jobs/job_type/' + this.props.viewType;
     console.log("Jobs.component did mount, url = " + url);
     fetch(url, {
       method: 'GET',
@@ -67,15 +40,20 @@ class Jobs extends React.Component {
       console.log(res);
       return res.json();
     }).then(d => {
-      console.log(d);
-      this.setState({data: d}, () => { console.log('this.state.data'); console.log(this.state.data); });
+      // console.log("going to log jobs data from server: d");
+      // console.log(d);
+      this.setState({data: d}, () => {
+        console.log("going to log this.statee");
+        console.log(this.state);
+        // console.log(JSON.stringify(this.state.data));
+      });
     });
   }
 
-  openModal(jobNo) {
-    console.log('openModal, jobNo parameter is: ' + jobNo);
+  openModal(job) {
     this.setState({
-      modalShown: true
+      modalShown: true,
+      applyModalData: job
     });
   }
 
@@ -87,28 +65,39 @@ class Jobs extends React.Component {
   }
 
   render() {
-    let dataArr = data.map((datum, i) => {
-      return (
-        <div className="col-xs-24 col-sm-12" key={i}>
-          <Job
-            imgSrc={datum.imgSrc} title={datum.title}
-            name={datum.name} date={datum.date}
-            applyJob={ (jobNo) => { this.openModal(jobNo); } } jobNo={i} />
-        </div>
-      );
-    });
+    let dataArr = [];
+    if (this.state.data && this.state.data.length > 0) {
+      dataArr = this.state.data.map((datum, i) => {
+        return (
+          <div className="col-xs-24 col-sm-12" key={i}>
+            <Job
+              data={datum}
+              imgSrc={datum.org.logo} title={datum.title}
+              name={datum.org.name} date={new Date(datum.updated_at)}
+              applyJob={ () => { this.openModal(datum); } } />
+          </div>
+        );
+      });
+    }
 
     return (
       <div className="container-fluid jobs">
-        <p className="text-center">search for you job</p>
+        <p className="text-center">Search the available listings...</p>
         <div className="row job-row clearfix">
           {dataArr}
         </div>
-        <ApplyModal shown={this.state.modalShown} closeModal={ () => {this.closeModal()} } />
+        <ApplyModal
+          data={this.state.applyModalData}
+          shown={this.state.modalShown}
+          closeModal={ () => { this.closeModal(); }} />
       </div>
     );
   }
 }
+
+Jobs.propTypes = {
+  viewType: React.PropTypes.string.isRequired
+};
 
 export default Jobs;
 

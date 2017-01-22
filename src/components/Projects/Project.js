@@ -2,23 +2,24 @@ import React from 'react';
 import TimeAgo from 'react-timeago';
 import { Button } from 'react-bootstrap';
 
-class Job extends React.Component {
+class Project extends React.Component {
   render() {
+    const org = this.props.data.org;
     return (
-      <div className="job-container flex-row">
+      <div className="project-container flex-row">
         <div className="thumbnail-container flex-col flex-vCenter">
-          <img src={this.props.data.org.logo} className="thumbnail" alt={this.props.data.org.name} />
+          <img src={org ? org.logo : null} className="thumbnail" alt={org ? org.name : null} />
         </div>
         <div className="detail-container">
           <h4>{this.props.data.title}</h4>
           <p>
-            {this.props.data.org.name} <br />
+            {org ? <span>org.name <br /></span> : null}
             Updated <i><TimeAgo date={this.props.data.updated_at} /></i>
           </p>
           <Button
             bsSize="small"
-            className="apply-button"
-            onClick={() => { this.props.applyJob(); }}>
+            className="yellow-button show-me-more-button"
+            onClick={() => { this.props.applyProject(); }}>
             show me more
           </Button>
         </div>
@@ -27,9 +28,9 @@ class Job extends React.Component {
   }
 }
 
-Job.propTypes = {
+Project.propTypes = {
   data: React.PropTypes.any.isRequired,
-  applyJob: React.PropTypes.func.isRequired
+  applyProject: React.PropTypes.func.isRequired
 };
 
-export default Job;
+export default Project;
