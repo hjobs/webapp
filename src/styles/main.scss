@@ -68,6 +68,7 @@ h1,h2,h3,h4,h5,h6 {
   font-family: 'Righteous', cursive;
 }
 
+
 /*********FLEX*********/
 .flex-row {
   display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
@@ -114,6 +115,21 @@ h1,h2,h3,h4,h5,h6 {
 .flex-col-vhCenter {@extend .flex-col; @extend .flex-vhCenter;}
 */
 
+.navbar {
+  .navbar-brand {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    height: 50px;
+    // display: block;
+    img {
+      display: block;
+      height: 100%;
+      width: auto;
+      cursor: pointer;
+    }
+  }
+}
+
 .home {
   padding:0;
   .about-banner-container {
@@ -125,6 +141,9 @@ h1,h2,h3,h4,h5,h6 {
       width:100%;
       padding: 40px;
       h1,h2,h3,h4,h5,h6,p {color: $dark-bkgd;}
+      p {
+        font-size: 1.1em;
+      }
     }
   }
   .about-choice-container {
@@ -147,6 +166,16 @@ h1,h2,h3,h4,h5,h6 {
           // border: 5px solid $dark-bkgd;
           margin-top:10px;
           margin-bottom:10px;
+          .project-1 {
+            display: inline-block;
+            font-family: Righteous,cursive;
+            font-size: 18px;
+            font-weight: 500;
+            // line-height: 19.8px;
+          }
+          .project-2 {
+            display: inline-block;
+          }
         }
         .div-circle-big {
           padding: 10px;
@@ -156,7 +185,7 @@ h1,h2,h3,h4,h5,h6 {
         }
         .div-circle-small {
           padding: 7px;
-          width: 30vw; height: 30vw;
+          width: 32vw; height: 32vw;
           max-width: 200px; max-height: 200px;
           min-width: 120px; min-height: 120px;
         }
@@ -165,6 +194,7 @@ h1,h2,h3,h4,h5,h6 {
   }
   .about-intro-container{
     background-color: $white-bkgd;
+    // background-color: $bright-bkgd;
     padding: 20px 5% 20px 5%;
     .about-intro {
       max-width: 900px;
@@ -174,6 +204,7 @@ h1,h2,h3,h4,h5,h6 {
   }
   .about-feature-container{
     background-color: $white-bkgd;
+    // background-color: $bright-bkgd;
     padding: 20px 5% 20px 5%;
     .about-feature {
       max-width: 900px;
@@ -185,14 +216,28 @@ h1,h2,h3,h4,h5,h6 {
   }
   .about-team-container {
     background-color: $dark-bkgd;
-    padding: 20px 5% 20px 5%;
+    padding: 10px 5% 10px 5%;
     .about-team {
       max-width: 700px;
       width:100%;
       padding: 40px;
-      h2 {color: $bright-bkgd; margin-bottom:30px;}
-      img {max-width: 100px;}
+      h2 {
+        color: $bright-bkgd;
+        margin-bottom:30px;
+      }
+      img {
+        width: 100px;
+        height: 100px;
+      }
       h4,p {color: white;}
+      .title {
+        color: #AAA;
+        display: block;
+      }
+      .person-container {
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
     }
   }
   .contact-container {
@@ -204,6 +249,9 @@ h1,h2,h3,h4,h5,h6 {
       width:100%;
       padding: 40px;
       h1,h2,h3,h4,h5,h6,p {color: $dark-bkgd;}
+      .link {
+        cursor: pointer;
+      }
     }
   }
 }

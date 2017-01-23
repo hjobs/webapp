@@ -48,7 +48,12 @@ class App extends React.Component {
         <Navbar fluid onSelect={(eventKey) => this.handleSelect(eventKey)} inverse collapseOnSelect fixedTop>
           <Navbar.Header>
             <Navbar.Brand>
-              <a onClick={() => { this.handleSelect({currentTab: 1}); }}>HJobs</a>
+              <a>
+                <img
+                  onClick={() => { this.handleSelect({currentTab: 1}); }}
+                  src="./dist/images/logo-landscape.png" alt="HJobs"
+                />
+              </a>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>

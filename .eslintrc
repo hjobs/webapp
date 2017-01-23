@@ -10,6 +10,7 @@
     "object-curly-spacing": "off",
     "react/jsx-closing-bracket-location": "off",
     "react/jsx-curly-spacing": "off",
-    "prefer-template": "off"
+    "prefer-template": "off",
+    "react/prefer-stateless-function" : "off"
   }
 }
