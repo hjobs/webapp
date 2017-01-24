@@ -129,6 +129,13 @@ h1,h2,h3,h4,h5,h6 {
     }
   }
 }
+.navbar-inverse {
+  background-color: $dark-bkgd;
+  border-color: $dark-bkgd;
+  -webkit-box-shadow: 0 0 10px 3px $dark-bkgd;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  -moz-box-shadow:    0 0 10px 3px $dark-bkgd;  /* Firefox 3.5 - 3.6 */
+  box-shadow:         0 0 10px 3px $dark-bkgd;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+}
 
 .home {
   padding:0;
@@ -166,16 +173,6 @@ h1,h2,h3,h4,h5,h6 {
           // border: 5px solid $dark-bkgd;
           margin-top:10px;
           margin-bottom:10px;
-          .project-1 {
-            display: inline-block;
-            font-family: Righteous,cursive;
-            font-size: 18px;
-            font-weight: 500;
-            // line-height: 19.8px;
-          }
-          .project-2 {
-            display: inline-block;
-          }
         }
         .div-circle-big {
           padding: 10px;
@@ -188,6 +185,19 @@ h1,h2,h3,h4,h5,h6 {
           width: 32vw; height: 32vw;
           max-width: 200px; max-height: 200px;
           min-width: 120px; min-height: 120px;
+        }
+        .project-1 {
+          display: inline-block;
+          font-family: Righteous,cursive;
+          font-size: 18px;
+          font-weight: 500;
+          color: black;
+          line-height: 19.8px;
+          // line-height: 19.8px;
+        }
+        .project-2 {
+          display: inline-block;
+          font-size: 10px;
         }
       }
     }
@@ -220,7 +230,7 @@ h1,h2,h3,h4,h5,h6 {
     .about-team {
       max-width: 700px;
       width:100%;
-      padding: 40px;
+      padding: 15px;
       h2 {
         color: $bright-bkgd;
         margin-bottom:30px;
@@ -229,7 +239,7 @@ h1,h2,h3,h4,h5,h6 {
         width: 100px;
         height: 100px;
       }
-      h4,p {color: white;}
+      h4,p {color: $white;}
       .title {
         color: #AAA;
         display: block;

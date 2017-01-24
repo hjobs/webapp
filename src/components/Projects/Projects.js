@@ -87,10 +87,14 @@ class Projects extends React.Component {
       <div className="container-fluid projects">
         <p className="text-center">Search for cool projects...</p>
         {dataArr}
-        <ApplyModal
-          data={this.state.applyModalData}
-          shown={this.state.modalShown}
-          closeModal={ () => { this.closeModal(); }} />
+        { this.state.modalShown ?
+          <ApplyModal
+            data={this.state.applyModalData}
+            shown={this.state.modalShown}
+            closeModal={ () => { this.closeModal(); }} />
+          : null
+        }
+        
       </div>
     );
   }
