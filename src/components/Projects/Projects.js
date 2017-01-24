@@ -66,10 +66,6 @@ class Projects extends React.Component {
         <Col xs={24} sm={12} md={12} lg={12}>
           <Project
             data={datum}
-            imgSrc={datum.org ? datum.org.logo : null}
-            title={datum.title}
-            name={datum.org ? datum.org.name : null}
-            date={new Date(datum.updated_at)}
             applyProject={ () => { this.openModal(datum); } } />
         </Col>
       );
