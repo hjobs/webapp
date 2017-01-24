@@ -4,8 +4,10 @@ import { Button } from 'react-bootstrap';
 
 class Project extends React.Component {
   render() {
-    const org = this.props.data.org;
-    return (
+    console.log("Project.js this.props.data")
+    console.log(this.props.data);
+    const org = this.props.data ? this.props.data.org : null;
+    return this.props.data ? (
       <div className="project-container flex-row">
         <div className="thumbnail-container flex-col flex-vCenter">
           <img src={org ? org.logo : null} className="thumbnail" alt={org ? org.name : null} />
@@ -13,7 +15,7 @@ class Project extends React.Component {
         <div className="detail-container">
           <h4>{this.props.data.title}</h4>
           <p>
-            {org ? <span>org.name <br /></span> : null}
+            {org ? <span>{org.name} <br /></span> : null}
             Updated <i><TimeAgo date={this.props.data.updated_at} /></i>
           </p>
           <Button
@@ -24,7 +26,7 @@ class Project extends React.Component {
           </Button>
         </div>
       </div>
-    );
+    ) : null;
   }
 }
 
