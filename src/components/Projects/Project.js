@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap';
 class Project extends React.Component {
   render() {
     const org = this.props.data.org;
-    return (
+    return this.props.data ? (
       <div className="project-container flex-row">
         <div className="thumbnail-container flex-col flex-vCenter">
           <img src={org ? org.logo : null} className="thumbnail" alt={org ? org.name : null} />
@@ -24,7 +24,7 @@ class Project extends React.Component {
           </Button>
         </div>
       </div>
-    );
+    ) : null;
   }
 }
 
