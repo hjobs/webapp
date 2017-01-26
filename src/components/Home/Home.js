@@ -156,7 +156,7 @@ class Home extends React.Component {
             <p>Email:{' '}
               <a
                 className="link"
-                herf={str}>
+                href={str}>
                 <u>info@hjobs.hk</u>
               </a>
             </p>

@@ -6,13 +6,16 @@ class ApplyModal extends React.Component {
 
   render() {
     const job = this.props.data;
-    const str =
-      'mailto:' +
-      this.props.data.org.employers[0].email +
-      '?subject=RE%20' +
-      this.props.data.title.replace(" ", "%20") +
-      '&body=' +
-      'Say a few words to introduce yourself!'.replace(" ", "%20");
+    let str;
+    if (job) {
+      str =
+        'mailto:' +
+        this.props.data.org.employers[0].email +
+        '?subject=RE%20' +
+        this.props.data.title.replace(" ", "%20") +
+        '&body=' +
+        'Say a few words to introduce yourself!'.replace(" ", "%20");
+    }
     // console.log("ApplyModal this.props.shown = " + this.props.shown);
     if (this.props.shown) {
       return (
