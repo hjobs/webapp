@@ -3,13 +3,8 @@ import { Grid, Row, Col } from 'react-bootstrap';
 
 class Home extends React.Component {
   openEmail() {
-    const str =
-      'mailto:info@hjobs.hk' +
-      '?subject=RE%20' +
-      'Inquiry'.replace(" ", "%20") +
-      '&body=' +
-      'Let us know what your inquiry is :)'.replace(" ", "%20");
-    window.open(str);
+    
+    // window.open(str);
     // const url = this.variable.baseUrl + 'employee/log/';
     // fetch(url, {
     //   method: 'POST',
@@ -32,6 +27,13 @@ class Home extends React.Component {
   }
 
   render() {
+    const str =
+      'mailto:info@hjobs.hk' +
+      '?subject=RE%20' +
+      'Inquiry'.replace(" ", "%20") +
+      '&body=' +
+      'Let us know what your inquiry is :)'.replace(" ", "%20");
+      
     return (
       <div className="container-fluid home flex-col">
         <div className="about-banner-container flex-col flex-vhCenter text-center full-width">
@@ -152,11 +154,11 @@ class Home extends React.Component {
           <div className="contact flex-col flex-vhCenter">
             <h2>Contact Us</h2>
             <p>Email:{' '}
-              <span
+              <a
                 className="link"
-                onClick={() => { this.openEmail(); }}>
+                herf={str}>
                 <u>info@hjobs.hk</u>
-              </span>
+              </a>
             </p>
           </div>
         </div>
