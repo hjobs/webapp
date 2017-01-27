@@ -68,6 +68,7 @@ class Jobs extends React.Component {
     let dataArr = [];
     if (this.state.data && this.state.data.length > 0) {
       dataArr = this.state.data.map((datum, i) => {
+        console.log(datum);
         return (
           <div className="col-xs-24 col-sm-12" key={i}>
             <Job
