@@ -3,39 +3,19 @@ import TimeAgo from 'react-timeago';
 import { Modal, Button } from 'react-bootstrap';
 
 class ApplyModal extends React.Component {
-  openEmail() {
-    const str =
-      'mailto:' +
-      this.props.data.org.employers[0].email +
-      '?subject=RE%20' +
-      this.props.data.title.replace(" ", "%20") +
-      '&body=' +
-      'Say a few words to introduce yourself!'.replace(" ", "%20");
-    window.open(str);
-    // const url = this.variable.baseUrl + 'employee/log/';
-    
-    // fetch(url, {
-    //   method: 'POST',
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: 
-    // }).then(res => {
-    //   console.log(res);
-    //   return res.json();
-    // }).then(d => {
-    //   // console.log("going to log jobs data from server: d");
-    //   // console.log(d);
-    //   this.setState({data: d}, () => {
-    //     console.log("going to log this.statee");
-    //     console.log(this.state);
-    //     // console.log(JSON.stringify(this.state.data));
-    //   });
-    // });
-  }
 
   render() {
     const job = this.props.data;
+    let str;
+    if (job) {
+      str =
+        'mailto:' +
+        this.props.data.org.employers[0].email +
+        '?subject=RE%20' +
+        this.props.data.title.replace(" ", "%20") +
+        '&body=' +
+        'Say a few words to introduce yourself!'.replace(" ", "%20");
+    }
     // console.log("ApplyModal this.props.shown = " + this.props.shown);
     if (this.props.shown) {
       return (
@@ -59,11 +39,9 @@ class ApplyModal extends React.Component {
           
           <Modal.Footer>
             <Button onClick={() => { this.props.closeModal(); }}>Close</Button>
-            <Button
-              className="yellow-button"
-              onClick={() => { this.openEmail(); }}>
+            <a href={str}><Button className="yellow-button">
               Apply Now
-            </Button>
+            </Button></a>
           </Modal.Footer>
         </Modal>
       );
