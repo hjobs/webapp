@@ -1,5 +1,6 @@
 import React from 'react';
 import 'whatwg-fetch';
+import { Clearfix, Row, Col } from 'react-bootstrap';
 
 import Job from './Job';
 import ApplyModal from './ApplyModal';
@@ -67,24 +68,31 @@ class Jobs extends React.Component {
   render() {
     let dataArr = [];
     if (this.state.data && this.state.data.length > 0) {
-      dataArr = this.state.data.map((datum, i) => {
-        console.log(datum);
-        return (
-          <div className="col-xs-24 col-sm-12" key={i}>
-            <Job
-              data={datum}
-              imgSrc={datum.org.logo} title={datum.title}
-              name={datum.org.name} date={new Date(datum.updated_at)}
-              applyJob={ () => { this.openModal(datum); } } />
-          </div>
+      // console.log("inside render, logging this.state.data");
+      // console.log(this.state.data);
+      const getColumn = (datum) => datum ? (
+        <Col xs={24} sm={12} md={12} lg={12} key={'job' + datum.id}>
+          <Job
+            data={datum}
+            imgSrc={datum.org.logo} title={datum.title}
+            name={datum.org.name} date={new Date(datum.updated_at)}
+            applyJob={ () => { this.openModal(datum); } } />
+        </Col>
+      ) : null;
+      for (let i = 0; i < this.state.data.length; i += 2) {
+        dataArr.push(
+          <Row className="project-row clearfix" key={'job-row-' + i / 2}>
+            { getColumn(this.state.data[i]) }
+            { getColumn(this.state.data[i + 1]) }
+          </Row>
         );
-      });
+      }
     }
 
     return (
       <div className="container-fluid jobs">
         <p className="text-center">Search the available listings...</p>
-        <div className="row job-row clearfix">
+        <div className="clearfix">
           {dataArr}
         </div>
         <ApplyModal

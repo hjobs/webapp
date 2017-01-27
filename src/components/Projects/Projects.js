@@ -62,16 +62,16 @@ class Projects extends React.Component {
     if (this.state.data && this.state.data.length > 0) {
       console.log("inside render, logging this.state.data");
       console.log(this.state.data);
-      const getColumn = (datum) => (
-        <Col xs={24} sm={12} md={12} lg={12}>
+      const getColumn = (datum) => datum ? (
+        <Col xs={24} sm={12} md={12} lg={12} key={'project-' + datum.id}>
           <Project
             data={datum}
             applyProject={ () => { this.openModal(datum); } } />
         </Col>
-      );
+      ) : null;
       for (let i = 0; i < this.state.data.length; i += 2) {
         dataArr.push(
-          <Row className="project-row clearfix">
+          <Row className="project-row clearfix" key={'project-row-' + i / 2}>
             { getColumn(this.state.data[i]) }
             { getColumn(this.state.data[i + 1]) }
           </Row>
@@ -90,7 +90,6 @@ class Projects extends React.Component {
             closeModal={ () => { this.closeModal(); }} />
           : null
         }
-        
       </div>
     );
   }
