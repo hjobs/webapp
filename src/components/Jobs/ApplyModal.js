@@ -35,6 +35,14 @@ class ApplyModal extends React.Component {
               {job.org.name}{'  '}
               <i><TimeAgo date={job.updated_at} /></i>
             </p>
+            {
+              job.attachment_url ?
+                <p>
+                  <b>Attachment:</b>
+                  <a href={job.attachment_url}>Link here</a>
+                </p>
+                : null
+            }
           </Modal.Body>
           
           <Modal.Footer>
