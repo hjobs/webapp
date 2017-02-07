@@ -99,13 +99,13 @@ class Home extends React.Component {
             <Grid className="full-width">
               <Row className="show-grid">
                 <Col xs={24} sm={12} md={12} lg={12} className="flex-col flex-vhCenter person-container">
-                  <img src="./dist/images/jo.jpg" alt="Jonathan" className="img-circle" />
+                  <img src="./resources/jo.jpg" alt="Jonathan" className="img-circle" />
                   <h4>Jo Sutton</h4>
                   <span className="title">Co-founder & CEO</span>
                   <p>Jo is interested in actively solving some of the markets troublesome realities of online employment, in hospitality. He is actively in charge of Hjobs.hk’s strategic and day-to-day operations. </p>
                 </Col>
                 <Col xs={24} sm={12} md={12} lg={12} className="flex-col flex-vhCenter person-container">
-                  <img src="./dist/images/edmund.jpg" alt="Edmund" className="img-circle" />
+                  <img src="./resources/edmund.jpg" alt="Edmund" className="img-circle" />
                   <h4>Edmund To</h4>
                   <span className="title">Co-founder & CIO</span>
                   <p>Edmund is a young developer, aspiring to solve pressing impactful problems. He is excited to build a product loved by end-users, through leveraging the flexibility of startups.</p>

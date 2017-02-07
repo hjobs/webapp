@@ -29,12 +29,14 @@ const paths = {
   bundle: 'app.js',
   entry: 'src/Index.js',
   srcCss: 'src/**/*.scss',
-  srcImg: 'src/images/**',
+  srcImg: 'resources/**',
   srcLint: ['src/**/*.js', 'test/**/*.js'],
-  dist: 'dist',
-  distJs: 'dist/js',
-  distImg: 'dist/images',
-  distDeploy: './dist/**/*'
+  srcFontAwesome: 'src/styles/font-awesome/**/*',
+  dist: 'build',
+  distJs: 'build/js',
+  distImg: 'build/resources',
+  distDeploy: './build/**/*',
+  distFontAwesome: 'build/styles/font-awesome'
 };
 
 const customOpts = {
@@ -101,9 +103,17 @@ gulp.task('styles', () => {
   .pipe(reload({ stream: true }));
 });
 
+gulp.task('fontAwesome', () => {
+  gulp.src(paths.srcFontAwesome)
+  .pipe(gulp.dest(paths.distFontAwesome));
+})
+
 gulp.task('htmlReplace', () => {
   gulp.src('index.html')
-  .pipe(htmlReplace({ css: 'styles/main.css', js: 'js/app.js' }))
+  .pipe(htmlReplace({
+    css: 'styles/main.css',
+    // bootstrap: 'styles/bootstrap.css',
+    js: 'js/app.js' }))
   .pipe(gulp.dest(paths.dist));
 });
 
@@ -135,12 +145,12 @@ gulp.task('deploy', () => {
 });
 
 gulp.task('watch', cb => {
-  runSequence('clean', ['browserSync', 'watchTask', 'watchify', 'styles', 'lint', 'images'], cb);
+  runSequence('clean', ['browserSync', 'watchTask', 'watchify', 'styles', 'fontAwesome', 'lint', 'images'], cb);
 });
 
 gulp.task('build', cb => {
   process.env.NODE_ENV = 'production';
-  runSequence('clean', ['browserify', 'styles', 'htmlReplace', 'images'], cb);
+  runSequence('clean', ['browserify', 'styles', 'fontAwesome', 'htmlReplace', 'images'], cb);
 });
 
 function swallowError (error) {

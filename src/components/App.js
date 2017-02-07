@@ -51,7 +51,7 @@ class App extends React.Component {
               <a>
                 <img
                   onClick={() => { this.handleSelect({currentTab: 1}); }}
-                  src="./dist/images/logo-landscape.png" alt="HJobs"
+                  src="./resources/logo-landscape.png" alt="HJobs"
                 />
               </a>
             </Navbar.Brand>
