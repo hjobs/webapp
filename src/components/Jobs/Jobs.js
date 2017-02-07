@@ -76,7 +76,7 @@ class Jobs extends React.Component {
             data={datum}
             imgSrc={datum.org.logo} title={datum.title}
             name={datum.org.name} date={new Date(datum.updated_at)}
-            applyJob={ () => { this.openModal(datum); } } />
+            applyJob={ () => { this.openModal(datum); }} />
         </Col>
       ) : null;
       for (let i = 0; i < this.state.data.length; i += 2) {

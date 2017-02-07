@@ -22,6 +22,8 @@ import imagemin from 'gulp-imagemin';
 import pngquant from 'imagemin-pngquant';
 import runSequence from 'run-sequence';
 import ghPages from 'gulp-gh-pages';
+import plumber from 'gulp-plumber';
+import sass from 'gulp-sass';
 
 const paths = {
   bundle: 'app.js',
@@ -90,6 +92,7 @@ gulp.task('browserify', () => {
 
 gulp.task('styles', () => {
   gulp.src(paths.srcCss)
+  .pipe(sass().on('error', sass.logError))
   .pipe(rename({ extname: '.css' }))
   .pipe(sourcemaps.init())
   .pipe(postcss([vars, extend, nested, autoprefixer, cssnano]))
@@ -117,7 +120,8 @@ gulp.task('images', () => {
 gulp.task('lint', () => {
   gulp.src(paths.srcLint)
   .pipe(eslint())
-  .pipe(eslint.format());
+  .pipe(eslint.format())
+  .on('error', (error) => swallowError(error) )
 });
 
 gulp.task('watchTask', () => {
@@ -138,3 +142,10 @@ gulp.task('build', cb => {
   process.env.NODE_ENV = 'production';
   runSequence('clean', ['browserify', 'styles', 'htmlReplace', 'images'], cb);
 });
+
+function swallowError (error) {
+  // If you want details of the error in the 
+  // http://stackoverflow.com/questions/23971388/prevent-errors-from-breaking-crashing-gulp-watch
+  console.log(error.toString());
+  this.emit('end');
+}
