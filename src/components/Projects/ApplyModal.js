@@ -3,41 +3,17 @@ import TimeAgo from 'react-timeago';
 import { Modal, Button } from 'react-bootstrap';
 
 class ApplyModal extends React.Component {
-  openEmail() {
-    const str =
-      'mailto:' +
-      this.props.data.org.employers[0].email +
-      '?subject=RE%20' +
-      this.props.data.title.replace(" ", "%20") +
-      '&body=' +
-      'Say a few words to introduce yourself!'.replace(" ", "%20");
-    window.open(str);
-    // const url = this.variable.baseUrl + 'employee/log/';
-    // fetch(url, {
-    //   method: 'POST',
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body:
-    // }).then(res => {
-    //   console.log(res);
-    //   return res.json();
-    // }).then(d => {
-    //   // console.log("going to log jobs data from server: d");
-    //   // console.log(d);
-    //   this.setState({data: d}, () => {
-    //     console.log("going to log this.statee");
-    //     console.log(this.state);
-    //     // console.log(JSON.stringify(this.state.data));
-    //   });
-    // });
-  }
-
   render() {
-    // console.log("ApplyModal this.props.shown = " + this.props.shown);
     if (this.props.shown && this.props.data) {
-      const job = this.props.data;
+      const project = this.props.data;
       const org = job.org;
+      const mailStr =
+        'mailto:' +
+        project.org.employers[0].email +
+        '?subject=RE%20' +
+        project.title.replace(" ", "%20") +
+        '&body=' +
+        'Say a few words to introduce yourself!'.replace(" ", "%20");
       return (
         <Modal
           show={this.props.shown}
@@ -45,25 +21,23 @@ class ApplyModal extends React.Component {
         >
           
           <Modal.Body bsClass="modal-body">
-            <h2>{job.title}</h2>
+            <h2>{project.title}</h2>
             <p>
-              <b>About this job:</b> <br />
-              {job.description}
+              <b>About this project:</b> <br />
+              {project.description}
             </p>
             <p>
               <b>Posted:</b><br />
               {org ? org.name : null}{'  '}
-              <i><TimeAgo date={job.updated_at} /></i>
+              <i><TimeAgo date={project.updated_at} /></i>
             </p>
 
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={() => { this.props.closeModal(); }}>Close</Button>
-            <Button
-              className="yellow-button"
-              onClick={() => { this.openEmail(); }}>
+            <a href={mailStr}><Button className="yellow-button">
               Apply Now
-            </Button>
+            </Button></a>
           </Modal.Footer>
         </Modal>
       );
@@ -83,3 +57,5 @@ ApplyModal.propTypes = {
 //         </Modal.Header>
 
 export default ApplyModal;
+
+
