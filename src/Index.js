@@ -1,12 +1,14 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, hashHistory } from 'react-router';
+import { Router, Route, browserHistory } from 'react-router';
+import createBrowserHistory from 'history/lib/createBrowserHistory'
+
 import App from './components/App';
 
 window.React = React;
 
 render(
-  (<Router history={hashHistory}>
+  (<Router history={browserHistory}>
     <Route path="/" component={App} />
   </Router>), document.getElementById('app')
 );

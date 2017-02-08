@@ -77,7 +77,7 @@ class Home extends React.Component {
                 </Col>
                 <Col xs={24} sm={12} md={12} lg={12} className="flex-row flex-vhCenter">
                   <div
-                    onClick={() => { window.open("http://hjobs-admin.bitballoon.com"); }}
+                    onClick={() => { window.open("http://admin.hjobs.hk"); }}
                     className="div-circle div-circle-small flex-row flex-vhCenter">
                     <h4>Looking to post jobs or projects?</h4>
                   </div>
