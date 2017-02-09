@@ -22,8 +22,8 @@ class Jobs extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log(this.props);
-    console.log(prevProps);
+    // console.log(this.props);
+    // console.log(prevProps);
     if (this.props.viewType !== prevProps.viewType) {
       this.refresh();
     }
@@ -38,7 +38,7 @@ class Jobs extends React.Component {
         "Content-Type": "application/json"
       }
     }).then(res => {
-      console.log(res);
+      // console.log(res);
       return res.json();
     }).then(d => {
       // console.log("going to log jobs data from server: d");
@@ -89,8 +89,11 @@ class Jobs extends React.Component {
       }
     }
 
+    const backgroundColor = this.props.viewType === 'casual' ?
+      {"background-color": "#f0ce00"} : null;
+
     return (
-      <div className="container-fluid jobs">
+      <div className="container-fluid jobs" style={backgroundColor}>
         <p className="text-center">Search the available listings...</p>
         <div className="clearfix">
           {dataArr}

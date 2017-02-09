@@ -10,9 +10,9 @@ class ApplyModal extends React.Component {
     if (job) {
       str =
         'mailto:' +
-        this.props.data.org.employers[0].email +
+        job.org.email +
         '?subject=RE%20' +
-        this.props.data.title.replace(" ", "%20") +
+        job.title.replace(" ", "%20") +
         '&body=' +
         'Say a few words to introduce yourself!'.replace(" ", "%20");
     }

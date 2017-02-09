@@ -4,8 +4,8 @@ import { Button } from 'react-bootstrap';
 
 class Project extends React.Component {
   render() {
-    console.log("Project.js this.props.data")
-    console.log(this.props.data);
+    // console.log("Project.js this.props.data")
+    // console.log(this.props.data);
     const org = this.props.data ? this.props.data.org : null;
     return this.props.data ? (
       <div className="project-container flex-row">

@@ -6,10 +6,10 @@ class ApplyModal extends React.Component {
   render() {
     if (this.props.shown && this.props.data) {
       const project = this.props.data;
-      const org = job.org;
+      const org = project.orgs[0];
       const mailStr =
         'mailto:' +
-        project.org.employers[0].email +
+        org.email +
         '?subject=RE%20' +
         project.title.replace(" ", "%20") +
         '&body=' +
@@ -17,8 +17,7 @@ class ApplyModal extends React.Component {
       return (
         <Modal
           show={this.props.shown}
-          dialogClassName="apply-modal"
-        >
+          dialogClassName="apply-modal">
           
           <Modal.Body bsClass="modal-body">
             <h2>{project.title}</h2>
