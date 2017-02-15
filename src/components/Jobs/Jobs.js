@@ -90,7 +90,7 @@ class Jobs extends React.Component {
     }
 
     const backgroundColor = this.props.viewType === 'casual' ?
-      {"background-color": "#f0ce00"} : null;
+      {backgroundColor: "#f0ce00"} : null;
 
     return (
       <div className="container-fluid jobs" style={backgroundColor}>
