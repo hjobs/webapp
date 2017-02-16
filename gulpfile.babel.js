@@ -22,7 +22,7 @@ import imagemin from 'gulp-imagemin';
 import pngquant from 'imagemin-pngquant';
 import runSequence from 'run-sequence';
 import ghPages from 'gulp-gh-pages';
-import plumber from 'gulp-plumber';
+// import plumber from 'gulp-plumber';
 import sass from 'gulp-sass';
 import stripDebug from 'gulp-strip-debug';
 
@@ -113,9 +113,9 @@ gulp.task('fontAwesome', () => {
 gulp.task('htmlReplace', () => {
   gulp.src('index.html')
   .pipe(htmlReplace({
-    css: 'styles/main.css?version=20170208',
+    css: './styles/main.css?version=20170208',
     // bootstrap: 'styles/bootstrap.css',
-    js: 'js/app.js?version=20170208' }))
+    js: './js/app.js?version=20170208' }))
   .pipe(gulp.dest(paths.dist));
 });
 
@@ -133,7 +133,7 @@ gulp.task('lint', () => {
   gulp.src(paths.srcLint)
   .pipe(eslint())
   .pipe(eslint.format())
-  .on('error', (error) => swallowError(error) )
+  .on('error', (error) => swallowError(error));
 });
 
 gulp.task('watchTask', () => {
