@@ -10,7 +10,7 @@ class JobStores extends Reflux.Store {
     this.listenables = JobActions;
   }
 
-  onFirstAction() {
+  getJobs() {
   }
 }
 
