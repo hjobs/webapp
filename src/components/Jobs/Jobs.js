@@ -1,6 +1,6 @@
 import React from 'react';
 import 'whatwg-fetch';
-import { Clearfix, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 
 import Job from './Job';
 import ApplyModal from './ApplyModal';

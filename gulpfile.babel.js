@@ -147,7 +147,9 @@ gulp.task('deploy', () => {
 });
 
 gulp.task('watch', cb => {
-  runSequence('clean', ['browserSync', 'watchTask', 'watchify', 'styles', 'fontAwesome', 'lint', 'images'], cb);
+  runSequence('clean', [
+    // 'browserSync',
+    'watchTask', 'watchify', 'styles', 'fontAwesome', 'lint', 'images'], cb);
 });
 
 gulp.task('build', cb => {
@@ -155,8 +157,8 @@ gulp.task('build', cb => {
   runSequence('clean', ['browserify', 'styles', 'fontAwesome', 'htmlReplace', 'images'], cb);
 });
 
-function swallowError (error) {
-  // If you want details of the error in the 
+function swallowError(error) {
+  // If you want details of the error in the
   // http://stackoverflow.com/questions/23971388/prevent-errors-from-breaking-crashing-gulp-watch
   console.log(error.toString());
   this.emit('end');
