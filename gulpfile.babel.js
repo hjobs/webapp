@@ -49,6 +49,13 @@ const customOpts = {
 
 const opts = Object.assign({}, watchify.args, customOpts);
 
+function swallowError(error) {
+  // If you want details of the error in the
+  // http://stackoverflow.com/questions/23971388/prevent-errors-from-breaking-crashing-gulp-watch
+  console.log(error.toString());
+  this.emit('end');
+}
+
 gulp.task('clean', cb => {
   rimraf('dist', cb);
 });
@@ -108,7 +115,7 @@ gulp.task('styles', () => {
 gulp.task('fontAwesome', () => {
   gulp.src(paths.srcFontAwesome)
   .pipe(gulp.dest(paths.distFontAwesome));
-})
+});
 
 gulp.task('htmlReplace', () => {
   gulp.src('index.html')
@@ -147,17 +154,12 @@ gulp.task('deploy', () => {
 });
 
 gulp.task('watch', cb => {
-  runSequence('clean', ['browserSync', 'watchTask', 'watchify', 'styles', 'fontAwesome', 'lint', 'images'], cb);
+  runSequence('clean', [
+    'browserSync',
+    'watchTask', 'watchify', 'styles', 'fontAwesome', 'lint', 'images'], cb);
 });
 
 gulp.task('build', cb => {
   process.env.NODE_ENV = 'production';
   runSequence('clean', ['browserify', 'styles', 'fontAwesome', 'htmlReplace', 'images'], cb);
 });
-
-function swallowError (error) {
-  // If you want details of the error in the 
-  // http://stackoverflow.com/questions/23971388/prevent-errors-from-breaking-crashing-gulp-watch
-  console.log(error.toString());
-  this.emit('end');
-}

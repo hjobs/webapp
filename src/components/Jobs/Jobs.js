@@ -1,6 +1,6 @@
 import React from 'react';
 import 'whatwg-fetch';
-import { Clearfix, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 
 import Job from './Job';
 import ApplyModal from './ApplyModal';
@@ -70,15 +70,15 @@ class Jobs extends React.Component {
     if (this.state.data && this.state.data.length > 0) {
       // console.log("inside render, logging this.state.data");
       // console.log(this.state.data);
-      const getColumn = (datum) => datum ? (
-        <Col xs={24} sm={12} md={12} lg={12} key={'job' + datum.id}>
-          <Job
-            data={datum}
-            imgSrc={datum.org.logo} title={datum.title}
-            name={datum.org.name} date={new Date(datum.updated_at)}
-            applyJob={ () => { this.openModal(datum); }} />
-        </Col>
-      ) : null;
+      const getColumn = (datum) => {
+        return datum ? (
+          <Col xs={24} sm={12} md={12} lg={12} key={'job' + datum.id}>
+            <Job
+              data={datum}
+              applyJob={ () => { this.openModal(datum); }} />
+          </Col>
+        ) : null;
+      };
       for (let i = 0; i < this.state.data.length; i += 2) {
         dataArr.push(
           <Row className="project-row clearfix" key={'job-row-' + i / 2}>
