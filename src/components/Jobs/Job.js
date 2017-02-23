@@ -1,5 +1,5 @@
 import React from 'react';
-import TimeAgo from 'react-timeago';
+// import TimeAgo from 'react-timeago';
 import { Button } from 'react-bootstrap';
 
 class Job extends React.Component {
@@ -13,7 +13,6 @@ class Job extends React.Component {
           <h4>{this.props.data.title}</h4>
           <p>
             {this.props.data.org.name} <br />
-            Updated <i><TimeAgo date={this.props.data.updated_at} /></i>
           </p>
           <Button
             bsSize="small"

@@ -1,5 +1,5 @@
 import React from 'react';
-import TimeAgo from 'react-timeago';
+// import TimeAgo from 'react-timeago';
 import { Modal, Button } from 'react-bootstrap';
 
 class ApplyModal extends React.Component {
@@ -7,13 +7,15 @@ class ApplyModal extends React.Component {
     if (this.props.shown && this.props.data) {
       const project = this.props.data;
       const org = project.orgs[0];
+      const orgName = org.name.replace("&", "%26");
+      const body = "Dear " + orgName + ",%0A%0AI am interested in your job " + project.title + ". Please contact me at: (ENTER YOUR INFO HERE)%0A%0ALook forward to your speedy reply,%0A(YOUR NAME HERE)";
       const mailStr =
         'mailto:' +
         org.email +
         '?subject=RE%20' +
-        project.title.replace(" ", "%20") +
+        (project.title + ' - Hjobs.hk').replace(" ", "%20") +
         '&body=' +
-        'Say a few words to introduce yourself!'.replace(" ", "%20");
+        body.replace(" ", "%20");
       return (
         <Modal
           show={this.props.shown}
@@ -28,7 +30,6 @@ class ApplyModal extends React.Component {
             <p>
               <b>Posted:</b><br />
               {org ? org.name : null}{'  '}
-              <i><TimeAgo date={project.updated_at} /></i>
             </p>
 
           </Modal.Body>
