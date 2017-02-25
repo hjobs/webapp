@@ -1,6 +1,7 @@
 class Variable {
   constructor() {
-    this.baseUrl = "http://52.221.40.15:9080/";
+    // this.baseUrl = "http://api.hjobs.hk:9080/";
+    this.baseUrl = "http://dev.hjobs.hk:9080/";
     // this.baseUrl = "http://localhost:9080/";
   }
 }
