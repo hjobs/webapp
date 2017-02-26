@@ -38,17 +38,19 @@ class Jobs extends React.Component {
         "Content-Type": "application/json"
       }
     }).then(res => {
-      // console.log(res);
+      if (!res.ok) console.log(['res is not ok, logging res inside Jobs.js refresh() fetch()', res]);
       return res.json();
     }).then(d => {
       // console.log("going to log jobs data from server: d");
       // console.log(d);
-      this.setState({data: d}, () => {
-        console.log("going to log this.statee");
-        console.log(this.state);
-        // console.log(JSON.stringify(this.state.data));
-      });
-    });
+      if (!d.error) {
+        this.setState({data: d}, () => {
+          console.log("going to log this.statee");
+          console.log(this.state);
+          // console.log(JSON.stringify(this.state.data));
+        });
+      }
+    }, err => { console.log(err); });
   }
 
   openModal(job) {
@@ -72,7 +74,7 @@ class Jobs extends React.Component {
       // console.log(this.state.data);
       const getColumn = (datum) => {
         return datum ? (
-          <Col xs={24} sm={12} md={12} lg={12} key={'job' + datum.id}>
+          <Col xs={24} sm={24} md={12} lg={12} key={'job' + datum.id}>
             <Job
               data={datum}
               applyJob={ () => { this.openModal(datum); }} />
@@ -89,7 +91,7 @@ class Jobs extends React.Component {
       }
     }
 
-    const backgroundColor = this.props.viewType === 'casual' ?
+    const backgroundColor = this.props.viewType === 'quick' ?
       {backgroundColor: "#f0ce00"} : null;
 
     return (

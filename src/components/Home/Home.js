@@ -33,16 +33,12 @@ class Home extends React.Component {
       'Inquiry'.replace(" ", "%20") +
       '&body=' +
       'Let us know what your inquiry is :)'.replace(" ", "%20");
-      
+
     return (
       <div className="container-fluid home flex-col">
         <div className="about-banner-container flex-col flex-vhCenter text-center full-width">
           <div className="about-banner flex-col flex-vhCenter">
-            <h2>Build Your Career</h2>
-            <p>
-              Looking for an easy way to find jobs and hire within the hospitality industry? <br />
-              Wanting to find some part-time freelance hospitality projects? Or someone to do them?
-            </p>
+            <h2>Connecting everyday people to hospitality</h2>
           </div>
         </div>
         <div className="about-choice-container flex-col flex-vhCenter text-center full-width">
@@ -51,7 +47,7 @@ class Home extends React.Component {
               <Row className="show-grid">
                 <Col xs={24} sm={12} md={12} lg={12} className="flex-row flex-vhCenter">
                   <div
-                    onClick={() => { this.props.goToPage(2, "casual"); }}
+                    onClick={() => { this.props.goToPage(2, "quick"); }}
                     className="div-circle div-circle-big flex-row flex-vhCenter">
                     <h3>Looking for a quick job?</h3>
                   </div>

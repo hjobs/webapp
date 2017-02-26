@@ -10,7 +10,7 @@ class App extends React.Component {
     super();
     this.state = {
         currentTab: 1,
-        jobsTabViewType: 'casual'
+        jobsTabViewType: 'quick'
     };
   }
 
@@ -58,7 +58,7 @@ class App extends React.Component {
             <Nav pullRight>
               <NavItem eventKey={{currentTab: 1}} href="#">Home</NavItem>
               <NavDropdown title="Jobs" id="nav-dropdown">
-                <MenuItem eventKey={{currentTab: 2, jobsTabViewType: 'casual'}}>Quick Job</MenuItem>
+                <MenuItem eventKey={{currentTab: 2, jobsTabViewType: 'quick'}}>Quick Job</MenuItem>
                 <MenuItem eventKey={{currentTab: 2, jobsTabViewType: 'stable'}}>Stable Job</MenuItem>
               </NavDropdown>
               <NavItem eventKey={{currentTab: 3}} href="#">Projects</NavItem>

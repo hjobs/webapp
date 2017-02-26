@@ -1,18 +1,20 @@
 import React from 'react';
 // import TimeAgo from 'react-timeago';
-import { Button } from 'react-bootstrap';
+import { Button, Grid, Row, Col } from 'react-bootstrap';
 
 class Job extends React.Component {
   render() {
+    const org = this.props.data.orgs[0];
+    const imgSrc = !!this.props.data.photo ? this.props.data.photo : org.photo;
     return (
       <div className="job-container flex-row">
         <div className="thumbnail-container flex-col flex-vCenter">
-          <img src={this.props.data.org.logo} className="thumbnail" alt={this.props.data.org.name} />
+          <img src={imgSrc} className="thumbnail" alt={this.props.data.title} />
         </div>
         <div className="detail-container">
           <h4>{this.props.data.title}</h4>
           <p>
-            {this.props.data.org.name} <br />
+            {org.name} <br />
           </p>
           <Button
             bsSize="small"
@@ -23,6 +25,11 @@ class Job extends React.Component {
         </div>
       </div>
     );
+    // return (
+    //   <Row md={24} lg={12}>
+    //     <Col>
+    //   </Col>
+    // );
   }
 }
 
