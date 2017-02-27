@@ -44,7 +44,7 @@ class Jobs extends React.Component {
     }
 
     return (
-      <Grid style={{maxWidth: "1000px", padding: "0px", backgroundColor: "#FFF"}}>
+      <Grid fluid style={{maxWidth: "1000px", padding: "0px", backgroundColor: "#FFF"}}>
         {dataArr}
       </Grid>
     );

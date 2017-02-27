@@ -18,12 +18,14 @@ class Job extends React.Component {
 
     return (
       <div className="job-container flex-row">
-        <div className="thumbnail-container flex-row flex-hCenter">
-          <img src={imgSrc} className="thumbnail" alt={job.title} />
-        </div>
+        <div
+          className="job-thumbnail"
+          style={{backgroundImage: "url('" + imgSrc + "')"}} />
         <div className="detail-container">
-          <div className={'traffic ' + colorClass} style={{borderRadius: '50%', width: "10px", height: "10px"}} />
-          <h4>{job.title}</h4>
+          <div className="flex-row flex-hStart flex-vCenter">
+            {job.job_type === 'quick' ? <div className={'traffic ' + colorClass} /> : null}
+            <div className="job-title">{job.title}</div>
+          </div>
           <p>
             {org.name} <br />
           </p>

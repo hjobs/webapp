@@ -32,7 +32,11 @@ $modalBkgd: #f0ce00;
 }
 
 .flex-hCenter {justify-content: center;}
+.flex-hStart {justify-content: flex-start;}
+.flex-hEnd {justify-content: flex-end;}
 .flex-vCenter {align-items: center;}
+.flex-vStart {align-items: flex-start;}
+.flex-vEnd {align-items: flex-end;}
 .flex-vhCenter {justify-content: center; align-items: center;}
 
 /*
