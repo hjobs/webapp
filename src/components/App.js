@@ -2,8 +2,7 @@ import React from 'react';
 import { Navbar, Nav, NavDropdown, NavItem, MenuItem } from 'react-bootstrap';
 
 import Home from './Home/Home';
-import Jobs from './Jobs/Jobs';
-import Projects from './Projects/Projects';
+import Browse from './Jobs/Browse';
 
 class App extends React.Component {
   constructor() {
@@ -29,12 +28,9 @@ class App extends React.Component {
     let content;
     switch (this.state.currentTab) {
       case 2: content =
-        (<Jobs
+        (<Browse
           viewType={this.state.jobsTabViewType}
         />);
-        break;
-      case 3:
-        content = <Projects />;
         break;
       case 1: default:
         content =
@@ -49,19 +45,25 @@ class App extends React.Component {
           <Navbar.Header>
             <Navbar.Brand>
               <a onClick={() => { this.handleSelect({currentTab: 1}); }}>
-                <img src="./resources/logo-landscape.png" alt="HJobs"/>
+                <img src="./resources/logo-landscape.png" alt="HJobs" />
               </a>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav pullRight>
-              <NavItem eventKey={{currentTab: 1}} href="#">Home</NavItem>
-              <NavDropdown title="Jobs" id="nav-dropdown">
-                <MenuItem eventKey={{currentTab: 2, jobsTabViewType: 'quick'}}>Quick Job</MenuItem>
-                <MenuItem eventKey={{currentTab: 2, jobsTabViewType: 'stable'}}>Stable Job</MenuItem>
-              </NavDropdown>
-              <NavItem eventKey={{currentTab: 3}} href="#">Projects</NavItem>
+              <NavItem
+                active={this.state.currentTab === 1}
+                eventKey={{currentTab: 1}}
+                href="#">
+                Home
+              </NavItem>
+              <NavItem
+                active={this.state.currentTab === 2}
+                eventKey={{currentTab: 2, jobsTabViewType: 'quick'}}
+                href="#">
+                Jobs
+              </NavItem>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
@@ -72,3 +74,8 @@ class App extends React.Component {
 }
 
 export default App;
+
+              // <NavDropdown title="Jobs" id="nav-dropdown">
+              //   <MenuItem eventKey={{currentTab: 2, jobsTabViewType: 'quick'}}>Quick Job</MenuItem>
+              //   <MenuItem eventKey={{currentTab: 2, jobsTabViewType: 'stable'}}>Stable Job</MenuItem>
+              // </NavDropdown>

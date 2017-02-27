@@ -10,7 +10,7 @@ $off-white: #EEE;
 $div-circle-bkgd: $bright-bkgd;
 $div-circle-border: $dark-bkgd;
 
-$jobsBkgd: $off-white;
+$jobsBkgd: $white;
 $jobContainerBkgd: $white;
 $jobContainerBoxShadow: $off-white;
 $applyButtonBorder: $white;
@@ -23,6 +23,10 @@ $projectContainerColorOdd: $dark-bkgd;
 $projectContainerBkgdEven: $dark-bkgd;
 $projectContainerColorEven: $white;
 $projectContainerBoxShadow: $off-white;
+
+$traffic-red: red;
+$traffic-orange: orange;
+$traffic-blue: blue;
 
 $phoneTall: 544px; /* originally 575 */
 $phoneWide: 767px;
@@ -226,6 +230,9 @@ p {
   background-color: $jobsBkgd;
   padding-top: 30px;
   padding-bottom: 30px;
+  @media (max-width: $phoneWide) {
+    padding: 30px 10px;
+  }
   .job-container {
     h1,h2,h3,h4,h5,h6 {
       font-family: 'Open Sans', sans-serif;
@@ -233,62 +240,60 @@ p {
     }
     margin-top: 10px;
     margin-bottom: 10px;
-    padding: 10px;
+    padding: 0px;
     border-radius: 5px;
     background-color: $jobContainerBkgd;
     color: $dark-bkgd;
-    -webkit-box-shadow: 0 0 5px 0px $jobContainerBoxShadow;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
-    -moz-box-shadow:    0 0 5px 0px $jobContainerBoxShadow;  /* Firefox 3.5 - 3.6 */
-    box-shadow:         0 0 5px 0px $jobContainerBoxShadow;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+    // -webkit-box-shadow: 0 0 5px 0px $jobContainerBoxShadow;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    // -moz-box-shadow:    0 0 5px 0px $jobContainerBoxShadow;  /* Firefox 3.5 - 3.6 */
+    // box-shadow:         0 0 5px 0px $jobContainerBoxShadow;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
     .thumbnail-container {
-      padding: 10px;
-      @media (max-width: $phoneWide) {
-        width: 100%;
-      }
-      @media (min-width: $phoneWide) {
-        width:35%;
-      }
+      padding: 5px;
+      width: 35%;
+      max-width: 150px;
+      margin: 0px;
+      // @media (max-width: $phoneWide) {
+      //   width: 100%;
+      // }
+      // @media (min-width: $phoneWide) {
+      //   width:35%;
+      // }
       img.thumbnail {
         padding: 0px;
         margin: 0px;
         border: 0px;
-        @media (max-width: $phoneWide) {
-          width: 130px; height: 130px;
-        }
-        @media (min-width: $phoneWide) {
-          width: auto;
-          height:auto;
-          max-width: 100%;
-          max-height: 100%;
-        }
+        width: 100%;
+        height: auto;
       }
     }
+    .traffic-blue {background-color: $traffic-blue;}
+    .traffic-orange {background-color: $traffic-orange;}
+    .traffic-red {background-color: $traffic-red;}
     .detail-container {
       overflow-wrap: break-word;
       padding-left: 15px;
       padding-right: 15px;
-      @media (max-width: $phoneWide) {
-        width: 100%;
-        display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-        display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-        display: -ms-flexbox;      /* TWEENER - IE 10 */
-        display: -webkit-flex;     /* NEW - Chrome */
-        display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: vertical;
-        -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-        flex-direction: column;
-        -webkit-flex-wrap: wrap;
-        -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-      }
-      @media (min-width: $phoneWide) {
-        width: 64%;
-      }
+      // width: 64%;
+      flex: 2 1 auto;
+      // @media (max-width: $phoneWide) {
+      //   width: 100%;
+      //   display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+      //   display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+      //   display: -ms-flexbox;      /* TWEENER - IE 10 */
+      //   display: -webkit-flex;     /* NEW - Chrome */
+      //   display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+      //   -webkit-box-orient: vertical;
+      //   -webkit-box-direction: vertical;
+      //   -webkit-flex-direction: column;
+      //   -ms-flex-direction: column;
+      //   flex-direction: column;
+      //   -webkit-flex-wrap: wrap;
+      //   -ms-flex-wrap: wrap;
+      //   flex-wrap: wrap;
+      //   justify-content: center;
+      //   align-items: center;
+      //   text-align: center;
+      // }
       .apply-button {
         background-color: $applyButtonBkgd;
         border: 1px solid $applyButtonBorder;
@@ -307,110 +312,6 @@ p {
     }
     p {
       margin-left: 10px !important;
-    }
-  }
-}
-
-.projects {
-  background-color: $projectsBkgd;
-  color: $white !important;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  @media (max-width: $phoneTall) {
-    .project-row>div:nth-child(odd)>.project-container {
-      background-color: $projectContainerBkgdOdd;
-      color: $projectContainerColorOdd;
-    }
-    .project-row>div:nth-child(even)>.project-container {
-      background-color: $projectContainerBkgdEven;
-      color: $projectContainerColorEven;
-    }
-  }
-  @media (min-width: $phoneTall) {
-    .project-row:nth-child(even)>div:nth-child(odd)>.project-container {
-      background-color: $projectContainerBkgdOdd;
-      color: $projectContainerColorOdd;
-    }
-    .project-row:nth-child(even)>div:nth-child(even)>.project-container {
-      background-color: $projectContainerBkgdEven;
-      color: $projectContainerColorEven;
-    }
-    .project-row:nth-child(odd)>div:nth-child(even)>.project-container, .project-row>div:nth-child(4n+1)>.project-container {
-      background-color: $projectContainerBkgdOdd;
-      color: $projectContainerColorOdd;
-    }
-    .project-row:nth-child(odd)>div:nth-child(odd)>.project-container, .project-row>div:nth-child(4n+3)>.project-container {
-      background-color: $projectContainerBkgdEven;
-      color: $projectContainerColorEven;
-    }
-  }
-
-  .project-container {
-    h1,h2,h3,h4,h5,h6 {
-      font-family: 'Open Sans', sans-serif;
-      font-weight: bold;
-    }
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    -webkit-box-shadow: 0 0 5px 0px $jobContainerBoxShadow;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
-    -moz-box-shadow:    0 0 5px 0px $jobContainerBoxShadow;  /* Firefox 3.5 - 3.6 */
-    box-shadow:         0 0 5px 0px $jobContainerBoxShadow;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
-    .thumbnail-container {
-      padding: 10px;
-      @media (max-width: $phoneWide) {
-        width: 100%;
-      }
-      @media (min-width: $phoneWide) {
-        width:35%;
-      }
-      img.thumbnail {
-        padding: 0px;
-        margin: 0px;
-        border: 0px;
-        @media (max-width: $phoneWide) {
-          width: 130px; height: 130px;
-        }
-        @media (min-width: $phoneWide) {
-          width: auto;
-          height:auto;
-          max-width: 100%;
-          max-height: 100%;
-        }
-      }
-    }
-    .detail-container {
-      overflow-wrap: break-word;
-      padding-left: 15px;
-      padding-right: 15px;
-      @media (max-width: $phoneWide) {
-        width: 100%;
-        display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
-        display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
-        display: -ms-flexbox;      /* TWEENER - IE 10 */
-        display: -webkit-flex;     /* NEW - Chrome */
-        display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: vertical;
-        -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-        flex-direction: column;
-        -webkit-flex-wrap: wrap;
-        -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-      }
-      @media (min-width: $phoneWide) {
-        width: 64%;
-      }
-      .show-me-more-button, .show-me-more-button:hover {
-        background-color: $bright-bkgd;
-        color: $dark-bkgd;
-        border: 0px;
-      }
     }
   }
 }

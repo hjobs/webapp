@@ -20,7 +20,7 @@ class ApplyModal extends React.Component {
         <Modal
           show={this.props.shown}
           dialogClassName="apply-modal">
-          
+
           <Modal.Body bsClass="modal-body">
             <h2>{project.title}</h2>
             <p>
@@ -41,9 +41,8 @@ class ApplyModal extends React.Component {
           </Modal.Footer>
         </Modal>
       );
-    } else {
-      return null;
     }
+    return null;
   }
 }
 
@@ -57,5 +56,3 @@ ApplyModal.propTypes = {
 //         </Modal.Header>
 
 export default ApplyModal;
-
-

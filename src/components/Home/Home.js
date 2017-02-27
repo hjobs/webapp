@@ -1,38 +1,16 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 
+import Variable from '../../var';
+
 class Home extends React.Component {
-  openEmail() {
-    
-    // window.open(str);
-    // const url = this.variable.baseUrl + 'employee/log/';
-    // fetch(url, {
-    //   method: 'POST',
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   body:
-    // }).then(res => {
-    //   console.log(res);
-    //   return res.json();
-    // }).then(d => {
-    //   // console.log("going to log jobs data from server: d");
-    //   // console.log(d);
-    //   this.setState({data: d}, () => {
-    //     console.log("going to log this.statee");
-    //     console.log(this.state);
-    //     // console.log(JSON.stringify(this.state.data));
-    //   });
-    // });
+  constructor(props) {
+    super(props);
+    this.vars = new Variable();
   }
 
   render() {
-    const str =
-      'mailto:info@hjobs.hk' +
-      '?subject=RE%20' +
-      'Inquiry'.replace(" ", "%20") +
-      '&body=' +
-      'Let us know what your inquiry is :)'.replace(" ", "%20");
+    const str = this.vars.getEmailStr('contactus');
 
     return (
       <div className="container-fluid home flex-col">
@@ -63,7 +41,7 @@ class Home extends React.Component {
               <Row className="show-grid">
                 <Col xs={24} sm={12} md={12} lg={12} className="flex-row flex-vhCenter">
                   <div
-                    onClick={() => { this.props.goToPage(3); }}
+                    onClick={() => { this.props.goToPage(2, "project"); }}
                     className="div-circle div-circle-small flex-row flex-vhCenter">
                     <div className="text-center">
                       <span className="project-1">Looking for a project?</span>
