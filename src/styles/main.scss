@@ -6,6 +6,8 @@ $dark-bkgd: #101010;
 $white-bkgd: transparent;
 $white: white;
 $off-white: #EEE;
+$light-gray: #CCCCCC;
+$blue: #005C5D;
 
 $div-circle-bkgd: $bright-bkgd;
 $div-circle-border: $dark-bkgd;
@@ -27,6 +29,9 @@ $projectContainerBoxShadow: $off-white;
 $traffic-red: red;
 $traffic-orange: orange;
 $traffic-blue: blue;
+$date-tag-background: $light-gray;
+$date-tag-color: black;
+$job-color: #666666;
 
 $phoneTall: 544px; /* originally 575 */
 $phoneWide: 767px;
@@ -49,6 +54,8 @@ section {
 .full-width {width: 100%;}
 .text-center {text-align: center;}
 .inline-block {display: inline-block;}
+
+span.link, span[link] {color: $blue; cursor: pointer;}
 
 .yellow-button {
   margin-top: 5px !important;
@@ -245,6 +252,7 @@ p {
     border-radius: 5px;
     background-color: $jobContainerBkgd;
     color: $dark-bkgd;
+    font-size: 16px;
     // -webkit-box-shadow: 0 0 5px 0px $jobContainerBoxShadow;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
     // -moz-box-shadow:    0 0 5px 0px $jobContainerBoxShadow;  /* Firefox 3.5 - 3.6 */
     // box-shadow:         0 0 5px 0px $jobContainerBoxShadow;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
@@ -264,38 +272,62 @@ p {
       display: block;
       padding-top: 100%;
     }
-    .traffic {
-      border-radius: 50%;
-      width: 15px;
-      height: 15px;
-      margin-right: 10px;
-    }
-    .traffic-blue {background-color: $traffic-blue;}
-    .traffic-orange {background-color: $traffic-orange;}
-    .traffic-red {background-color: $traffic-red;}
+
     .detail-container {
       position: relative;
       overflow-wrap: break-word;
       padding-left: 15px;
       padding-right: 7.5px;
       width: calc(70% - 10px);
-      .job-title {
-        white-space: nowrap;
-        overflow: hidden;
-        font-size: 16px;
-        font-weight: 600;
-        text-overflow: ellipsis;
-      }
-      .apply-button {
-        // margin-top: calc(100% - 30px);
-        position: absolute;
-        bottom: 0;
-        left: 15px;
-        background-color: $applyButtonBkgd;
-        border: 1px solid $applyButtonBorder;
-        color: $applyButtonColor;
+      
+      // .apply-button {
+      //   // margin-top: calc(100% - 30px);
+      //   position: absolute;
+      //   bottom: 0;
+      //   left: 15px;
+      //   background-color: $applyButtonBkgd;
+      //   border: 1px solid $applyButtonBorder;
+      //   color: $applyButtonColor;
+      // }
+      p {
+        margin-left: 1.5px;
+        color: $job-color;
+        i {font-size: 0.9em; margin-right: 8px;}
       }
     }
+
+    .job-title {
+      white-space: nowrap;
+      overflow: hidden;
+      font-size: 1.1em;
+      font-weight: 600;
+      text-overflow: ellipsis;
+    }
+    
+    .traffic {
+      border-radius: 50%;
+      width: 15px;
+      height: 15px;
+      margin-right: 6px;
+      margin-bottom: 0.8px;
+    }
+    .traffic-blue {background-color: $traffic-blue;}
+    .traffic-orange {background-color: $traffic-orange;}
+    .traffic-red {background-color: $traffic-red;}
+
+    .date-tag {
+      margin-top: 5px;
+      margin-bottom: 5px;
+      text-align: center;
+      div {
+        background-color: $date-tag-background;
+        border-radius: 15px;
+        color: $date-tag-color;
+        margin: 0px 5px 0px 0px;
+        padding: 0px 10px;
+      }
+    }
+
   }
 }
 

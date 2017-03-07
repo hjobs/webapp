@@ -12,7 +12,7 @@ class Browse extends React.Component {
     super(props);
     this.state = {
       modalShown: false,
-      data: null,
+      jobs: null,
       viewType: props.viewType
     };
     this.variable = new Variable();
@@ -60,13 +60,10 @@ class Browse extends React.Component {
       if (!res.ok) console.log(['res is not ok, logging res inside Jobs.js refresh() fetch()', res]);
       return res.json();
     }).then(d => {
-      // console.log("going to log jobs data from server: d");
-      // console.log(d);
+      console.log(["going to log jobs data from server: d", d]);
       if (!d.error) {
-        this.setState({data: d}, () => {
-          console.log("going to log this.statee");
-          console.log(this.state);
-          // console.log(JSON.stringify(this.state.data));
+        this.setState({jobs: d}, () => {
+          console.log(["going to log this.statee", this.state]);
         });
       }
     }, err => { console.log(err); });
@@ -78,10 +75,10 @@ class Browse extends React.Component {
     return this.props.viewType ? (
       <div className="container-fluid jobs">
         {
-          !!this.state.data ?
+          !!this.state.jobs && this.state.jobs.length > 0 ?
             <Jobs
               viewType={this.props.viewType}
-              data={this.state.data}
+              jobs={this.state.jobs}
               openModal={(job) => { this.openModal(job); }}
               closeModal={() => { this.closeModal(); } } /> : null
         }

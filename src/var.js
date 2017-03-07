@@ -3,12 +3,12 @@ class Variable {
     // this.baseUrl = "http://api.hjobs.hk:9080/";
     // this.baseUrl = "http://dev.hjobs.hk:9080/";
     this.baseUrl = "http://localhost:9080/";
+    this.months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   }
 
   /**
-   * return email string
-   *
-   * (type): application, contactus
+   * @return {string} email
+   * @param {'application'|'contactus'} type
    */
   getEmailStr(type, data) {
     let str;
@@ -58,25 +58,60 @@ class Variable {
   }
 
   /**
-   * returns 'traffic-red', 'traffic-orange', 'traffic-blue' or null
+   * @return {'traffic-red' | 'traffic-orange' | 'traffic-blue' | null}
    * @param {*} job
    */
   getColorClass(job) {
     let colorClass;
     if (job.job_type === 'quick') {
-      if (!!job.dates) {
-        const firstDate = new Date(job.dates[0]);
+      if (!!job.periods && job.periods.length > 0) {
+        const earliestDate = job.periods.reduce((result, curr) => {
+          let currTime;
+          if (!!curr.start_time) currTime = new Date(curr.start_time);
+          else if (!!curr.date) currTime = new Date(curr.date);
+          else return result || null;
+          return (!result || currTime - result < 0) ? currTime : result;
+        }, null);
+        if (!earliestDate) return 'traffic-blue';
+
         const now = new Date();
-        const daysDifference = (firstDate - now) / 86400000;
-        if (daysDifference < 7) colorClass = 'traffic-red';
+        const daysDifference = (earliestDate - now) / 86400000; // 86400000 = 1 day
+        if (daysDifference < 0) colorClass = 'traffic-blue';
+        else if (daysDifference < 7) colorClass = 'traffic-red';
         else if (daysDifference < 14) colorClass = "traffic-orange";
         else colorClass = "traffic-blue";
       } else {
         colorClass = 'traffic-blue';
       }
     }
-
     return colorClass;
+  }
+
+  /**
+   * @return {number} - 2 digit
+   * @param {number} num - 1 to 2 digit
+   */
+  pad2(num) { return (num < 10) ? '0' + num.toString() : num; }
+  /** @return {"Jan"| "Feb"| "Mar"| "Apr"| "May"| "Jun"| "Jul"| "Aug"| "Sep"| "Oct"| "Nov"| "Dec"}
+   * @param {0|1|2|3|4|5|6|7|8|9|10|11} num
+   */
+  getMonth(num) { return this.months[num]; }
+
+  /** @return {'? to ?'|'?'|'negotiable'} */
+  getSalaryDescription(job) {
+    let salaryDescription = "";
+    switch (job.salary_type) {
+      case "range":
+        salaryDescription = job.salary_high + " to " + job.salary_low;
+        break;
+      case "specific":
+        salaryDescription = job.salary_value;
+        break;
+      case "negotiable": default:
+        salaryDescription = "negotiable";
+        break;
+    }
+    return salaryDescription;
   }
 }
 
