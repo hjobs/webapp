@@ -1,6 +1,9 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 
+import Search from '../Search/Search';
+import Jobs from '../Jobs/Jobs';
+
 import Variable from '../../var';
 
 class Home extends React.Component {
@@ -21,43 +24,17 @@ class Home extends React.Component {
         </div>
         <div className="about-choice-container flex-col flex-vhCenter text-center full-width">
           <div className="about-choice flex-col flex-vhCenter">
-            <Grid>
-              <Row className="show-grid">
-                <Col xs={24} sm={12} md={12} lg={12} className="flex-row flex-vhCenter">
-                  <div
-                    onClick={() => { this.props.goToPage(2, "quick"); }}
-                    className="div-circle div-circle-big flex-row flex-vhCenter">
-                    <h3>Looking for a quick job?</h3>
-                  </div>
-                </Col>
-                <Col xs={24} sm={12} md={12} lg={12} className="flex-row flex-vhCenter">
-                  <div
-                    onClick={() => { this.props.goToPage(2, "stable"); }}
-                    className="div-circle div-circle-big flex-row flex-vhCenter">
-                    <h3>Looking for a stable job?</h3>
-                  </div>
-                </Col>
-              </Row>
-              <Row className="show-grid">
-                <Col xs={24} sm={12} md={12} lg={12} className="flex-row flex-vhCenter">
-                  <div
-                    onClick={() => { this.props.goToPage(2, "project"); }}
-                    className="div-circle div-circle-small flex-row flex-vhCenter">
-                    <div className="text-center">
-                      <span className="project-1">Looking for a project?</span>
-                      <span className="project-2"> (market research, consultancy)</span>
-                    </div>
-                  </div>
-                </Col>
-                <Col xs={24} sm={12} md={12} lg={12} className="flex-row flex-vhCenter">
-                  <div
-                    onClick={() => { window.open("http://admin.hjobs.hk"); }}
-                    className="div-circle div-circle-small flex-row flex-vhCenter">
-                    <h4>Looking to post jobs or projects?</h4>
-                  </div>
-                </Col>
-              </Row>
-            </Grid>
+            <div className="full-width flex-col flex-vhCenter">
+              <Search
+                changeViewType={(val) => {
+                  this.props.goToPage(2, val);
+                }}
+              />
+              {/* <Jobs
+                viewType={'quick'}
+                jobs={}
+              /> */}
+            </div>
           </div>
         </div>
         <div className="about-intro-container flex-col flex-vhCenter text-center full-width">
@@ -66,7 +43,6 @@ class Home extends React.Component {
             <p>We are a non-profit website setup to help hospitality employers and employees’ connect. In addition to job postings, we also encourage businesses to post projects <i>i.e. re-design a restaurant menu, doing in-depth research on potential markets,</i> that can then be completed by any competitive individual! </p>
           </div>
         </div>
-        {('COMMENTED OUT ABOUT-FEATURE SECTION DOWN BELOW' !== null) ? null : null}
         <div className="about-team-container flex-col flex-vhCenter text-center full-width">
           <div className="about-team flex-col flex-vhCenter">
             <h2>Our Team</h2>
@@ -149,3 +125,40 @@ export default Home;
 //             </Grid>
 //           </div>
 //         </div>
+            // <Grid>
+            //   <Row className="show-grid">
+            //     <Col xs={24} sm={12} md={12} lg={12} className="flex-row flex-vhCenter">
+            //       <div
+            //         onClick={() => { this.props.goToPage(2, "quick"); }}
+            //         className="div-circle div-circle-big flex-row flex-vhCenter">
+            //         <h3>Looking for a quick job?</h3>
+            //       </div>
+            //     </Col>
+            //     <Col xs={24} sm={12} md={12} lg={12} className="flex-row flex-vhCenter">
+            //       <div
+            //         onClick={() => { this.props.goToPage(2, "stable"); }}
+            //         className="div-circle div-circle-big flex-row flex-vhCenter">
+            //         <h3>Looking for a stable job?</h3>
+            //       </div>
+            //     </Col>
+            //   </Row>
+            //   <Row className="show-grid">
+            //     <Col xs={24} sm={12} md={12} lg={12} className="flex-row flex-vhCenter">
+            //       <div
+            //         onClick={() => { this.props.goToPage(2, "project"); }}
+            //         className="div-circle div-circle-small flex-row flex-vhCenter">
+            //         <div className="text-center">
+            //           <span className="project-1">Looking for a project?</span>
+            //           <span className="project-2"> (market research, consultancy)</span>
+            //         </div>
+            //       </div>
+            //     </Col>
+            //     <Col xs={24} sm={12} md={12} lg={12} className="flex-row flex-vhCenter">
+            //       <div
+            //         onClick={() => { window.open("http://admin.hjobs.hk"); }}
+            //         className="div-circle div-circle-small flex-row flex-vhCenter">
+            //         <h4>Looking to post jobs or projects?</h4>
+            //       </div>
+            //     </Col>
+            //   </Row>
+            // </Grid>

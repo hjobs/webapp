@@ -1,6 +1,6 @@
 import React from 'react';
-import TimeAgo from 'react-timeago';
-import { Button, Row, Col } from 'react-bootstrap';
+// import TimeAgo from 'react-timeago';
+// import { Button, Row, Col } from 'react-bootstrap';
 
 import Variable from '../../var';
 
@@ -16,7 +16,7 @@ class Job extends React.Component {
     const imgSrc = !!job.photo ? job.photo : org.logo;
     const colorClass = this.vars.getColorClass(job);
     const DateTag = (props) => (
-      <div className="flex-row flex-vhCenter date-tag" key={'datetag-' + JSON.stringify(props.date)}>
+      <div className="flex-row flex-vhCenter date-tag">
         <div>{this.vars.getMonth(props.date.getMonth())}{' '}{this.vars.pad2(props.date.getDate())}</div>
       </div>
     );
@@ -28,15 +28,15 @@ class Job extends React.Component {
           style={{backgroundImage: "url('" + imgSrc + "')"}} />
         <div className="detail-container">
           <div className="flex-row flex-hStart flex-vCenter">
-            {job.job_type === 'quick' ? <div className={'traffic ' + colorClass} /> : null}
-            <div className="job-title"><span className="link" onClick={() => { this.props.applyJob(); }}>
-              {job.title}
-            </span></div>
+            <div className="job-title full-width">
+              {job.job_type === 'quick' ? <div className={'traffic ' + colorClass} /> : null}
+              <span className="link" onClick={() => { this.props.applyJob(); }}>{job.title}</span>
+            </div>
           </div>
           {job.periods && job.periods.length > 0 ?
             <div className="flex-row flex-hStart flex-vCenter">
-              {job.periods.map(period => <DateTag date={new Date(period.start_time)} />)}
-            </div> : null
+              {job.periods.map(period => <DateTag date={new Date(period.start_time)} key={'datetag_' + (new Date(period.start_time).valueOf())} />)}
+            </div> : <div className="full-width" style={{height: '5px'}} />
           }
           <p>
             <span><i className="fa fa-usd" aria-hidden="true"></i> {this.vars.getSalaryDescription(job)}</span><br />
@@ -51,11 +51,6 @@ class Job extends React.Component {
         </div>
       </div>
     );
-    // return (
-    //   <Row md={24} lg={12}>
-    //     <Col>
-    //   </Col>
-    // );
   }
 }
 

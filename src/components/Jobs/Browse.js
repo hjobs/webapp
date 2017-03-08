@@ -4,6 +4,7 @@ import 'whatwg-fetch';
 
 import Jobs from './Jobs';
 import ApplyModal from './ApplyModal';
+import Search from '../Search/Search';
 
 import Variable from '../../var';
 
@@ -33,23 +34,13 @@ class Browse extends React.Component {
     }
   }
 
-  openModal(job) {
-    this.setState(s => {
-      s.modalShown = true;
-      s.applyModalData = job;
-      return s;
-    });
-  }
-
-  closeModal() {
-    this.setState(s => {
-      s.modalShown = false;
-      return s;
-    });
-  }
+  openModal(job) { this.setState(s => { s.modalShown = true; s.applyModalData = job; return s; }); }
+  closeModal() { this.setState(s => { s.modalShown = false; return s; }); }
+  /** @param {'quick'|'stable'|'internship'|'project'} str */
+  changeViewType(str) { this.setState(s => { s.viewType = str; return s; }, () => { this.refresh(); }); }
 
   refresh() {
-    const url = this.variable.baseUrl + 'employee/jobs/job_type/' + this.props.viewType;
+    const url = this.variable.baseUrl + 'employee/jobs/job_type/' + this.state.viewType;
     console.log("Jobs.component did mount, url = " + url);
     fetch(url, {
       method: 'GET',
@@ -61,7 +52,7 @@ class Browse extends React.Component {
       return res.json();
     }).then(d => {
       console.log(["going to log jobs data from server: d", d]);
-      if (!d.error) {
+      if (d && !d.error) {
         this.setState({jobs: d}, () => {
           console.log(["going to log this.statee", this.state]);
         });
@@ -74,13 +65,17 @@ class Browse extends React.Component {
 
     return this.props.viewType ? (
       <div className="container-fluid jobs">
+        <Search
+          viewType={this.state.viewType}
+          changeViewType={(str) => { this.changeViewType(str); }}
+        />
         {
           !!this.state.jobs && this.state.jobs.length > 0 ?
             <Jobs
               viewType={this.props.viewType}
               jobs={this.state.jobs}
               openModal={(job) => { this.openModal(job); }}
-              closeModal={() => { this.closeModal(); } } /> : null
+            /> : null
         }
         <ApplyModal
           data={this.state.applyModalData}

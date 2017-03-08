@@ -1,9 +1,17 @@
+const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
 class Variable {
   constructor() {
     // this.baseUrl = "http://api.hjobs.hk:9080/";
     // this.baseUrl = "http://dev.hjobs.hk:9080/";
     this.baseUrl = "http://localhost:9080/";
-    this.months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    /** @type [{name: string, value: string}] - name is for displaying, use value in algorithm */
+    this.viewTypes = [
+      {name: "Quick Hjobs", value: "quick"},
+      {name: "Stable Jobs", value: "stable"},
+      {name: "Internships", value: "internship"},
+      {name: "Projects", value: "project"}
+    ];
   }
 
   /**
@@ -17,11 +25,11 @@ class Variable {
         if (data) {
           const orgName = this.getOrgsNames(data.orgs);
           const email = this.getOrgsEmails(data.orgs);
-          const title = (data.title + ' - Hdatas.hk').replace(/\s|\r/g, "%20");
+          const title = (data.title + ' - Hjobs.hk').replace(/\s|\r/g, "%20");
 
           const body =
             ("Dear " + orgName + ",%0A%0A" +
-            "I am interested in your data " + data.title + ". Please contact me at: (ENTER YOUR INFO HERE)%0A%0A" +
+            "I am interested in your posting " + data.title + ". Please contact me at: (ENTER YOUR INFO HERE)%0A%0A" +
             "Look forward to your speedy reply," +
             "%0A(YOUR NAME HERE)").replace(/\s|\r/g, "%20");
 
@@ -95,14 +103,14 @@ class Variable {
   /** @return {"Jan"| "Feb"| "Mar"| "Apr"| "May"| "Jun"| "Jul"| "Aug"| "Sep"| "Oct"| "Nov"| "Dec"}
    * @param {0|1|2|3|4|5|6|7|8|9|10|11} num
    */
-  getMonth(num) { return this.months[num]; }
+  getMonth(num) { return months[num]; }
 
   /** @return {'? to ?'|'?'|'negotiable'} */
   getSalaryDescription(job) {
     let salaryDescription = "";
     switch (job.salary_type) {
       case "range":
-        salaryDescription = job.salary_high + " to " + job.salary_low;
+        salaryDescription = job.salary_high + " - " + job.salary_low;
         break;
       case "specific":
         salaryDescription = job.salary_value;

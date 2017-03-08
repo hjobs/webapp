@@ -1,58 +1,64 @@
 import React from 'react';
 import 'whatwg-fetch';
-import { Grid, Row, Col } from 'react-bootstrap';
+// import { Grid, Row, Col } from 'react-bootstrap';
 
 import Job from './Job';
 
-import Variable from '../../var';
+// import Variable from '../../var';
 
 class Jobs extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modalShown: false,
-      data: null
-    };
-    this.variable = new Variable();
-  }
+  // constructor(props) {
+    // super(props);
+    // this.variable = new Variable();
+  // }
 
   openModal(job) { this.props.openModal(job); }
-  closeModal() { this.props.closeModal(); }
+
+  renderJobs() {
+    const arr = [];
+    const jobs = this.props.jobs;
+    let separatorCount = 0;
+    // const colStyle = {paddingLeft: '5px', paddingRight: '5px'};
+    /** @param {boolean} fullWidth */
+    const getDivider = (fullWidth = false) => {
+      separatorCount++;
+      return (
+        <div className="flex-row flex-hEnd separator-container" key={'separator-' + separatorCount}><div className="separator" style={fullWidth ? {width: "100%"} : null} /></div>
+      );
+    };
+
+    for (let i = 0; i < jobs.length; i++) {
+      arr.push(
+        <div className="job-cell full-width" key={'renderjobs-div-' + jobs[i].id}>
+          <Job
+            job={jobs[i]}
+            applyJob={ () => { this.openModal(jobs[i]); }} />
+        </div>
+      );
+      arr.push(getDivider());
+    }
+    arr.pop();
+    return arr;
+  }
 
   render() {
     let dataArr = [];
-    if (this.props.jobs && this.props.jobs.length > 0) {
-      // console.log("inside render, logging this.props.jobs");
-      // console.log(this.props.jobs);
-      const getColumn = (datum) => {
-        return !datum ? null : (
-          <Col xs={24} sm={24} md={12} lg={12} key={'job' + datum.id} style={{paddingLeft: '5px', paddingRight: '5px'}}>
-            <Job
-              job={datum}
-              applyJob={ () => { this.openModal(datum); }} />
-          </Col>
-        );
-      };
-      for (let i = 0; i < this.props.jobs.length; i += 2) {
-        dataArr.push(
-          <Row className="project-row clearfix" key={'job-row-' + i / 2}>
-            { getColumn(this.props.jobs[i]) }
-            { getColumn(this.props.jobs[i + 1]) }
-          </Row>
-        );
-      }
+    const jobs = this.props.jobs;
+    if (jobs && jobs.length > 0) {
+      dataArr = this.renderJobs();
     }
 
     return (
-      <Grid fluid style={{maxWidth: "1000px", padding: "0px", backgroundColor: "#FFF"}}>
-        {dataArr}
-      </Grid>
+      <div className="flex-col flex-vhCenter" id="job-outer-outer-div">
+        <div className="outter-div">
+          {dataArr}
+        </div>
+      </div>
     );
   }
 }
 
 Jobs.propTypes = {
-  closeModal: React.PropTypes.func.isRequired,
   openModal: React.PropTypes.func.isRequired,
   viewType: React.PropTypes.string.isRequired,
   jobs: React.PropTypes.any.isRequired

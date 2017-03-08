@@ -5,14 +5,14 @@ $bright-bkgd: #f0ce00;
 $dark-bkgd: #101010;
 $white-bkgd: transparent;
 $white: white;
-$off-white: #EEE;
+$off-white: #F5F5F5;
 $light-gray: #CCCCCC;
 $blue: #005C5D;
 
 $div-circle-bkgd: $bright-bkgd;
 $div-circle-border: $dark-bkgd;
 
-$jobsBkgd: $white;
+$jobsBkgd: transparent;
 $jobContainerBkgd: $white;
 $jobContainerBoxShadow: $off-white;
 $applyButtonBorder: $white;
@@ -40,8 +40,9 @@ $desktop: 1024px;
 
 body {
   font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
   color: #333;
-  background-color: #fff;
+  background-color: $off-white;
   margin: 0;
   padding: 50px 0px 0px 0px;
   min-width: 235px;
@@ -72,6 +73,15 @@ span.link, span[link] {color: $blue; cursor: pointer;}
   padding: 0px 8px 8px 8px !important;
   border: 0px !important;
   button {margin-left: 5px; margin-right: 5px;}
+}
+
+div.separator-container {
+  padding: 0px 10px 0px 10px;
+  div.separator {
+    border: 0.5px solid $off-white;
+    background-color: $off-white;
+    width: calc(100% - 122.5px);
+  }
 }
 
 /*********TEXT*********/
@@ -105,6 +115,16 @@ p {
   box-shadow:         0 0 10px 3px $dark-bkgd;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
 }
 
+.search {
+  font-size: 16px;
+  font-weight: 300;
+  padding: 0px 10px 20px 10px;
+  .search-view-type {
+    span {margin: auto 5px; display: inline-block;}
+    span.active { font-weight: 400; }
+  }
+}
+
 .home {
   padding:0;
   .about-banner-container {
@@ -122,7 +142,7 @@ p {
     }
   }
   .about-choice-container {
-    background-color: $white-bkgd;
+    background-color: $white;
     padding: 20px 5% 20px 5%;
     .about-choice {
       max-width: 900px;
@@ -171,7 +191,7 @@ p {
     }
   }
   .about-intro-container{
-    background-color: $white-bkgd;
+    background-color: $white;
     // background-color: $bright-bkgd;
     padding: 20px 5% 20px 5%;
     .about-intro {
@@ -195,6 +215,7 @@ p {
   .about-team-container {
     background-color: $dark-bkgd;
     padding: 10px 5% 10px 5%;
+    font-weight: 300;
     .about-team {
       max-width: 700px;
       width:100%;
@@ -229,6 +250,7 @@ p {
       h1,h2,h3,h4,h5,h6,p {color: $dark-bkgd;}
       .link {
         cursor: pointer;
+        text-decoration: none;
       }
     }
   }
@@ -236,29 +258,41 @@ p {
 
 .jobs {
   background-color: $jobsBkgd;
-  padding-top: 30px;
-  padding-bottom: 30px;
-  @media (max-width: $phoneWide) {
-    padding: 30px 10px;
+  padding: 30px 0px;
+
+  .outter-outter.div {
+    width: 100%;
   }
+
+  .outter-div {
+    max-width: 600px;
+    width: 100%;
+    background-color: white;
+    border: 1.5px solid #EEE;
+    box-shadow: 0px 0px 50px #D0D0D0;
+    // padding: 10px;
+    @media screen and (min-width: 321px) { padding: 10px; }
+    @media screen and (max-width: 320px) { padding: 0px; }
+  }
+
   .job-container {
     h1,h2,h3,h4,h5,h6 {
       font-family: 'Open Sans', sans-serif;
       font-weight: bold;
     }
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
     padding: 0px;
     border-radius: 5px;
     background-color: $jobContainerBkgd;
     color: $dark-bkgd;
-    font-size: 16px;
+    font-size: 14px;
     // -webkit-box-shadow: 0 0 5px 0px $jobContainerBoxShadow;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
     // -moz-box-shadow:    0 0 5px 0px $jobContainerBoxShadow;  /* Firefox 3.5 - 3.6 */
     // box-shadow:         0 0 5px 0px $jobContainerBoxShadow;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
     .job-thumbnail{
       width: 30%;
-      max-width: 150px;
+      max-width: 125px;
       margin: 0px 0px 0px 10px;
       padding: 0px;
       background-repeat: no-repeat;
@@ -292,24 +326,25 @@ p {
       p {
         margin-left: 1.5px;
         color: $job-color;
-        i {font-size: 0.9em; margin-right: 8px;}
+        font-weight: 300;
+        i {font-size: 0.9em; margin-right: 8px; min-width: 5px;}
       }
     }
 
     .job-title {
       white-space: nowrap;
       overflow: hidden;
-      font-size: 1.1em;
+      font-size: 1.2em;
       font-weight: 600;
       text-overflow: ellipsis;
     }
     
     .traffic {
       border-radius: 50%;
+      display: inline-block;
       width: 15px;
       height: 15px;
-      margin-right: 6px;
-      margin-bottom: 0.8px;
+      margin: 0px 6px -1.1px 0px;
     }
     .traffic-blue {background-color: $traffic-blue;}
     .traffic-orange {background-color: $traffic-orange;}
@@ -331,8 +366,11 @@ p {
   }
 }
 
-.apply-job-modal {
+.apply-job-modal.modal-dialog {
   background-color: $modalBkgd;
+  margin: 30px auto;
+  @media screen and (max-width: $phoneTall) { width: 95vw !important; }
+  @media screen and (min-width: $phoneTall) { width: 90vw !important; max-width: 600px; }
   .modal-body {
     h1,h2,h3,h4,h5,h6 {
       font-family: 'Open Sans', "sans-serif";
