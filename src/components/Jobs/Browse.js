@@ -6,7 +6,8 @@ import Jobs from './Jobs';
 import ApplyModal from './ApplyModal';
 import Search from '../Search/Search';
 
-import Variable from '../../var';
+import Variable from '../../services/var';
+import Http from '../../services/http';
 
 class Browse extends React.Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class Browse extends React.Component {
       viewType: props.viewType
     };
     this.variable = new Variable();
+    this.http = new Http();
   }
 
   componentWillMount() {
@@ -40,14 +42,9 @@ class Browse extends React.Component {
   changeViewType(str) { this.setState(s => { s.viewType = str; return s; }, () => { this.refresh(); }); }
 
   refresh() {
-    const url = this.variable.baseUrl + 'employee/jobs/job_type/' + this.state.viewType;
-    console.log("Jobs.component did mount, url = " + url);
-    fetch(url, {
-      method: 'GET',
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then(res => {
+    const urlSuffix = 'jobs/job_type/' + this.state.viewType;
+    
+    this.http.request(urlSuffix).then(res => {
       if (!res.ok) console.log(['res is not ok, logging res inside Jobs.js refresh() fetch()', res]);
       return res.json();
     }).then(d => {
@@ -72,7 +69,6 @@ class Browse extends React.Component {
         {
           !!this.state.jobs && this.state.jobs.length > 0 ?
             <Jobs
-              viewType={this.props.viewType}
               jobs={this.state.jobs}
               openModal={(job) => { this.openModal(job); }}
             /> : null

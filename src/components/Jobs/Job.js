@@ -2,7 +2,7 @@ import React from 'react';
 // import TimeAgo from 'react-timeago';
 // import { Button, Row, Col } from 'react-bootstrap';
 
-import Variable from '../../var';
+import Variable from '../../services/var';
 
 class Job extends React.Component {
   constructor(props) {

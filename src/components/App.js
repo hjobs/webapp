@@ -4,13 +4,43 @@ import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import Home from './Home/Home';
 import Browse from './Jobs/Browse';
 
+// import Variable from '../services/var';
+import Http from '../services/http';
+
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
         currentTab: 1,
-        jobsTabViewType: 'quick'
+        jobsTabViewType: 'quick',
+        loading: {
+          featured: true
+        },
+        jobs: {
+          featured: [],
+          quick: [],
+          stable: [],
+          internship: [],
+          project: []
+        }
     };
+    this.http = new Http();
+  }
+
+  componentDidMount() { this.componentDidEnter(); }
+
+  componentDidEnter() {
+    console.log("componentDidEnter in App.js");
+    this.http.request('jobs/get_picked').then(res => {
+      if (!res.ok) return {error: true, errorMsg: res.statusText};
+      return res.json();
+    }).then(d => {
+      if (!d || d.error) {
+        this.setState(s => { s.loading.featured = false; });
+        return;
+      }
+      this.setState(s => { s.jobs.featured = d; s.loading.featured = false; });
+    }, err => console.log(err));
   }
 
   handleSelect(eventKey) {
@@ -35,6 +65,8 @@ class App extends React.Component {
       case 1: default:
         content =
           (<Home
+            jobs={this.state.jobs.featured}
+            loading={this.state.loading.featured}
             goToPage={(val, jobType) => { this.goToPage(val, jobType); }}
           />);
         break;

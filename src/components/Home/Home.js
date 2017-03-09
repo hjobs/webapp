@@ -4,7 +4,7 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import Search from '../Search/Search';
 import Jobs from '../Jobs/Jobs';
 
-import Variable from '../../var';
+import Variable from '../../services/var';
 
 class Home extends React.Component {
   constructor(props) {
@@ -23,18 +23,17 @@ class Home extends React.Component {
           </div>
         </div>
         <div className="about-choice-container flex-col flex-vhCenter text-center full-width">
-          <div className="about-choice flex-col flex-vhCenter">
-            <div className="full-width flex-col flex-vhCenter">
-              <Search
-                changeViewType={(val) => {
-                  this.props.goToPage(2, val);
-                }}
-              />
-              {/* <Jobs
-                viewType={'quick'}
-                jobs={}
-              /> */}
-            </div>
+          <div className="jobs full-width flex-col flex-vhCenter">
+            <Search
+              changeViewType={(val) => {
+                this.props.goToPage(2, val);
+              }}
+            />
+            <div style={{height: "10px"}} />
+            {this.props.loading ? <div style={{height: "120px"}}/> : <Jobs
+              openModal={() => { this.props.goToPage(2, 'quick'); }}
+              jobs={this.props.jobs}
+            /> }
           </div>
         </div>
         <div className="about-intro-container flex-col flex-vhCenter text-center full-width">
@@ -82,6 +81,8 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
+  loading: React.PropTypes.bool.isRequired,
+  jobs: React.PropTypes.any.isRequired,
   goToPage: React.PropTypes.func.isRequired
 };
 

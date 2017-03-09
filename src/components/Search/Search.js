@@ -3,7 +3,7 @@ import 'whatwg-fetch';
 // import Autosuggest from 'react-autosuggest';
 // import { Row, Col } from 'react-bootstrap';
 
-import Variable from '../../var';
+import Variable from '../../services/var';
 
 class Search extends React.Component {
   constructor(props) {

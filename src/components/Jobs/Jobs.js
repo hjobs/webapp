@@ -4,7 +4,7 @@ import 'whatwg-fetch';
 
 import Job from './Job';
 
-// import Variable from '../../var';
+// import Variable from '../../services/var';
 
 class Jobs extends React.Component {
   // constructor(props) {
@@ -49,7 +49,7 @@ class Jobs extends React.Component {
     }
 
     return (
-      <div className="flex-col flex-vhCenter" id="job-outer-outer-div">
+      <div className="flex-col flex-vhCenter full-width" id="job-outer-outer-div">
         <div className="outter-div">
           {dataArr}
         </div>
@@ -60,7 +60,6 @@ class Jobs extends React.Component {
 
 Jobs.propTypes = {
   openModal: React.PropTypes.func.isRequired,
-  viewType: React.PropTypes.string.isRequired,
   jobs: React.PropTypes.any.isRequired
 };
 

@@ -2,7 +2,7 @@ import React from 'react';
 // import TimeAgo from 'react-timeago';
 import { Modal, Button } from 'react-bootstrap';
 
-import Variable from '../../var';
+import Variable from '../../services/var';
 
 class ApplyModal extends React.Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class ApplyModal extends React.Component {
     if (this.props.shown) {
       job = this.props.data;
       str = this.vars.getEmailStr('application', job);
-      orgNames = this.vars.getOrgsNames(job.orgs);
+      orgNames = this.vars.getOrgsNames(job.orgs, false);
     }
 
     return this.props.shown ? (

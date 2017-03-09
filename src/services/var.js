@@ -2,9 +2,9 @@ const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "
 
 class Variable {
   constructor() {
-    // this.baseUrl = "http://api.hjobs.hk:9080/";
+    this.baseUrl = "http://api.hjobs.hk:9080/";
     // this.baseUrl = "http://dev.hjobs.hk:9080/";
-    this.baseUrl = "http://localhost:9080/";
+    // this.baseUrl = "http://localhost:9080/";
     /** @type [{name: string, value: string}] - name is for displaying, use value in algorithm */
     this.viewTypes = [
       {name: "Quick Hjobs", value: "quick"},
@@ -23,7 +23,7 @@ class Variable {
     switch (type) {
       case "application": {
         if (data) {
-          const orgName = this.getOrgsNames(data.orgs);
+          const orgName = this.getOrgsNames(data.orgs, true);
           const email = this.getOrgsEmails(data.orgs);
           const title = (data.title + ' - Hjobs.hk').replace(/\s|\r/g, "%20");
 
@@ -55,8 +55,11 @@ class Variable {
     return str || null;
   }
 
-  getOrgsNames(orgs) {
-    const orgNameArr = orgs.map(org => org.name.replace("&", "%26"));
+  /** if encode === true, replace & with %26 @param {any[]} orgs @param {boolean} encode*/
+  getOrgsNames(orgs, encode = false) {
+    let orgNameArr = [];
+    if (encode) orgNameArr = orgs.map(org => org.name.replace("&", "%26"));
+    else orgNameArr = orgs.map(org => org.name);
     return orgNameArr.join(", ");
   }
 
