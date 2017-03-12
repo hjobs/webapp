@@ -23,8 +23,8 @@ class ApplyModal extends React.Component {
         show={this.props.shown}
         dialogClassName="apply-job-modal"
       >
+        <Modal.Header>{job.title}</Modal.Header>
         <Modal.Body bsClass="modal-body">
-          <h2>{job.title}</h2>
           <p>
             <b>About this job:</b> <br />
             {job.description}
@@ -45,9 +45,7 @@ class ApplyModal extends React.Component {
 
         <Modal.Footer>
           <Button onClick={() => { this.props.closeModal(); }}>Close</Button>
-          <a href={str}><Button className="yellow-button">
-            Apply Now
-          </Button></a>
+          <a href={str}><Button> Apply Now </Button></a>
         </Modal.Footer>
       </Modal>
     ) : null;

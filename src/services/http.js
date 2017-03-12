@@ -23,6 +23,13 @@ class Http {
     return fetch(url, obj);
   }
 
+  /** @param {string} action @param {string} target @param {string} detail */
+  log(action, target, detail) {
+    fetch(url, "POST", {log: {action, target, detail}}).then(res => res.json()).then(d => {
+      console.log(d);
+    });
+  }
+ 
 }
 
 export default Http;

@@ -4,15 +4,18 @@ import 'whatwg-fetch';
 
 import Job from './Job';
 
-// import Variable from '../../services/var';
+import Http from '../../services/http';
 
 class Jobs extends React.Component {
-  // constructor(props) {
-    // super(props);
-    // this.variable = new Variable();
-  // }
+  constructor(props) {
+    super(props);
+    this.http = new Http();
+  }
 
-  openModal(job) { this.props.openModal(job); }
+  openModal(job) {
+    this.http
+    this.props.openModal(job);
+  }
 
   renderJobs() {
     const arr = [];

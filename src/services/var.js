@@ -7,10 +7,15 @@ class Variable {
     // this.baseUrl = "http://localhost:9080/";
     /** @type [{name: string, value: string}] - name is for displaying, use value in algorithm */
     this.viewTypes = [
-      {name: "Quick Hjobs", value: "quick"},
-      {name: "Stable Jobs", value: "stable"},
-      {name: "Internships", value: "internship"},
-      {name: "Projects", value: "project"}
+      {name: "Quick Jobs", value: "quick", jobSearchName: "Quick"},
+      {name: "Stable Jobs", value: "stable", jobSearchName: "Stable"},
+      // {name: "Internships", value: "internship", jobSearchName: "Intern"},
+      {name: "Projects", value: "project", jobSearchName: "Project"}
+    ];
+    this.urgencyTypes = [
+      {name: "<7 days", value: "urgent1", className: "traffic-red"},
+      {name: "7-14 days", value: "urgent2", className: "traffic-orange"},
+      {name: ">14 days", value: "urgent3", className: "traffic-blue"}
     ];
   }
 
@@ -74,26 +79,24 @@ class Variable {
    */
   getColorClass(job) {
     let colorClass;
-    if (job.job_type === 'quick') {
-      if (!!job.periods && job.periods.length > 0) {
-        const earliestDate = job.periods.reduce((result, curr) => {
-          let currTime;
-          if (!!curr.start_time) currTime = new Date(curr.start_time);
-          else if (!!curr.date) currTime = new Date(curr.date);
-          else return result || null;
-          return (!result || currTime - result < 0) ? currTime : result;
-        }, null);
-        if (!earliestDate) return 'traffic-blue';
+    if (!!job.periods && job.periods.length > 0) {
+      const earliestDate = job.periods.reduce((result, curr) => {
+        let currTime;
+        if (!!curr.start_time) currTime = new Date(curr.start_time);
+        else if (!!curr.date) currTime = new Date(curr.date);
+        else return result || null;
+        return (!result || currTime - result < 0) ? currTime : result;
+      }, null);
+      if (!earliestDate) return this.urgencyTypes[2].className;
 
-        const now = new Date();
-        const daysDifference = (earliestDate - now) / 86400000; // 86400000 = 1 day
-        if (daysDifference < 0) colorClass = 'traffic-blue';
-        else if (daysDifference < 7) colorClass = 'traffic-red';
-        else if (daysDifference < 14) colorClass = "traffic-orange";
-        else colorClass = "traffic-blue";
-      } else {
-        colorClass = 'traffic-blue';
-      }
+      const now = new Date();
+      const daysDifference = (earliestDate - now) / 86400000; // 86400000 = 1 day
+      if (daysDifference < 0) colorClass = this.urgencyTypes[2].className;
+      else if (daysDifference < 7) colorClass = this.urgencyTypes[0].className;
+      else if (daysDifference < 14) colorClass = this.urgencyTypes[1].className;
+      else colorClass = this.urgencyTypes[2].className;
+    } else {
+      colorClass = this.urgencyTypes[2].className;
     }
     return colorClass;
   }
@@ -119,6 +122,9 @@ class Variable {
     }
     return salaryDescription;
   }
+
+  enableDeveloper() { localStorage.setItem("developer", "true"); }
+  isDeveloper() { return localStorage.getItem("developer") === "true"; }
 }
 
 export default Variable;

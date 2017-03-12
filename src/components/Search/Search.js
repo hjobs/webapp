@@ -22,20 +22,24 @@ class Search extends React.Component {
 
   render() {
     // const backgroundColor = {backgroundColor: "#FFFFFF"};
+    const jobTypes = [];
+    this.vars.viewTypes.forEach((v, i) => {
+      jobTypes.push(
+        <span
+          key={'search-view-type-' + v.value}
+          className={this.props.viewType === v.value ? 'link active' : 'link inactive'}
+          onClick={() => { if (!this.props.loading) this.changeViewType(v.value); }}
+          style={this.props.loading === true ? {color: "gray"} : null}>
+          {v.name}
+        </span>
+      );
+      if (i < (this.vars.viewTypes.length - 1)) jobTypes.push(<span key={"job-type-seaparator-" + i}> | </span>);
+    });
 
     return (
       <div className="search">
         <div className="search-view-type text-center">
-          I am looking for {
-            this.vars.viewTypes.map(v => (
-              <span
-                key={'search-view-type-' + v.value}
-                className={this.props.viewType === v.value ? 'link active' : 'link inactive'}
-                onClick={() => { this.changeViewType(v.value); }}>
-                {v.name}
-              </span>
-            ))
-          }
+          I am looking for {jobTypes}
         </div>
       </div>
     );
@@ -43,6 +47,7 @@ class Search extends React.Component {
 }
 
 Search.propTypes = {
+  loading: React.PropTypes.bool,
   viewType: React.PropTypes.string,
   changeViewType: React.PropTypes.func.isRequired
 };

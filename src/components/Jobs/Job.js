@@ -2,6 +2,8 @@ import React from 'react';
 // import TimeAgo from 'react-timeago';
 // import { Button, Row, Col } from 'react-bootstrap';
 
+import TrafficLight from '../Traffic/TrafficLight';
+
 import Variable from '../../services/var';
 
 class Job extends React.Component {
@@ -14,7 +16,6 @@ class Job extends React.Component {
     const job = this.props.job;
     const org = job.orgs[0];
     const imgSrc = !!job.photo ? job.photo : org.logo;
-    const colorClass = this.vars.getColorClass(job);
     const DateTag = (props) => (
       <div className="flex-row flex-vhCenter date-tag">
         <div>{this.vars.getMonth(props.date.getMonth())}{' '}{this.vars.pad2(props.date.getDate())}</div>
@@ -29,7 +30,7 @@ class Job extends React.Component {
         <div className="detail-container">
           <div className="flex-row flex-hStart flex-vCenter">
             <div className="job-title full-width">
-              {job.job_type === 'quick' ? <div className={'traffic ' + colorClass} /> : null}
+              <TrafficLight show={job.job_type === 'quick'} job={job} />
               <span className="link" onClick={() => { this.props.applyJob(); }}>{job.title}</span>
             </div>
           </div>

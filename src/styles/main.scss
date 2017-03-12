@@ -70,7 +70,7 @@ span.link, span[link] {color: $blue; cursor: pointer;}
 }
 
 .modal-footer {
-  padding: 0px 8px 8px 8px !important;
+  padding: 8px 8px 8px 8px !important;
   border: 0px !important;
   button {margin-left: 5px; margin-right: 5px;}
 }
@@ -110,9 +110,9 @@ p {
 .navbar-inverse {
   background-color: $dark-bkgd;
   border-color: $dark-bkgd;
-  -webkit-box-shadow: 0 0 10px 3px $dark-bkgd;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
-  -moz-box-shadow:    0 0 10px 3px $dark-bkgd;  /* Firefox 3.5 - 3.6 */
-  box-shadow:         0 0 10px 3px $dark-bkgd;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+  // -webkit-box-shadow: 0 0 10px 3px $dark-bkgd;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+  // -moz-box-shadow:    0 0 10px 3px $dark-bkgd;  /* Firefox 3.5 - 3.6 */
+  // box-shadow:         0 0 10px 3px $dark-bkgd;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
 }
 
 .search {
@@ -120,7 +120,11 @@ p {
   font-weight: 300;
   padding: 0px 10px 20px 10px;
   .search-view-type {
-    span {margin: auto 5px; display: inline-block;}
+    span.link {
+      margin: auto 5px;
+      display: inline-block;
+      text-decoration: underline;
+    }
     span.active { font-weight: 400; }
   }
 }
@@ -144,49 +148,10 @@ p {
   .about-choice-container {
     background-color: $white;
     padding: 20px 5% 20px 5%;
+    @media screen and (max-width: $phoneTall) { padding: 0px; }
     .about-choice {
       padding: 0px;
       h1,h2,h3,h4,h5,h6,p {color: black}
-      // .container {
-      //   width:100%;
-      //   padding:10px;
-      //   .div-circle {
-      //     background-color: $div-circle-bkgd;
-      //     border-radius: 50%;
-      //     cursor: pointer;
-      //     -webkit-box-shadow: 0 0 10px 3px $dark-bkgd;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
-      //     -moz-box-shadow:    0 0 10px 3px $dark-bkgd;  /* Firefox 3.5 - 3.6 */
-      //     box-shadow:         0 0 10px 3px $dark-bkgd;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
-      //     // border: 5px solid $dark-bkgd;
-      //     margin-top:10px;
-      //     margin-bottom:10px;
-      //   }
-      //   .div-circle-big {
-      //     padding: 10px;
-      //     width: 40vw; height: 40vw;
-      //     max-width: 280px; max-height: 280px;
-      //     min-width: 161px; min-height: 161px;
-      //   }
-      //   .div-circle-small {
-      //     padding: 7px;
-      //     width: 32vw; height: 32vw;
-      //     max-width: 200px; max-height: 200px;
-      //     min-width: 120px; min-height: 120px;
-      //   }
-      //   .project-1 {
-      //     display: inline-block;
-      //     font-family: Righteous,cursive;
-      //     font-size: 18px;
-      //     font-weight: 500;
-      //     color: black;
-      //     line-height: 19.8px;
-      //     // line-height: 19.8px;
-      //   }
-      //   .project-2 {
-      //     display: inline-block;
-      //     font-size: 10px;
-      //   }
-      // }
     }
   }
   .about-intro-container{
@@ -257,7 +222,8 @@ p {
 
 .jobs {
   background-color: $jobsBkgd;
-  padding: 30px 0px;
+  padding: 25px 0px;
+  @media screen and (min-width: $phoneTall) { padding: 50px 0px; }
   text-align: left;
 
   #job-outter-outter-div {
@@ -271,8 +237,8 @@ p {
     border: 1.5px solid #EEE;
     box-shadow: 0px 0px 50px #D0D0D0;
     // padding: 10px;
-    @media screen and (min-width: 321px) { padding: 10px; }
-    @media screen and (max-width: 320px) { padding: 0px; }
+    @media screen and (min-width: $phoneTall) { padding: 10px; }
+    @media screen and (max-width: $phoneTall) { padding: 0px; }
   }
 
   .job-container {
@@ -338,17 +304,6 @@ p {
       font-weight: 600;
       text-overflow: ellipsis;
     }
-    
-    .traffic {
-      border-radius: 50%;
-      display: inline-block;
-      width: 15px;
-      height: 15px;
-      margin: 0px 6px -1.1px 0px;
-    }
-    .traffic-blue {background-color: $traffic-blue;}
-    .traffic-orange {background-color: $traffic-orange;}
-    .traffic-red {background-color: $traffic-red;}
 
     .date-tag {
       margin-top: 5px;
@@ -367,18 +322,82 @@ p {
 }
 
 .apply-job-modal.modal-dialog {
-  background-color: $modalBkgd;
+  // background-color: $modalBkgd;
   margin: 30px auto;
   @media screen and (max-width: $phoneTall) { width: 95vw !important; }
   @media screen and (min-width: $phoneTall) { width: 90vw !important; max-width: 600px; }
-  .modal-body {
+  .modal-content>.modal-body {
+    max-height: calc(100vh - 60px - 100px);
+    overflow: scroll;
     h1,h2,h3,h4,h5,h6 {
       font-family: 'Open Sans', "sans-serif";
       font-weight: bold;
     }
-    p {
-      margin-left: 10px !important;
+    p.indented { margin-left: 10px !important; }
+  }
+  .modal-header {
+    border-radius: 5px 5px 0px 0px;
+    background-color: $bright-bkgd;
+    color: $dark-bkgd;
+    padding: 10px 15px;
+    font-weight: bold;
+    // p { height: 1.5em; overflow: hidden; text-overflow: ellipsis; }
+  }
+  .modal-footer {
+    border-radius: 0px 0px 5px 5px;
+    // background-color: $bright-bkgd;
+    border-top: 0.5px solid #DDD !important;
+    button {
+      border: 0px !important;
+      background-color: transparent;
     }
+    a>button { background-color: $dark-bkgd; color: $off-white; }
+  }
+}
+
+.traffic {
+  border-radius: 50%;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin: 0px 6px -1.1px 0px;
+}
+.traffic-blue {background-color: $traffic-blue;}
+.traffic-orange {background-color: $traffic-orange;}
+.traffic-red {background-color: $traffic-red;}
+
+.job-search-bar {
+  position: fixed;
+  top: 51px;
+  left: 0px;
+  height: 25px;
+  z-index: 7;
+  color: $dark-bkgd;
+  background-color: $bright-bkgd;
+  // border: 0.5px solid $bright-bkgd;
+  .job-type-container {
+    // display: inline-block;
+    height: 100%;
+  }
+  .title {
+    padding: 0px 10px;
+    height: 100%;
+    font-size: 12px;
+    text-align: center;
+  }
+  .job-type {
+    // display: inline-block;
+    // background-color: $dark-bkgd;
+    // background-color: $bright-bkgd;
+    padding: 0px 10px;
+    height: 100%;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+  }
+  .active {
+    background-color: $dark-bkgd;
+    color: $off-white;
   }
 }
 

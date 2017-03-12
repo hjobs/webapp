@@ -4,27 +4,28 @@ import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import Home from './Home/Home';
 import Browse from './Jobs/Browse';
 
-// import Variable from '../services/var';
+import Variable from '../services/var';
 import Http from '../services/http';
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-        currentTab: 1,
-        jobsTabViewType: 'quick',
-        loading: {
-          featured: true
-        },
-        jobs: {
-          featured: [],
-          quick: [],
-          stable: [],
-          internship: [],
-          project: []
-        }
+      currentTab: 1,
+      jobsTabViewType: 'quick',
+      loading: {
+        featured: true
+      },
+      jobs: {
+        featured: [],
+        quick: [],
+        stable: [],
+        internship: [],
+        project: []
+      }
     };
     this.http = new Http();
+    this.vars = new Variable();
   }
 
   componentDidMount() { this.componentDidEnter(); }
@@ -43,9 +44,7 @@ class App extends React.Component {
     }, err => console.log(err));
   }
 
-  handleSelect(eventKey) {
-    this.setState(eventKey);
-  }
+  handleSelect(eventKey) { this.setState(eventKey); }
 
   goToPage(val, jobsTabViewType) {
     const obj = {};
@@ -53,6 +52,8 @@ class App extends React.Component {
     if (jobsTabViewType) obj.jobsTabViewType = jobsTabViewType;
     this.setState(obj);
   }
+  /** @param {'quick'|'stable'|'internship'|'project'} str */
+  changeJobsViewType(str) { this.setState(s => { s.jobsTabViewType = str; return s; }); }
 
   render() {
     let content;
@@ -60,6 +61,7 @@ class App extends React.Component {
       case 2: content =
         (<Browse
           viewType={this.state.jobsTabViewType}
+          changeViewType={(str) => { this.changeJobsViewType(str); }}
         />);
         break;
       case 1: default:
@@ -73,7 +75,10 @@ class App extends React.Component {
     }
     return (
       <div>
-        <Navbar fluid onSelect={(eventKey) => this.handleSelect(eventKey)} inverse collapseOnSelect fixedTop>
+        <Navbar
+          fluid inverse collapseOnSelect fixedTop
+          onSelect={(eventKey) => this.handleSelect(eventKey)}
+        >
           <Navbar.Header>
             <Navbar.Brand>
               <a onClick={() => { this.handleSelect({currentTab: 1}); }}>

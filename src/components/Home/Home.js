@@ -1,8 +1,9 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 
-import Search from '../Search/Search';
+// import Search from '../Search/Search';
 import Jobs from '../Jobs/Jobs';
+import Description from '../Traffic/Description';
 
 import Variable from '../../services/var';
 
@@ -10,6 +11,29 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.vars = new Variable();
+    this.state = {
+      clickCount: this.vars.isDeveloper() ? null : 0
+    };
+  }
+
+  listenForDeveloper() {
+    if (this.state.clickCount === null) return;
+    this.setState(s => {
+      s.clickCount++;
+      if (s.clickCount >= 9) {
+        this.vars.enableDeveloper();
+        s.clickCount = null;
+      }
+      return s;
+    }, () => {
+      window.setTimeout(() => {
+        if (this.state.clickCount === null) return;
+        this.setState(s => {
+          s.clickCount--;
+          return s;
+        });
+      }, 1800);
+    });
   }
 
   render() {
@@ -17,31 +41,45 @@ class Home extends React.Component {
 
     return (
       <div className="container-fluid home flex-col">
+        {/* hero banner */}      
         <div className="about-banner-container flex-col flex-vhCenter text-center full-width">
           <div className="about-banner flex-col flex-vhCenter">
-            <h2>Connecting everyday people to hospitality</h2>
+            <h2 onClick={() => { this.listenForDeveloper(); }}>Connecting everyday people to hospitality</h2>
           </div>
         </div>
+
+        {/* Featured jobs */}
         <div className="about-choice-container flex-col flex-vhCenter text-center full-width">
           <div className="jobs full-width flex-col flex-vhCenter">
-            <Search
+            {/* <Search
               changeViewType={(val) => {
                 this.props.goToPage(2, val);
               }}
-            />
-            <div style={{height: "10px"}} />
-            {this.props.loading ? <div style={{height: "120px"}}/> : <Jobs
-              openModal={() => { this.props.goToPage(2, 'quick'); }}
-              jobs={this.props.jobs}
-            /> }
+            /> */}
+            <Description />
+            {this.props.loading ? <div style={{height: "120px"}} /> :
+              <Jobs
+                openModal={() => { this.props.goToPage(2, 'quick'); }}
+                jobs={this.props.jobs}
+              />
+            }
+            <div style={{marginTop: "15px"}}>
+              <span className="link" onClick={() => { this.props.goToPage(2, "quick"); }}>
+                view all jobs
+              </span>
+            </div>
           </div>
         </div>
+
+        {/* Our Service */}
         <div className="about-intro-container flex-col flex-vhCenter text-center full-width">
           <div className="about-intro flex-col flex-vhCenter">
             <h2>Our Service</h2>
             <p>We are a non-profit website setup to help hospitality employers and employees’ connect. In addition to job postings, we also encourage businesses to post projects <i>i.e. re-design a restaurant menu, doing in-depth research on potential markets,</i> that can then be completed by any competitive individual! </p>
           </div>
         </div>
+
+        {/* Team */}
         <div className="about-team-container flex-col flex-vhCenter text-center full-width">
           <div className="about-team flex-col flex-vhCenter">
             <h2>Our Team</h2>
@@ -63,6 +101,8 @@ class Home extends React.Component {
             </Grid>
           </div>
         </div>
+
+        {/* Contact Us*/}
         <div className="contact-container flex-col flex-vhCenter text-center full-width">
           <div className="contact flex-col flex-vhCenter">
             <h2>Contact Us</h2>
