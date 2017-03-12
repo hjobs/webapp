@@ -8,7 +8,6 @@ class Http {
   /** param httpMethod defaults to 'GET', data defaults to null
    * @param {string} urlSuffix
    * @param {'GET'|'POST'|'PATCH'|'DELETE'} httpMethod
-   * @param {any} data
    * @return {Promise<Response>}
    */
   request(urlSuffix, httpMethod = "GET", data = null) {
