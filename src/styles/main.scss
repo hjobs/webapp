@@ -130,7 +130,7 @@ p {
 }
 
 .home {
-  padding:0;
+  padding: 0px;
   .about-banner-container {
     background-color: $bright-bkgd;
     padding: 20px 5% 20px 5%;
@@ -148,7 +148,7 @@ p {
   .about-choice-container {
     background-color: $white;
     padding: 20px 5% 20px 5%;
-    @media screen and (max-width: $phoneTall) { padding: 0px; }
+    @media screen and (max-width: $phoneTall) { padding: 20px 0px 10px 0px; }
     .about-choice {
       padding: 0px;
       h1,h2,h3,h4,h5,h6,p {color: black}
@@ -375,7 +375,7 @@ p {
   height: 25px;
   z-index: 7;
   color: $dark-bkgd;
-  background-color: $bright-bkgd;
+  background-color: rgba(245,245,245,0.5);
   // border: 0.5px solid $bright-bkgd;
   .job-type-container {
     // display: inline-block;

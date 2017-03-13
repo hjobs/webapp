@@ -27,7 +27,8 @@ class Home extends React.Component {
     this.setState(s => {
       s.clickCount++;
       if (s.clickCount >= 9) {
-        this.http.log({name: "EnableDeveloper", page: "Home", action: "Click", component: "HeroBanner"})
+        this.http.log({name: "EnableDeveloper", page: "Home", action: "Click", component: "HeroBanner"});
+
         this.vars.enableDeveloper();
         s.clickCount = null;
       }
@@ -120,7 +121,7 @@ class Home extends React.Component {
         {/* Contact Us*/}
         <div className="contact-container flex-col flex-vhCenter text-center full-width">
           <div className="contact flex-col flex-vhCenter">
-            <h2>Contact Us</h2>
+            <h2>Contact {this.vars.isDeveloper() ? "Me" : "Us"}</h2>
             <p>Email:{' '}
               <a
                 className="link"

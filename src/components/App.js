@@ -32,6 +32,7 @@ class App extends React.Component {
 
   componentDidEnter() {
     console.log("componentDidEnter in App.js");
+    window.scrollTo(0, 0);
     this.http.request('jobs/get_picked').then(res => {
       if (!res.ok) return {error: true, errorMsg: res.statusText};
       return res.json();
@@ -44,19 +45,19 @@ class App extends React.Component {
     }, err => console.log(err));
   }
 
-  handleSelect(eventKey) { this.setState(eventKey); }
+  handleSelect(eventKey) { this.setState(eventKey, () => { window.scrollTo(0, 0); }); }
 
   goToPage(val, jobsTabViewType) {
     const obj = {};
     obj.currentTab = val;
     if (jobsTabViewType) obj.jobsTabViewType = jobsTabViewType;
-    this.setState(obj);
+    this.setState(obj, () => { window.scrollTo(0, 0); });
   }
   /** @param {'quick'|'stable'|'internship'|'project'} str */
   changeJobsViewType(str) {
     if (str === this.state.jobsTabViewType) return;
     this.http.log({name: "ChangeViewType", action: "Click", page: "Browse", component: "JobsSearchBar", target: str});
-    this.setState(s => { s.jobsTabViewType = str; return s; });
+    this.setState(s => { s.jobsTabViewType = str; return s; }, () => { window.scrollTo(0, 0); });
   }
 
   render() {
