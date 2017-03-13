@@ -13,7 +13,7 @@ class Jobs extends React.Component {
   }
 
   openModal(job) {
-    this.http
+    this.http.log({name: "ViewJob", action: "Click", job_id: job.id});
     this.props.openModal(job);
   }
 

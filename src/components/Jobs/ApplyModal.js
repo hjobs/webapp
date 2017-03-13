@@ -3,11 +3,13 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
 import Variable from '../../services/var';
+import Http from '../../services/http';
 
 class ApplyModal extends React.Component {
   constructor(props) {
     super(props);
     this.vars = new Variable();
+    this.http = new Http();
   }
 
   render() {
@@ -45,7 +47,7 @@ class ApplyModal extends React.Component {
 
         <Modal.Footer>
           <Button onClick={() => { this.props.closeModal(); }}>Close</Button>
-          <a href={str}><Button> Apply Now </Button></a>
+          <a onClick={() => { this.http.log({name: "OpenEmail", action: "Click", job_id: job.id, page: "ApplyModal"}); }} href={str}><Button> Apply Now </Button></a>
         </Modal.Footer>
       </Modal>
     ) : null;

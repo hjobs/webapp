@@ -17,22 +17,18 @@ class Browse extends React.Component {
       modalShown: false,
       jobs: null,
       viewType: props.viewType,
-      loading: true
+      loading: false
     };
     this.variable = new Variable();
     this.http = new Http();
   }
 
-  componentWillMount() { this.refresh(); }
+  componentWillMount() { this.refresh(); this.http.log({name: "Enter", page: "Browse", action: "Enter"}); }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.viewType !== nextProps.viewType) this.refresh();
-  }
+  componentWillReceiveProps(nextProps) { if (this.props.viewType !== nextProps.viewType) this.refresh(); }
 
   openModal(job) { this.setState(s => { s.modalShown = true; s.applyModalData = job; return s; }); }
   closeModal() { this.setState(s => { s.modalShown = false; return s; }); }
-  /** @param {'quick'|'stable'|'internship'|'project'} str */
-  changeViewType(str) { this.props.changeViewType(str); }
 
   refresh() {
     this.setState(s => { s.loading = true; }, () => {
@@ -61,9 +57,9 @@ class Browse extends React.Component {
         <JobSearchBar
           loading={this.state.loading}
           viewType={this.props.viewType}
-          changeViewType={(str) => { this.changeViewType(str); }}
+          changeViewType={(str) => { this.props.changeViewType(str); }}
         />
-        {this.props.viewType === "quick" ? <div style={{height: "25px"}} /> : null}
+        <div style={this.props.viewType === "quick" ? {height: "50px"} : {height: "25px"}} />
         {this.props.viewType === 'quick' ? <Description /> : null}
         {
           !!this.state.jobs && this.state.jobs.length > 0 ?
@@ -75,7 +71,8 @@ class Browse extends React.Component {
         <ApplyModal
           data={this.state.applyModalData}
           shown={this.state.modalShown}
-          closeModal={ () => { this.closeModal(); }} />
+          closeModal={ () => { this.closeModal(); }}
+        />
       </div>
     );
   }

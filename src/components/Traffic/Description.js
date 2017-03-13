@@ -12,7 +12,7 @@ const vars = new Variable();
 // }
 
 const Description = () => (
-  <div className="full-width flex-row flex-vhCenter" style={{margin: "10px auto"}}>
+  <div className="full-width flex-row flex-vhCenter" style={{margin: "10px auto", opacity: "0.8"}}>
     {
       vars.urgencyTypes.map(item => (
         <div style={{display: "inline-block", marginLeft: "8px", marginRight: "8px", fontSize: "14px"}} key={item.className}>

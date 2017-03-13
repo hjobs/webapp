@@ -3,24 +3,31 @@ import { Grid, Row, Col } from 'react-bootstrap';
 
 // import Search from '../Search/Search';
 import Jobs from '../Jobs/Jobs';
+import ApplyModal from '../Jobs/ApplyModal';
 import Description from '../Traffic/Description';
 
 import Variable from '../../services/var';
+import Http from '../../services/http';
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
     this.vars = new Variable();
+    this.http = new Http();
     this.state = {
-      clickCount: this.vars.isDeveloper() ? null : 0
+      clickCount: this.vars.isDeveloper() ? null : 0,
+      modalData: null
     };
   }
+
+  componentDidMount() { this.http.log({name: "Enter", page: "Home", action: "Enter"}); }
 
   listenForDeveloper() {
     if (this.state.clickCount === null) return;
     this.setState(s => {
       s.clickCount++;
       if (s.clickCount >= 9) {
+        this.http.log({name: "EnableDeveloper", page: "Home", action: "Click", component: "HeroBanner"})
         this.vars.enableDeveloper();
         s.clickCount = null;
       }
@@ -35,6 +42,9 @@ class Home extends React.Component {
       }, 1800);
     });
   }
+
+  openModal(job) { this.setState(s => { s.modalData = job; return s; }); }
+  closeModal() { this.setState(s => { s.modalData = null; return s; }); }
 
   render() {
     const str = this.vars.getEmailStr('contactus');
@@ -59,15 +69,20 @@ class Home extends React.Component {
             <Description />
             {this.props.loading ? <div style={{height: "120px"}} /> :
               <Jobs
-                openModal={() => { this.props.goToPage(2, 'quick'); }}
+                openModal={(job) => { this.openModal(job); }}
                 jobs={this.props.jobs}
               />
             }
             <div style={{marginTop: "15px"}}>
-              <span className="link" onClick={() => { this.props.goToPage(2, "quick"); }}>
+              <span className="link" onClick={() => { this.props.goToPage(2, "quick"); }} style={{textDecoration: "underline"}}>
                 view all jobs
               </span>
             </div>
+            <ApplyModal
+              data={this.state.modalData}
+              shown={!!this.state.modalData}
+              closeModal={() => { this.closeModal(); }}
+            />
           </div>
         </div>
 
@@ -109,6 +124,7 @@ class Home extends React.Component {
             <p>Email:{' '}
               <a
                 className="link"
+                onClick={() => { this.http.log({name: "OpenEmail", action: "Click", page: "Home", component: "ContactUs"}); }}
                 href={str}>
                 <u>info@hjobs.hk</u>
               </a>

@@ -2,13 +2,10 @@ const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "
 
 class Variable {
   constructor() {
-    this.baseUrl = "http://api.hjobs.hk:9080/";
-    // this.baseUrl = "http://dev.hjobs.hk:9080/";
-    // this.baseUrl = "http://localhost:9080/";
     /** @type [{name: string, value: string}] - name is for displaying, use value in algorithm */
     this.viewTypes = [
-      {name: "Quick Jobs", value: "quick", jobSearchName: "Quick"},
-      {name: "Stable Jobs", value: "stable", jobSearchName: "Stable"},
+      {name: "Quick Jobs", value: "quick", jobSearchName: "Quick Jobs"},
+      {name: "Stable Jobs", value: "stable", jobSearchName: "Stable Jobs"},
       // {name: "Internships", value: "internship", jobSearchName: "Intern"},
       {name: "Projects", value: "project", jobSearchName: "Project"}
     ];

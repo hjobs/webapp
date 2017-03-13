@@ -53,7 +53,11 @@ class App extends React.Component {
     this.setState(obj);
   }
   /** @param {'quick'|'stable'|'internship'|'project'} str */
-  changeJobsViewType(str) { this.setState(s => { s.jobsTabViewType = str; return s; }); }
+  changeJobsViewType(str) {
+    if (str === this.state.jobsTabViewType) return;
+    this.http.log({name: "ChangeViewType", action: "Click", page: "Browse", component: "JobsSearchBar", target: str});
+    this.setState(s => { s.jobsTabViewType = str; return s; });
+  }
 
   render() {
     let content;
