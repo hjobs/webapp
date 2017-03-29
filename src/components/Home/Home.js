@@ -59,34 +59,6 @@ class Home extends React.Component {
           </div>
         </div>
 
-        {/* Featured jobs */}
-        <div className="about-choice-container flex-col flex-vhCenter text-center full-width">
-          <div className="jobs full-width flex-col flex-vhCenter">
-            {/* <Search
-              changeViewType={(val) => {
-                this.props.goToPage(2, val);
-              }}
-            /> */}
-            <Description />
-            {this.props.loading ? <div style={{height: "120px"}} /> :
-              <Jobs
-                openModal={(job) => { this.openModal(job); }}
-                jobs={this.props.jobs}
-              />
-            }
-            <div style={{marginTop: "15px"}}>
-              <span className="link" onClick={() => { this.props.goToPage(2, "quick"); }} style={{textDecoration: "underline"}}>
-                view all jobs
-              </span>
-            </div>
-            <ApplyModal
-              data={this.state.modalData}
-              shown={!!this.state.modalData}
-              closeModal={() => { this.closeModal(); }}
-            />
-          </div>
-        </div>
-
         {/* Our Service */}
         <div className="about-intro-container flex-col flex-vhCenter text-center full-width">
           <div className="about-intro flex-col flex-vhCenter">
@@ -220,3 +192,26 @@ export default Home;
             //     </Col>
             //   </Row>
             // </Grid>
+      /* Featured jobs
+        <div className="about-choice-container flex-col flex-vhCenter text-center full-width">
+          <div className="jobs full-width flex-col flex-vhCenter">
+            <Description />
+            {this.props.loading ? <div style={{height: "120px"}} /> :
+              <Jobs
+                openModal={(job) => { this.openModal(job); }}
+                jobs={this.props.jobs}
+              />
+            }
+            <div style={{marginTop: "15px"}}>
+              <span className="link" onClick={() => { this.props.goToPage(2, "quick"); }} style={{textDecoration: "underline"}}>
+                view all jobs
+              </span>
+            </div>
+            <ApplyModal
+              data={this.state.modalData}
+              shown={!!this.state.modalData}
+              closeModal={() => { this.closeModal(); }}
+            />
+          </div>
+        </div>
+        */
