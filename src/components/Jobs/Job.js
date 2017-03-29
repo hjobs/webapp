@@ -36,7 +36,7 @@ class Job extends React.Component {
           </div>
           {job.periods && job.periods.length > 0 ?
             <div className="flex-row flex-hStart flex-vCenter">
-              {job.periods.map(period => <DateTag date={new Date(period.start_time)} key={'datetag_' + (new Date(period.start_time).valueOf())} />)}
+              {job.periods.map(period => <DateTag date={new Date(period.start_time)} key={job.id + '-datetag_' + (new Date(period.date).valueOf())} />)}
             </div> : <div className="full-width" style={{height: '5px'}} />
           }
           <p>
