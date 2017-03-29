@@ -16,11 +16,66 @@ class Job extends React.Component {
     const job = this.props.job;
     const org = job.orgs[0];
     const imgSrc = !!job.photo ? job.photo : org.logo;
-    const DateTag = (props) => (
-      <div className="flex-row flex-vhCenter date-tag">
-        <div>{this.vars.getMonth(props.date.getMonth())}{' '}{this.vars.pad2(props.date.getDate())}</div>
+    const Tag = (props) => (
+      <div className={"flex-row flex-vhCenter tag " + props.type}>
+        <div>{props.string}</div>
       </div>
     );
+    const tags = [];
+    if (job.event) {
+      tags.push(
+        <Tag
+          string={job.event}
+          type="event"
+          key={job.id + "-event-" + job.event}
+        />
+      );
+    }
+    if (job.langs && job.langs.length > 0) {
+      job.langs.forEach(lang => {
+        const strArr = lang.name.split("");
+        strArr[0] = strArr[0].toUpperCase();
+        let str = strArr.join("");
+        tags.push(
+          <Tag
+            string={str}
+            type="lang"
+            key={job.id + "-langs-" + lang.name}
+          />
+        );
+      });
+    }
+    if (!!job.date_tags && job.date_tags.length > 0) {
+      job.date_tags.forEach(dateTagStr => {
+        tags.push(
+          <Tag
+            key={job.id + "-datetag-" + dateTagStr}
+            string={dateTagStr}
+            type="date"
+          />
+        );
+      });
+    }
+    // const sortedPeriods = job.periods.sort((a, b) => new Date(a.date) - new Date(b.date));
+    // const afterTodayPeriods = [];
+    // const condensedPeriods = [];
+    // sortedPeriods.forEach(p => {
+    //   const today = new Date();
+    //   const periodDate = new Date(p.date);
+    //   today.setHours(0, 0, 0, 0);
+    //   periodDate.setHours(0, 0, 0, 0);
+    //   if (today < periodDate) afterTodayPeriods.push(p);
+    // });
+    // periods.forEach(period => {
+    //   const date = new Date(period.start_time || period.date);
+    //   tags.push(
+    //     <Tag
+    //       key={job.id + '-datetag_' + (date.valueOf())}
+    //       type="period"
+    //       string={this.vars.getMonth(date.getMonth()) + " " + this.vars.pad2(date.getDate())}
+    //     />
+    //   );
+    // });
 
     return (
       <div className="job-container flex-row">
@@ -36,7 +91,7 @@ class Job extends React.Component {
           </div>
           {job.periods && job.periods.length > 0 ?
             <div className="flex-row flex-hStart flex-vCenter">
-              {job.periods.map(period => <DateTag date={new Date(period.start_time)} key={job.id + '-datetag_' + (new Date(period.date).valueOf())} />)}
+              {tags}
             </div> : <div className="full-width" style={{height: '5px'}} />
           }
           <p>
