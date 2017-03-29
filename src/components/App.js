@@ -11,7 +11,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      currentTab: 1,
+      currentTab: 2,
       jobsTabViewType: 'quick',
       loading: {
         featured: true
@@ -28,22 +28,22 @@ class App extends React.Component {
     this.vars = new Variable();
   }
 
-  componentDidMount() { this.componentDidEnter(); }
+  // componentDidMount() { this.componentDidEnter(); }
 
-  componentDidEnter() {
-    console.log("componentDidEnter in App.js");
-    window.scrollTo(0, 0);
-    this.http.request('jobs/get_picked').then(res => {
-      if (!res.ok) return {error: true, errorMsg: res.statusText};
-      return res.json();
-    }).then(d => {
-      if (!d || d.error) {
-        this.setState(s => { s.loading.featured = false; });
-        return;
-      }
-      this.setState(s => { s.jobs.featured = d; s.loading.featured = false; });
-    }, err => console.log(err));
-  }
+  // componentDidEnter() {
+  //   console.log("componentDidEnter in App.js");
+  //   window.scrollTo(0, 0);
+  //   this.http.request('jobs/get_picked').then(res => {
+  //     if (!res.ok) return {error: true, errorMsg: res.statusText};
+  //     return res.json();
+  //   }).then(d => {
+  //     if (!d || d.error) {
+  //       this.setState(s => { s.loading.featured = false; });
+  //       return;
+  //     }
+  //     this.setState(s => { s.jobs.featured = d; s.loading.featured = false; });
+  //   }, err => console.log(err));
+  // }
 
   handleSelect(eventKey) { this.setState(eventKey, () => { window.scrollTo(0, 0); }); }
 
