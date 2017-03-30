@@ -31,7 +31,7 @@ class Browse extends React.Component {
   closeModal() { this.setState(s => { s.modalShown = false; return s; }); }
 
   refresh() {
-    this.setState(s => { s.loading = true; }, () => {
+    this.setState(s => { s.loading = true; s.jobs = null; return s; }, () => {
       const urlSuffix = 'jobs/job_type/' + this.props.viewType;
 
       this.http.request(urlSuffix).then(res => {
@@ -131,6 +131,9 @@ class Browse extends React.Component {
               openModal={(job) => { this.openModal(job); }}
             /> : null
         }
+        <p className="text-center" style={{marginTop: "15px"}}>
+          <a href="https://www.facebook.com/info.Hjobs.hk/" className="social-button"><i className="fa fa-facebook-square" aria-hidden="true"></i></a>
+        </p>
         <ApplyModal
           data={this.state.applyModalData}
           shown={this.state.modalShown}

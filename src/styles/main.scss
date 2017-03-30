@@ -220,6 +220,12 @@ p {
   }
 }
 
+.social-button, .social-button:active, .social-button:visited {
+  font-size: 22px;
+  cursor: pointer;
+  color: $dark-bkgd;    
+}
+
 .jobs {
   background-color: $jobsBkgd;
   padding: 50px 0px;
