@@ -102,6 +102,7 @@ class Home extends React.Component {
                 <u>info@hjobs.hk</u>
               </a>
             </p>
+            <a href="https://www.facebook.com/info.Hjobs.hk/" className="social-button"><i className="fa fa-facebook-square link" aria-hidden="true"></i></a>
           </div>
         </div>
       </div>
