@@ -59,6 +59,29 @@ class Home extends React.Component {
           </div>
         </div>
 
+        <div className="about-choice-container flex-col flex-vhCenter text-center full-width">
+          <div className="about-choice flex-col flex-vhCenter">
+            <Grid>
+              <Row className="show-grid">
+                <Col xs={24} sm={12} md={12} lg={12} className="flex-row flex-vhCenter">
+                  <div
+                    onClick={() => { this.props.goToPage(2, "quick"); }}
+                    className="div-circle div-circle-small flex-row flex-vhCenter">
+                    <h3>View Jobs</h3>
+                  </div>
+                </Col>
+                <Col xs={24} sm={12} md={12} lg={12} className="flex-row flex-vhCenter">
+                  <div
+                    onClick={() => { window.open("http://admin.hjobs.hk"); }}
+                    className="div-circle div-circle-small flex-row flex-vhCenter">
+                    <h3>Post Jobs</h3>
+                  </div>
+                </Col>
+              </Row>
+            </Grid>
+          </div>
+        </div>
+
         {/* Our Service */}
         <div className="about-intro-container flex-col flex-vhCenter text-center full-width">
           <div className="about-intro flex-col flex-vhCenter">
@@ -120,40 +143,6 @@ export default Home;
 
 // <div className="about-feature-container flex-col flex-vhCenter text-center full-width">
 //           <div className="about-feature flex-col flex-vhCenter">
-//             <Grid className="full-width">
-//               <Row className="show-grid">
-//                 <Col xs={24} sm={12} md={8} lg={8} className="flex-col flex-vhCenter column">
-//                   <i className="fa fa-users" aria-hidden="true"></i>
-//                   <h4> Title </h4>
-//                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel lobortis neque, ac laoreet lectus.</p>
-//                 </Col>
-//                 <Col xs={24} sm={12} md={8} lg={8} className="flex-col flex-vhCenter column">
-//                   <i className="fa fa-users" aria-hidden="true"></i>
-//                   <h4> Title </h4>
-//                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel lobortis neque, ac laoreet lectus.</p>
-//                 </Col>
-//                 <Col xs={24} sm={12} md={8} lg={8} className="flex-col flex-vhCenter column">
-//                   <i className="fa fa-users" aria-hidden="true"></i>
-//                   <h4> Title </h4>
-//                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel lobortis neque, ac laoreet lectus.</p>
-//                 </Col>
-//                 <Col xs={24} sm={12} md={8} lg={8} className="flex-col flex-vhCenter column">
-//                   <i className="fa fa-users" aria-hidden="true"></i>
-//                   <h4> Title </h4>
-//                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel lobortis neque, ac laoreet lectus.</p>
-//                 </Col>
-//                 <Col xs={24} sm={12} md={8} lg={8} className="flex-col flex-vhCenter column">
-//                   <i className="fa fa-users" aria-hidden="true"></i>
-//                   <h4> Title </h4>
-//                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel lobortis neque, ac laoreet lectus.</p>
-//                 </Col>
-//                 <Col xs={24} sm={12} md={8} lg={8} className="flex-col flex-vhCenter column">
-//                   <i className="fa fa-users" aria-hidden="true"></i>
-//                   <h4> Title </h4>
-//                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel lobortis neque, ac laoreet lectus.</p>
-//                 </Col>
-//               </Row>
-//             </Grid>
 //           </div>
 //         </div>
             // <Grid>
