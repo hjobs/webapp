@@ -154,6 +154,37 @@ p {
       h1,h2,h3,h4,h5,h6,p {color: black}
     }
   }
+  .about-choice-container {
+    .about-choice {
+      .container {
+        width:100%;
+        padding:10px;
+        .div-circle {
+          background-color: $div-circle-bkgd;
+          border-radius: 50%;
+          cursor: pointer;
+          -webkit-box-shadow: 0 0 10px 3px $dark-bkgd;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+          -moz-box-shadow:    0 0 10px 3px $dark-bkgd;  /* Firefox 3.5 - 3.6 */
+          box-shadow:         0 0 10px 3px $dark-bkgd;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+          // border: 5px solid $dark-bkgd;
+          margin-top:10px;
+          margin-bottom:10px;
+        }
+        .div-circle-big {
+          padding: 10px;
+          width: 40vw; height: 40vw;
+          max-width: 280px; max-height: 280px;
+          min-width: 161px; min-height: 161px;
+        }
+        .div-circle-small {
+          padding: 7px;
+          width: 32vw; height: 32vw;
+          max-width: 200px; max-height: 200px;
+          min-width: 120px; min-height: 120px;
+        }
+      }
+    }
+  }
   .about-intro-container{
     background-color: $white;
     // background-color: $bright-bkgd;
