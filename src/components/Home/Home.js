@@ -59,6 +59,7 @@ class Home extends React.Component {
           </div>
         </div>
 
+        { /* circles
         <div className="about-choice-container flex-col flex-vhCenter text-center full-width">
           <div className="about-choice flex-col flex-vhCenter">
             <Grid>
@@ -81,6 +82,7 @@ class Home extends React.Component {
             </Grid>
           </div>
         </div>
+        */ }
 
         {/* Our Service */}
         <div className="about-intro-container flex-col flex-vhCenter text-center full-width">
@@ -134,8 +136,9 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
-  loading: React.PropTypes.bool.isRequired,
-  jobs: React.PropTypes.any.isRequired,
+  // jobs are deprecated because there is no need to show featured job
+  // loading: React.PropTypes.bool.isRequired,
+  // jobs: React.PropTypes.any.isRequired,
   goToPage: React.PropTypes.func.isRequired
 };
 

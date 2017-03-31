@@ -17,8 +17,8 @@ class Job extends React.Component {
     const org = job.orgs[0];
     const imgSrc = !!job.photo ? job.photo : org.logo;
     const Tag = (props) => (
-      <div className={"flex-row flex-vhCenter tag " + props.type}>
-        <div>{props.string}</div>
+      <div className={"flex-row flex-vhCenter tag"}>
+        <div className={props.type}>{props.string}</div>
       </div>
     );
     const tags = [];

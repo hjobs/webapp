@@ -6,8 +6,8 @@ class Variable {
     this.viewTypes = [
       {name: "Quick Jobs", value: "quick", jobSearchName: "Quick Jobs"},
       {name: "Stable Jobs", value: "stable", jobSearchName: "Stable Jobs"},
-      // {name: "Internships", value: "internship", jobSearchName: "Intern"},
-      {name: "Projects", value: "project", jobSearchName: "Project"}
+      {name: "Internships", value: "intern", jobSearchName: "Internsips"},
+      {name: "Projects", value: "project", jobSearchName: "Projects"}
     ];
     this.urgencyTypes = [
       {name: "<7 days", value: "urgent1", className: "traffic-red"},
@@ -108,10 +108,10 @@ class Variable {
     let salaryDescription = "";
     switch (job.salary_type) {
       case "range":
-        salaryDescription = job.salary_high + " - " + job.salary_low;
+        salaryDescription = job.salary_high + " - " + job.salary_low + " /" + job.salary_unit;
         break;
       case "specific":
-        salaryDescription = job.salary_value;
+        salaryDescription = job.salary_value + " /" + job.salary_unit;
         break;
       case "negotiable": default:
         salaryDescription = "negotiable";

@@ -50,12 +50,26 @@ class Browse extends React.Component {
     });
   }
 
+  /** sort periods, discard unwanted periods, sort jobs according to periods or updated_at
+   * @return {[object]}
+   * @param {[object]} jobs
+   * */
   processJobsDataFromHttp(jobs) {
+    const hasPeriod = obj => !!obj.periods && obj.periods.length > 0;
+    const getPeriodDate = obj => new Date(obj.periods[0].date);
+    const getUpdatedDate = obj => new Date(obj.updated_at);
     return jobs.map(job => {
       const periodObj = this.modifyPeriodsFromHttpData(job.periods);
       job.periods = periodObj.periods;
       job.date_tags = periodObj.dateTags || null;
       return job;
+    }).sort((a, b) => {
+      const aHasPeriods = hasPeriod(a);
+      const bHasPeriods = hasPeriod(b);
+      if (aHasPeriods && bHasPeriods) return getPeriodDate(a) - getPeriodDate(b);
+      else if (!aHasPeriods && bHasPeriods) return 1;
+      else if (aHasPeriods && !bHasPeriods) return -1;
+      return getUpdatedDate(a) - getUpdatedDate(b); // (!aHasPeriods && !bHasPeriods)
     });
   }
 
@@ -108,6 +122,7 @@ class Browse extends React.Component {
       }
       return str;
     });
+    // const dateTags = afterTodayPeriods.map(p => p.date.getDate() + " " + this.vars.getMonth(p.date.getMonth()));
     return {periods: afterTodayPeriods, dateTags};
   }
 
@@ -122,7 +137,7 @@ class Browse extends React.Component {
           viewType={this.props.viewType}
           changeViewType={(str) => { this.props.changeViewType(str); }}
         />
-        <div style={this.props.viewType === "quick" ? {height: "50px"} : {height: "25px"}} />
+        <div style={{height: "50px"}} />
         {this.props.viewType === 'quick' ? <Description /> : null}
         {
           !!this.state.jobs && this.state.jobs.length > 0 ?

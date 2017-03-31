@@ -29,8 +29,11 @@ $projectContainerBoxShadow: $off-white;
 $traffic-red: red;
 $traffic-orange: orange;
 $traffic-blue: blue;
+$traffic-red: #990515;
+$traffic-orange: #DF7800;
+$traffic-blue: #134D9C;
 $date-tag-background: $light-gray;
-$date-tag-color: black;
+$date-tag-color: $dark-bkgd;
 $job-color: #666666;
 
 $phoneTall: 544px; /* originally 575 */
@@ -94,6 +97,9 @@ p {
 }
 
 .navbar {
+  p.navbar-right { margin-right: 15px; }
+  @media (max-width: 544px) { p.navbar-right { display: none; } }
+  @media (min-width: 544px) { div#uiLang { display: none; } }
   .navbar-brand {
     padding-top: 8px;
     padding-bottom: 8px;
@@ -355,7 +361,16 @@ p {
         margin: 0px 5px 0px 0px;
         padding: 0px 10px;
       }
+      div.event {
+        background-color: #666;
+        color: $off-white;
+      }
+      div.lang {
+        background-color: #AAA;
+        color: $off-white;
+      }
     }
+    
 
   }
 }
@@ -366,7 +381,7 @@ p {
   @media screen and (max-width: $phoneTall) { width: 95vw !important; }
   @media screen and (min-width: $phoneTall) { width: 90vw !important; max-width: 600px; }
   .modal-content>.modal-body {
-    max-height: calc(100vh - 60px - 100px);
+    max-height: calc(100vh - 60px - 100px - 40px);
     overflow: scroll;
     h1,h2,h3,h4,h5,h6 {
       font-family: 'Open Sans', "sans-serif";
@@ -409,6 +424,7 @@ p {
   position: fixed;
   top: 51px;
   left: 0px;
+  width: 100%;
   height: 25px;
   z-index: 7;
   color: $dark-bkgd;
@@ -416,7 +432,10 @@ p {
   // border: 0.5px solid $bright-bkgd;
   .job-type-container {
     // display: inline-block;
+    flex-wrap: nowrap;
     height: 100%;
+    min-width: 330px;
+    overflow: scroll;
   }
   .title {
     padding: 0px 10px;
@@ -425,7 +444,6 @@ p {
     text-align: center;
   }
   .job-type {
-    // display: inline-block;
     // background-color: $dark-bkgd;
     // background-color: $bright-bkgd;
     padding: 0px 10px;

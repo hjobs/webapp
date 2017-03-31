@@ -120,9 +120,9 @@ gulp.task('fontAwesome', () => {
 gulp.task('htmlReplace', () => {
   gulp.src('index.html')
   .pipe(htmlReplace({
-    css: './styles/main.css?version=20170331v1',
+    css: './styles/main.css?version=20170331v2',
     // bootstrap: 'styles/bootstrap.css',
-    js: './js/app.js?version=20170331v1' }))
+    js: './js/app.js?version=20170331v2' }))
   .pipe(gulp.dest(paths.dist));
 });
 

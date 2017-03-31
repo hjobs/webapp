@@ -10,26 +10,29 @@ import Http from '../services/http';
 class App extends React.Component {
   constructor() {
     super();
+    // if (!localStorage.getItem("uiLang")) localStorage.setItem("uiLang", "en");
     this.state = {
       currentTab: 2,
-      jobsTabViewType: 'quick',
-      loading: {
-        featured: true
-      },
-      jobs: {
-        featured: [],
-        quick: [],
-        stable: [],
-        internship: [],
-        project: []
-      }
+      jobsTabViewType: 'quick'
+      // loading: {
+      //   featured: true
+      // },
+      // deprecated, jobs are fetched in browse component
+      // jobs: {
+      //   featured: [],
+      //   quick: [],
+      //   stable: [],
+      //   internship: [],
+      //   project: []
+      // },
+      // uiLang: localStorage.getItem("uiLang") || 'en'
     };
     this.http = new Http();
     this.vars = new Variable();
   }
 
+  // deprecated, jobs are fetched in browse component
   // componentDidMount() { this.componentDidEnter(); }
-
   // componentDidEnter() {
   //   console.log("componentDidEnter in App.js");
   //   window.scrollTo(0, 0);
@@ -45,7 +48,7 @@ class App extends React.Component {
   //   }, err => console.log(err));
   // }
 
-  handleSelect(eventKey) { this.setState(eventKey, () => { window.scrollTo(0, 0); }); }
+  handleSelect(eventKey) { if (!!eventKey) this.setState(eventKey, () => { window.scrollTo(0, 0); }); }
 
   goToPage(val, jobsTabViewType) {
     const obj = {};
@@ -60,6 +63,12 @@ class App extends React.Component {
     this.setState(s => { s.jobsTabViewType = str; return s; }, () => { window.scrollTo(0, 0); });
   }
 
+  changeUILang() {
+    const lang = localStorage.getItem("uiLang") === "en" ? "zh-HK" : "en";
+    localStorage.setItem("uiLang", lang);
+    this.setState(s => { s.uiLang = lang; return s; });
+  }
+
   render() {
     let content;
     switch (this.state.currentTab) {
@@ -72,8 +81,9 @@ class App extends React.Component {
       case 1: default:
         content =
           (<Home
-            jobs={this.state.jobs.featured}
-            loading={this.state.loading.featured}
+            // deprecated, jobs are fetched in browse component
+            // jobs={this.state.jobs.featured}
+            // loading={this.state.loading.featured}
             goToPage={(val, jobType) => { this.goToPage(val, jobType); }}
           />);
         break;
@@ -91,22 +101,38 @@ class App extends React.Component {
               </a>
             </Navbar.Brand>
             <Navbar.Toggle />
+            {/*
+            <div id="uiLang" style={{float: "right", disply: "inline-block", padding: "15px", color: "#888"}} onClick={() => { this.changeUILang(); }}>
+              <span style={{cursor: "pointer"}}>{this.state.uiLang === "en" ? "䌓" : "en"}</span>
+            </div>
+            */}
           </Navbar.Header>
+
           <Navbar.Collapse>
             <Nav pullRight>
               <NavItem
                 active={this.state.currentTab === 1}
                 eventKey={{currentTab: 1}}
                 href="#">
-                Home
+                About Us
               </NavItem>
               <NavItem
                 active={this.state.currentTab === 2}
                 eventKey={{currentTab: 2, jobsTabViewType: 'quick'}}
                 href="#">
-                Jobs
+                View Jobs
+              </NavItem>
+              <NavItem
+                active={false}
+                onClick={() => window.open("http://admin.hjobs.hk")}>
+                Post Jobs
               </NavItem>
             </Nav>
+            { /* uilang
+            <Navbar.Text pullRight onClick={() => { this.changeUILang(); }}>
+              <span style={{cursor: "pointer"}}>{this.state.uiLang === "en" ? "䌓" : "en"}</span>
+            </Navbar.Text>
+            */ }
           </Navbar.Collapse>
         </Navbar>
         {content}
