@@ -6,14 +6,18 @@ import Browse from './Jobs/Browse';
 
 import Variable from '../services/var';
 import Http from '../services/http';
+import Translation from '../services/translation';
 
 class App extends React.Component {
   constructor() {
     super();
     // if (!localStorage.getItem("uiLang")) localStorage.setItem("uiLang", "en");
+    this.http = new Http();
+    this.vars = new Variable();
+    this.translation = new Translation();
     this.state = {
       currentTab: 2,
-      jobsTabViewType: 'quick'
+      jobsTabViewType: 'quick',
       // loading: {
       //   featured: true
       // },
@@ -25,10 +29,9 @@ class App extends React.Component {
       //   internship: [],
       //   project: []
       // },
-      // uiLang: localStorage.getItem("uiLang") || 'en'
+      locale: this.translation.getLocale(),
+      tStrings: this.translation.getTStrings()
     };
-    this.http = new Http();
-    this.vars = new Variable();
   }
 
   // deprecated, jobs are fetched in browse component
@@ -64,9 +67,16 @@ class App extends React.Component {
   }
 
   changeUILang() {
-    const lang = localStorage.getItem("uiLang") === "en" ? "zh-HK" : "en";
-    localStorage.setItem("uiLang", lang);
-    this.setState(s => { s.uiLang = lang; return s; });
+    const locale = this.translation.getLocale() === "en" ? "zh-HK" : "en";
+    this.translation.setLocale(locale);
+    const tStrings = this.translation.getTStrings(locale);
+    this.setState(s => { s.locale = locale; s.tStrings = tStrings; return s; }, () => {
+      this.http.log({
+        name: "change translation",
+        action: locale,
+        component: "navbar"
+      });
+    });
   }
 
   render() {
@@ -76,6 +86,7 @@ class App extends React.Component {
         (<Browse
           viewType={this.state.jobsTabViewType}
           changeViewType={(str) => { this.changeJobsViewType(str); }}
+          t={this.state.tStrings}
         />);
         break;
       case 1: default:
@@ -85,6 +96,7 @@ class App extends React.Component {
             // jobs={this.state.jobs.featured}
             // loading={this.state.loading.featured}
             goToPage={(val, jobType) => { this.goToPage(val, jobType); }}
+            t={this.state.tStrings}
           />);
         break;
     }
@@ -101,11 +113,9 @@ class App extends React.Component {
               </a>
             </Navbar.Brand>
             <Navbar.Toggle />
-            {/*
             <div id="uiLang" style={{float: "right", disply: "inline-block", padding: "15px", color: "#888"}} onClick={() => { this.changeUILang(); }}>
-              <span style={{cursor: "pointer"}}>{this.state.uiLang === "en" ? "䌓" : "en"}</span>
+              <span style={{cursor: "pointer"}}>{this.state.locale === "en" ? "䌓" : "en"}</span>
             </div>
-            */}
           </Navbar.Header>
 
           <Navbar.Collapse>
@@ -114,25 +124,23 @@ class App extends React.Component {
                 active={this.state.currentTab === 1}
                 eventKey={{currentTab: 1}}
                 href="#">
-                About Us
+                {this.state.tStrings.navbar.about}
               </NavItem>
               <NavItem
                 active={this.state.currentTab === 2}
                 eventKey={{currentTab: 2, jobsTabViewType: 'quick'}}
                 href="#">
-                View Jobs
+                {this.state.tStrings.navbar.viewJobs}
               </NavItem>
               <NavItem
                 active={false}
                 onClick={() => window.open("http://admin.hjobs.hk")}>
-                Post Jobs
+                {this.state.tStrings.navbar.postJobs}
               </NavItem>
             </Nav>
-            { /* uilang
             <Navbar.Text pullRight onClick={() => { this.changeUILang(); }}>
-              <span style={{cursor: "pointer"}}>{this.state.uiLang === "en" ? "䌓" : "en"}</span>
+              <span style={{cursor: "pointer"}}>{this.state.locale === "en" ? "䌓" : "en"}</span>
             </Navbar.Text>
-            */ }
           </Navbar.Collapse>
         </Navbar>
         {content}

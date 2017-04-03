@@ -13,6 +13,7 @@ class ApplyModal extends React.Component {
   }
 
   render() {
+    const t = this.props.t;
     let job, str, orgNames;
     if (this.props.shown) {
       job = this.props.data;
@@ -28,26 +29,26 @@ class ApplyModal extends React.Component {
         <Modal.Header>{job.title}</Modal.Header>
         <Modal.Body bsClass="modal-body">
           <p>
-            <b>About this job:</b> <br />
+            <b>{t.applyModal.aboutJob}</b> <br />
             {job.description}
           </p>
           <p>
-            <b>Posted by:</b><br />
+            <b>{t.applyModal.postedBy}</b><br />
             {orgNames}{'  '}
           </p>
           {
             job.attachment_url ?
               <p>
-                <b>Attachment:</b>{' '}
-                <a href={job.attachment_url}>Link here, check it out!</a>
+                <b>{t.applyModal.attachmentHeader}</b>{' '}
+                <a href={job.attachment_url}>{t.applyModal.attachmentLink}</a>
               </p>
               : null
           }
         </Modal.Body>
 
         <Modal.Footer>
-          <Button onClick={() => { this.props.closeModal(); }}>Close</Button>
-          <a onClick={() => { this.http.log({name: "OpenEmail", action: "Click", job_id: job.id, page: "ApplyModal"}); }} href={str}><Button> Apply Now </Button></a>
+          <Button onClick={() => { this.props.closeModal(); }}>{t.buttons.close}</Button>
+          <a onClick={() => { this.http.log({name: "OpenEmail", action: "Click", job_id: job.id, page: "ApplyModal"}); }} href={str}><Button> {t.applyModal.applyNow } </Button></a>
         </Modal.Footer>
       </Modal>
     ) : null;
@@ -57,7 +58,8 @@ class ApplyModal extends React.Component {
 ApplyModal.propTypes = {
   data: React.PropTypes.any,
   closeModal: React.PropTypes.func.isRequired,
-  shown: React.PropTypes.bool.isRequired
+  shown: React.PropTypes.bool.isRequired,
+  t: React.PropTypes.any.isRequired
 };
 // <Modal.Header>
 //           <Modal.Title id="contained-modal-title-lg">{job.title}</Modal.Title>

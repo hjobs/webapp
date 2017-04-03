@@ -1,11 +1,6 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 
-// import Search from '../Search/Search';
-import Jobs from '../Jobs/Jobs';
-import ApplyModal from '../Jobs/ApplyModal';
-import Description from '../Traffic/Description';
-
 import Variable from '../../services/var';
 import Http from '../../services/http';
 
@@ -49,13 +44,14 @@ class Home extends React.Component {
 
   render() {
     const str = this.vars.getEmailStr('contactus');
+    const t = this.props.t;
 
     return (
       <div className="container-fluid home flex-col">
-        {/* hero banner */}      
+        { /* hero banner */ }
         <div className="about-banner-container flex-col flex-vhCenter text-center full-width">
           <div className="about-banner flex-col flex-vhCenter">
-            <h2 onClick={() => { this.listenForDeveloper(); }}>Connecting everyday people to hospitality</h2>
+            <h2 onClick={() => { this.listenForDeveloper(); }}>{t.home.hero}</h2>
           </div>
         </div>
 
@@ -87,28 +83,28 @@ class Home extends React.Component {
         {/* Our Service */}
         <div className="about-intro-container flex-col flex-vhCenter text-center full-width">
           <div className="about-intro flex-col flex-vhCenter">
-            <h2>Our Service</h2>
-            <p>We are a non-profit website setup to help hospitality employers and employees’ connect. In addition to job postings, we also encourage businesses to post projects <i>i.e. re-design a restaurant menu, doing in-depth research on potential markets,</i> that can then be completed by any competitive individual! </p>
+            <h2>{t.home.serviceHeader}</h2>
+            <p>{t.home.serviceBody}</p>
           </div>
         </div>
 
         {/* Team */}
         <div className="about-team-container flex-col flex-vhCenter text-center full-width">
           <div className="about-team flex-col flex-vhCenter">
-            <h2>Our Team</h2>
+            <h2>{t.home.teamHeader}</h2>
             <Grid className="full-width">
               <Row className="show-grid">
                 <Col xs={24} sm={12} md={12} lg={12} className="flex-col flex-vhCenter person-container">
                   <img src="./resources/jo.jpg" alt="Jonathan" className="img-circle" />
-                  <h4>Jo Sutton</h4>
-                  <span className="title">Co-founder & CEO</span>
-                  <p>Jo is interested in actively solving some of the markets troublesome realities of online employment, in hospitality. He is actively in charge of Hjobs.hk’s strategic and day-to-day operations. </p>
+                  <h4>{t.home.joName}</h4>
+                  <span className="title">{t.home.joPosition}</span>
+                  <p>{t.home.joDescription}</p>
                 </Col>
                 <Col xs={24} sm={12} md={12} lg={12} className="flex-col flex-vhCenter person-container">
                   <img src="./resources/edmund.jpg" alt="Edmund" className="img-circle" />
-                  <h4>Edmund To</h4>
-                  <span className="title">Co-founder & CIO</span>
-                  <p>Edmund is a young developer, aspiring to solve pressing impactful problems. He is excited to build a product loved by end-users, through leveraging the flexibility of startups.</p>
+                  <h4>{t.home.edName}</h4>
+                  <span className="title">{t.home.edPosition}</span>
+                  <p>{t.home.edDescription}</p>
                 </Col>
               </Row>
             </Grid>
@@ -118,8 +114,8 @@ class Home extends React.Component {
         {/* Contact Us*/}
         <div className="contact-container flex-col flex-vhCenter text-center full-width">
           <div className="contact flex-col flex-vhCenter">
-            <h2>Contact {this.vars.isDeveloper() ? "Me" : "Us"}</h2>
-            <p>Email:{' '}
+            <h2>{t.home.contactHeader}{this.vars.isDeveloper() ? "!" : null}</h2>
+            <p>{t.home.contactEmail}{': '}
               <a
                 className="link"
                 onClick={() => { this.http.log({name: "OpenEmail", action: "Click", page: "Home", component: "ContactUs"}); }}
@@ -139,6 +135,7 @@ Home.propTypes = {
   // jobs are deprecated because there is no need to show featured job
   // loading: React.PropTypes.bool.isRequired,
   // jobs: React.PropTypes.any.isRequired,
+  t: React.PropTypes.any.isRequired,
   goToPage: React.PropTypes.func.isRequired
 };
 

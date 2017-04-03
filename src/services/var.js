@@ -3,16 +3,16 @@ const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "
 class Variable {
   constructor() {
     /** @type [{name: string, value: string}] - name is for displaying, use value in algorithm */
-    this.viewTypes = [
-      {name: "Quick Jobs", value: "quick", jobSearchName: "Quick Jobs"},
-      {name: "Stable Jobs", value: "stable", jobSearchName: "Stable Jobs"},
-      {name: "Internships", value: "intern", jobSearchName: "Internsips"},
-      {name: "Projects", value: "project", jobSearchName: "Projects"}
+    this.jobTypes = [
+      {value: "quick", jobSearchName: "Quick Jobs"},
+      {value: "stable", jobSearchName: "Stable Jobs"},
+      {value: "intern", jobSearchName: "Internsips"},
+      {value: "project", jobSearchName: "Projects"}
     ];
     this.urgencyTypes = [
-      {name: "<7 days", value: "urgent1", className: "traffic-red"},
-      {name: "7-14 days", value: "urgent2", className: "traffic-orange"},
-      {name: ">14 days", value: "urgent3", className: "traffic-blue"}
+      {value: "urgent1", className: "traffic-red"},
+      {value: "urgent2", className: "traffic-orange"},
+      {value: "urgent3", className: "traffic-blue"}
     ];
   }
 

@@ -28,7 +28,7 @@ class Http {
     return fetch(url, obj);
   }
 
-  /** @param {{name: string, action: string, job_id: number, page: string, compnoent: string, other: any}} data */
+  /** @param {{name: string, action: string, job_id: number, page: string, component: string, other: any}} data */
   log(data) {
     if (vars.isDeveloper()) return;
     if (this.currentUser) data.employee_id = this.currentUser.id;

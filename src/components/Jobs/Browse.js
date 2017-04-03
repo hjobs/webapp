@@ -122,7 +122,7 @@ class Browse extends React.Component {
       }
       return str;
     });
-    // const dateTags = afterTodayPeriods.map(p => p.date.getDate() + " " + this.vars.getMonth(p.date.getMonth()));
+    // const dateTags = afterTodayPeriods.map(p => p.date.getDate() + " " + this.vars.getMonth(p.date.getMonth())); // for ungrouped dates
     return {periods: afterTodayPeriods, dateTags};
   }
 
@@ -136,9 +136,10 @@ class Browse extends React.Component {
           loading={this.state.loading}
           viewType={this.props.viewType}
           changeViewType={(str) => { this.props.changeViewType(str); }}
+          t={this.props.t}
         />
         <div style={{height: "50px"}} />
-        {this.props.viewType === 'quick' ? <Description /> : null}
+        {this.props.viewType === 'quick' ? <Description t={this.props.t} /> : null}
         {
           !!this.state.jobs && this.state.jobs.length > 0 ?
             <Jobs
@@ -153,6 +154,7 @@ class Browse extends React.Component {
           data={this.state.applyModalData}
           shown={this.state.modalShown}
           closeModal={ () => { this.closeModal(); }}
+          t={this.props.t}
         />
       </div>
     );
@@ -161,7 +163,8 @@ class Browse extends React.Component {
 
 Browse.propTypes = {
   viewType: React.PropTypes.string.isRequired,
-  changeViewType: React.PropTypes.func.isRequired
+  changeViewType: React.PropTypes.func.isRequired,
+  t: React.PropTypes.any.isRequired
 };
 
 export default Browse;

@@ -4,6 +4,8 @@ import { render } from 'react-dom';
 // import createBrowserHistory from 'history/lib/createBrowserHistory'
 
 import App from './components/App';
+// import translations from "./translations";
+
 // import Home from './components/Home/Home';
 // import Jobs from './components/Jobs/Jobs';
 
@@ -21,7 +23,10 @@ window.React = React;
 //   </Router>
 // );
 
-render(<App />, document.getElementById('app'));
+render(
+  <App />,
+  document.getElementById('app')
+);
 
 // ORIGINAL
 /* render(
