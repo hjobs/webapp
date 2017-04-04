@@ -69,7 +69,7 @@ class Browse extends React.Component {
       if (aHasPeriods && bHasPeriods) return getPeriodDate(a) - getPeriodDate(b);
       else if (!aHasPeriods && bHasPeriods) return 1;
       else if (aHasPeriods && !bHasPeriods) return -1;
-      return getUpdatedDate(a) - getUpdatedDate(b); // (!aHasPeriods && !bHasPeriods)
+      return getUpdatedDate(b) - getUpdatedDate(a); // (!aHasPeriods && !bHasPeriods)
     });
   }
 
