@@ -24,6 +24,7 @@ class ApplyModal extends React.Component {
     return this.props.shown ? (
       <Modal
         show={this.props.shown}
+        enforceFocus
         dialogClassName="apply-job-modal"
       >
         <Modal.Header>{job.title}</Modal.Header>

@@ -46,7 +46,9 @@ class Jobs extends React.Component {
       if (i === adIndex && !!ad) {
         arr.push(
           <div className="job-cell full-width" key={"ad-" + ad.id}>
-            <Image src={ad.image} className="full-width" responsive />
+            <a href={!!ad.link ? ad.link : null}>
+              <Image src={ad.image} className="full-width" responsive />
+            </a>
           </div>
         );
         arr.push(getDivider());
