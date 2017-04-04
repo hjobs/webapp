@@ -122,6 +122,33 @@ class Variable {
 
   enableDeveloper() { localStorage.setItem("developer", "true"); }
   isDeveloper() { return localStorage.getItem("developer") === "true"; }
+
+  /**
+   * get index in editArr by comparing against ids,
+   * @return {'-1'|number}
+   * @param {object} data @param {object[]} editArr
+   * @param {'narrowArr'} dataStructure
+   */
+  indexOfDataInArray(data, arr, dataStructure = "narrowArr") {
+    if (!data || !arr) { throw Error('no data or no arr'); }
+    switch (dataStructure) {
+      case "editArr": {
+        return arr.reduce((result, editData, i) => {
+          if (editData.data.id === data.id && editData.data.contentType === data.contentType) return i;
+          return result;
+        }, -1);
+      }
+      case "narrowArr": {
+        return arr.reduce((result, curr, i) => {
+          if (curr.id === data.id) return i;
+          return result;
+        }, -1);
+      }
+      default: {
+        return -1;
+      }
+    }
+  }
 }
 
 export default Variable;

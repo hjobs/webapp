@@ -1,6 +1,6 @@
 import React from 'react';
 import 'whatwg-fetch';
-// import { Grid, Row, Col } from 'react-bootstrap';
+import { Image } from 'react-bootstrap';
 
 import Job from './Job';
 
@@ -17,9 +17,13 @@ class Jobs extends React.Component {
     this.props.openModal(job);
   }
 
-  renderJobs() {
+  renderRows() {
+    if (!this.props.jobs || this.props.jobs.length <= 0) return null;
+
     const arr = [];
     const jobs = this.props.jobs;
+    const ad = this.props.ad;
+    const adIndex = jobs.length > 2 ? 2 : (jobs.length - 1);
     let separatorCount = 0;
     // const colStyle = {paddingLeft: '5px', paddingRight: '5px'};
     /** @param {boolean} fullWidth */
@@ -39,22 +43,24 @@ class Jobs extends React.Component {
         </div>
       );
       arr.push(getDivider());
+      if (i === adIndex && !!ad) {
+        arr.push(
+          <div className="job-cell full-width" key={"ad-" + ad.id}>
+            <Image src={ad.image} className="full-width" responsive />
+          </div>
+        );
+        arr.push(getDivider());
+      }
     }
     arr.pop();
     return arr;
   }
 
   render() {
-    let dataArr = [];
-    const jobs = this.props.jobs;
-    if (jobs && jobs.length > 0) {
-      dataArr = this.renderJobs();
-    }
-
     return (
       <div className="flex-col flex-vhCenter full-width" id="job-outer-outer-div">
         <div className="outter-div">
-          {dataArr}
+          {this.renderRows()}
         </div>
       </div>
     );
@@ -63,7 +69,8 @@ class Jobs extends React.Component {
 
 Jobs.propTypes = {
   openModal: React.PropTypes.func.isRequired,
-  jobs: React.PropTypes.any.isRequired
+  jobs: React.PropTypes.any.isRequired,
+  ad: React.PropTypes.any
 };
 
 export default Jobs;

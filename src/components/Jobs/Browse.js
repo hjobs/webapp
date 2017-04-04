@@ -16,6 +16,11 @@ class Browse extends React.Component {
     this.state = {
       modalShown: false,
       jobs: null,
+      ad: {
+        arr: null,
+        current: null,
+        timer: null
+      },
       viewType: props.viewType,
       loading: false
     };
@@ -47,7 +52,31 @@ class Browse extends React.Component {
           }, () => console.log(["going to log this.statee", this.state]));
         }
       }, err => { console.log(err); });
+
+      this.http.request("ads").then(res => res.json()).then(d => {
+        console.log(["got ads", d]);
+        if (!!d && d.length > 0) {
+          this.setState(s => {
+            s.ad.array = d;
+            s.ad.current = d[0];
+            s.ad.timer = this.adTimer(d, d[0]);
+            return s;
+          });
+        }
+      });
     });
+  }
+
+  adTimer(adArr, adCurr) {
+    return window.setTimeout(() => {
+      this.setState(s => {
+        const currIndex = this.vars.indexOfDataInArray(adCurr, adArr);
+        const nextIndex = currIndex < (adArr.length - 1) ? currIndex + 1 : 0;
+        s.ad.current = adArr[nextIndex];
+        s.ad.timer = this.adTimer(adArr, s.ad.current);
+        return s;
+      });
+    }, 10000);
   }
 
   /** sort periods, discard unwanted periods, sort jobs according to periods or updated_at
@@ -145,6 +174,7 @@ class Browse extends React.Component {
             <Jobs
               jobs={this.state.jobs}
               openModal={(job) => { this.openModal(job); }}
+              ad={this.state.ad.current}
             /> : null
         }
         <p className="text-center" style={{marginTop: "15px"}}>
