@@ -56,7 +56,7 @@ const tStrings = {
       joDescription: "從行內多年的經驗，Jo 明白旅遊酒店業聘請人手的困難。藉着廣博的人脈，Jo 開創了HJobs這個顧主及顧員能互相認識的平台，有效率地找到合適的人材或工作。",
       edName: "Edmund To",
       edPosition: "創始人 & CIO",
-      edDescription: "Edmund 是一個年輕的軟件開發員，亦有數年酒店業的經驗。他希望能藉着多方面的才能，為旅遊酒店業內的企業及人材提供一個安全、容易使用的平台。",
+      edDescription: "Edmund 是一個年輕的軟件開發員，亦有數年酒店業的經驗。他希望能藉着多方面的才能，為旅遊酒店業內的企業及人才提供一個安全、容易使用的平台。",
       contactHeader: "聯絡我們",
       contactEmail: "電郵"
     },
