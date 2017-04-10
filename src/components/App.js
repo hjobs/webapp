@@ -17,7 +17,7 @@ class App extends React.Component {
     this.translation = new Translation();
     this.state = {
       currentTab: 2,
-      jobsTabViewType: 'quick',
+      jobsTabViewType: 'stable',
       // loading: {
       //   featured: true
       // },

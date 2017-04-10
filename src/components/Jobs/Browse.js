@@ -22,6 +22,10 @@ class Browse extends React.Component {
         timer: null
       },
       viewType: props.viewType,
+      page: {
+        current: 1,
+        total: 1
+      },
       loading: false
     };
     this.vars = new Variable();
@@ -29,7 +33,6 @@ class Browse extends React.Component {
   }
 
   componentWillMount() { this.refresh(); this.http.log({name: "Enter", page: "Browse", action: "Enter"}); }
-
   componentWillReceiveProps(nextProps) { if (this.props.viewType !== nextProps.viewType) this.refresh(); }
 
   openModal(job) { this.setState(s => { s.modalShown = true; s.applyModalData = job; return s; }); }

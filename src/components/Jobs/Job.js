@@ -98,7 +98,7 @@ class Job extends React.Component {
             <span><i className="fa fa-usd" aria-hidden="true"></i> {this.vars.getSalaryDescription(job)}</span><br />
             {job.locations && job.locations.length > 0 ?
               <span>
-                <i className="fa fa-map-marker" aria-hidden="true"></i> {job.locations[0].address}<br />
+                <i className="fa fa-map-marker" aria-hidden="true"></i> {job.locations.map(l => l.address).join(", ")}<br />
               </span>
               : null
             }
