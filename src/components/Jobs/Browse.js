@@ -109,6 +109,7 @@ class Browse extends React.Component {
         }
       });
     }
+    window.scrollTo(0, 0);
   }
 
   sliceJobs(jobs = this.state.jobs.all, page = 1) {
