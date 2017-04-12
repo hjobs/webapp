@@ -106,12 +106,13 @@ class Variable {
   /** @return {'? to ?'|'?'|'negotiable'} */
   getSalaryDescription(job) {
     let salaryDescription = "";
+    const addUnit = str => (!job.salary_unit ? str : (str += " /" + job.salary_unit));
     switch (job.salary_type) {
       case "range":
-        salaryDescription = job.salary_high + " - " + job.salary_low + " /" + job.salary_unit;
+        salaryDescription = addUnit(job.salary_high + " - " + job.salary_low);
         break;
       case "specific":
-        salaryDescription = job.salary_value + " /" + job.salary_unit;
+        salaryDescription = addUnit(job.salary_value);
         break;
       case "negotiable": default:
         salaryDescription = "negotiable";

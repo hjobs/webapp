@@ -1,11 +1,16 @@
+/** @typedef {'quick'|'stable'|'internship'|'project'} JobType */
+
 import React from 'react';
 import 'whatwg-fetch';
+let Loading = require('react-loading');
+// import Loading from 'react-loading';
 // import { Row, Col } from 'react-bootstrap';
 
 import Jobs from './Jobs';
 import JobSearchBar from './JobSearchBar';
 import ApplyModal from './ApplyModal';
 import Description from '../Traffic/Description';
+import PageNumber from '../Utilities/PageNumber';
 
 import Variable from '../../services/var';
 import Http from '../../services/http';
@@ -15,17 +20,21 @@ class Browse extends React.Component {
     super(props);
     this.state = {
       modalShown: false,
-      jobs: null,
+      jobs: {
+        viewing: null,
+        all: null
+      },
       ad: {
-        arr: null,
+        array: null,
         current: null,
         timer: null
       },
-      viewType: props.viewType,
       page: {
-        current: 1,
-        total: 1
+        current: null,
+        loadedTo: null,
+        total: null
       },
+      itemPerPage: 15,
       loading: false
     };
     this.vars = new Variable();
@@ -33,15 +42,17 @@ class Browse extends React.Component {
   }
 
   componentWillMount() { this.refresh(); this.http.log({name: "Enter", page: "Browse", action: "Enter"}); }
-  componentWillReceiveProps(nextProps) { if (this.props.viewType !== nextProps.viewType) this.refresh(); }
+  componentWillReceiveProps(nextProps) { if (this.props.viewType !== nextProps.viewType) this.refresh(nextProps.viewType); }
 
   openModal(job) { this.setState(s => { s.modalShown = true; s.applyModalData = job; return s; }); }
   closeModal() { this.setState(s => { s.modalShown = false; return s; }); }
 
-  refresh() {
-    this.setState(s => { s.loading = true; s.jobs = null; return s; }, () => {
-      const urlSuffix = 'jobs/job_type/' + this.props.viewType;
-
+  /** @param {JobType} jobType @param {number} page */
+  serverCall(jobType = this.props.viewType, page = 1) {
+    console.log("page = " + page);
+    page = page || 1;
+    this.setState(s => { s.loading = true; s.jobs.viewing = null; return s; }, () => {
+      const urlSuffix = 'jobs?by_job_type=' + jobType + "&offset_by=" + ((page - 1) * this.state.itemPerPage);
       this.http.request(urlSuffix).then(res => {
         if (!res.ok) console.log(['res is not ok, logging res inside Jobs.js refresh() fetch()', res]);
         return res.json();
@@ -49,25 +60,61 @@ class Browse extends React.Component {
         console.log(["going to log jobs data from server: d", d]);
         if (!!d && !d.error) {
           this.setState(s => {
-            s.jobs = this.processJobsDataFromHttp(d);
+            s.page.total = Math.ceil(d.total_count / this.state.itemPerPage);
+            s.page.current = page;
+            s.page.loadedTo = (this.state.page.loadedTo || 0) + Math.ceil(d.jobs.length / this.state.itemPerPage);
+            if (s.page.current === 1) s.jobs.all = d.jobs;
+            else s.jobs.all.push(... d.jobs);
+            s.jobs.viewing = this.sliceJobs(s.jobs.all, page);
             s.loading = false;
             return s;
-          }, () => console.log(["going to log this.statee", this.state]));
+          }, () => console.log(["going to log this.state", this.state]));
         }
       }, err => { console.log(err); });
 
-      this.http.request("ads").then(res => res.json()).then(d => {
-        console.log(["got ads", d]);
-        if (!!d && d.length > 0) {
-          this.setState(s => {
-            s.ad.array = d;
-            s.ad.current = d[0];
-            s.ad.timer = this.adTimer(d, d[0]);
-            return s;
-          });
+      if (!this.state.ad.array || this.state.ad.array.length === 0) {
+        this.http.request("ads").then(res => res.json()).then(d => {
+          console.log(["got ads", d]);
+          if (!!d && d.length > 0) {
+            this.setState(s => {
+              s.ad.array = d;
+              s.ad.current = d[0];
+              s.ad.timer = this.adTimer(d, d[0]);
+              return s;
+            });
+          }
+        });
+      }
+    });
+  }
+
+  refresh(jobType = this.props.viewType) {
+    this.setState(s => {
+      s.jobs.viewing = null;
+      s.jobs.all = null;
+      s.page = { current: null, loadedTo: null, total: null };
+      this.serverCall(jobType);
+    });
+  }
+
+  /** @param {number} num */
+  goToPage(page) {
+    if (!this.state.page.loadedTo || !this.state.jobs.all || !this.state.page.current || page > this.state.page.loadedTo) {
+      this.serverCall(this.props.viewType, page);
+    } else {
+      this.setState(s => {
+        if (!!s.jobs.all && page <= this.state.page.loadedTo) {
+          s.jobs.viewing = this.sliceJobs(s.jobs.all, page);
+          s.page.current = page;
         }
       });
-    });
+    }
+  }
+
+  sliceJobs(jobs = this.state.jobs.all, page = 1) {
+    const sliceStart = this.state.itemPerPage * (page - 1);
+    const sliceEnd = this.state.itemPerPage * page;
+    return jobs.slice(sliceStart, sliceEnd);
   }
 
   adTimer(adArr, adCurr) {
@@ -161,6 +208,8 @@ class Browse extends React.Component {
   render() {
     // const backgroundColor = {backgroundColor: "#FFFFFF"};
     if (!this.props.viewType) return null;
+    const pageArr = [];
+    for (let i = 1; i <= this.state.page.total; i++) pageArr.push(i);
 
     return (
       <div className="container-fluid jobs">
@@ -173,12 +222,28 @@ class Browse extends React.Component {
         <div style={{height: "50px"}} />
         {this.props.viewType === 'quick' ? <Description t={this.props.t} /> : null}
         {
-          !!this.state.jobs && this.state.jobs.length > 0 ?
-            <Jobs
-              jobs={this.state.jobs}
-              openModal={(job) => { this.openModal(job); }}
-              ad={this.state.ad.current}
-            /> : null
+          this.state.loading ?
+            <div className="flex-row flex-vhCenter" style={{minHeight: "200px"}}>
+              <Loading type="bubbles" color="black" />
+            </div> :
+            (
+              !!this.state.jobs.viewing && this.state.jobs.viewing.length > 0 ?
+                <Jobs
+                  jobs={this.state.jobs.viewing}
+                  openModal={(job) => { this.openModal(job); }}
+                  ad={this.state.ad.current}
+                /> :
+                null
+            )
+        }
+        {
+          !this.state.page || !this.state.page.current ? null :
+            <div style={{padding: "15px 0px"}}>
+              <PageNumber
+                page={this.state.page}
+                goToPage={(p) => { this.goToPage(p); }}
+              />
+            </div>
         }
         <p className="text-center" style={{marginTop: "15px"}}>
           <a href="https://www.facebook.com/info.Hjobs.hk/" className="social-button"><i className="fa fa-facebook-square" aria-hidden="true"></i></a>

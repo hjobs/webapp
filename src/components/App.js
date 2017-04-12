@@ -128,7 +128,7 @@ class App extends React.Component {
               </NavItem>
               <NavItem
                 active={this.state.currentTab === 2}
-                eventKey={{currentTab: 2, jobsTabViewType: 'quick'}}
+                eventKey={{currentTab: 2, jobsTabViewType: "stable"}}
                 href="#">
                 {this.state.tStrings.navbar.viewJobs}
               </NavItem>

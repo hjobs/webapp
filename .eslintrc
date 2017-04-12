@@ -15,6 +15,8 @@
     "arrow-body-style":"off",
     "no-param-reassign":"off",
     "one-var-declaration-per-line":"off",
-    "brace-style":"off"
+    "brace-style":"off",
+    "no-nested-ternary":"off",
+    "no-console":"off"
   }
 }

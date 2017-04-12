@@ -459,4 +459,21 @@ p {
   }
 }
 
+.page-number-container {
+  .page-number {
+    display: inline-block;
+    color: $blue;
+    font-size: 14px;
+    margin: 0px 5px 0px 5px;
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+  .page-number.active {
+    background-color: black;
+    color: white;
+  }
+}
+
 .clearfix {clear: both;}

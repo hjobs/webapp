@@ -5,9 +5,9 @@ const vars = new Variable();
 
 class Http {
   constructor() {
-    this.baseUrl = "http://api.hjobs.hk:9080/";
+    // this.baseUrl = "http://api.hjobs.hk:9080/";
     // this.baseUrl = "http://dev.hjobs.hk:9080/";
-    // this.baseUrl = "http://localhost:9080/";
+    this.baseUrl = "http://localhost:9080/";
   }
 
   /** param httpMethod defaults to 'GET', data defaults to null
