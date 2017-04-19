@@ -74806,8 +74806,6 @@ var _http2 = _interopRequireDefault(_http);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -74839,7 +74837,7 @@ var Browse = function (_React$Component) {
       },
       page: {
         current: null,
-        loadedTo: null,
+        loaded: null,
         total: null
       },
       itemPerPage: 15,
@@ -74887,10 +74885,14 @@ var Browse = function (_React$Component) {
 
       console.log("page = " + page);
       page = page || 1;
+      var pageIsEven = page % 2 === 0,
+          pageMin = pageIsEven ? page - 1 : page,
+          pageMax = pageIsEven ? page : page + 1;
+
       this.setState(function (s) {
         s.loading = true;s.jobs.viewing = null;return s;
       }, function () {
-        var urlSuffix = 'jobs?by_job_type=' + jobType + "&offset_by=" + (page - 1) * _this2.state.itemPerPage;
+        var urlSuffix = 'jobs?by_job_type=' + jobType + "&offset_by=" + (pageMin - 1) * _this2.state.itemPerPage;
         _this2.http.request(urlSuffix).then(function (res) {
           if (!res.ok) console.log(['res is not ok, logging res inside Jobs.js refresh() fetch()', res]);
           return res.json();
@@ -74898,13 +74900,14 @@ var Browse = function (_React$Component) {
           console.log(["going to log jobs data from server: d", d]);
           if (!!d && !d.error) {
             _this2.setState(function (s) {
-              var _s$jobs$all;
-
               s.page.total = Math.ceil(d.total_count / _this2.state.itemPerPage);
               s.page.current = page;
-              s.page.loadedTo = (_this2.state.page.loadedTo || 0) + Math.ceil(d.jobs.length / _this2.state.itemPerPage);
-              if (s.page.current === 1) s.jobs.all = d.jobs;else (_s$jobs$all = s.jobs.all).push.apply(_s$jobs$all, _toConsumableArray(d.jobs));
-              s.jobs.viewing = _this2.sliceJobs(s.jobs.all, page);
+              if (!s.page.loaded) s.page.loaded = [];
+              s.page.loaded.push(pageMin, pageMax);
+              if (!s.jobs.all) s.jobs.all = new Array(s.page.total);
+              s.jobs.all[pageMin - 1] = d.jobs.slice(0, _this2.state.itemPerPage);
+              s.jobs.all[pageMax - 1] = d.jobs.slice(_this2.state.itemPerPage, _this2.state.itemPerPage * 2);
+              s.jobs.viewing = s.jobs.all[page - 1];
               s.loading = false;
               return s;
             }, function () {
@@ -74942,7 +74945,7 @@ var Browse = function (_React$Component) {
       this.setState(function (s) {
         s.jobs.viewing = null;
         s.jobs.all = null;
-        s.page = { current: null, loadedTo: null, total: null };
+        s.page = { current: null, loaded: null, total: null };
         _this3.serverCall(jobType);
       });
     }
@@ -74954,12 +74957,12 @@ var Browse = function (_React$Component) {
     value: function goToPage(page) {
       var _this4 = this;
 
-      if (!this.state.page.loadedTo || !this.state.jobs.all || !this.state.page.current || page > this.state.page.loadedTo) {
+      if (!this.state.jobs.all || !this.state.jobs.all[page - 1]) {
         this.serverCall(this.props.viewType, page);
       } else {
         this.setState(function (s) {
-          if (!!s.jobs.all && page <= _this4.state.page.loadedTo) {
-            s.jobs.viewing = _this4.sliceJobs(s.jobs.all, page);
+          if (!!s.jobs.all && _this4.state.page.loaded.indexOf(page) !== -1) {
+            s.jobs.viewing = s.jobs.all[page - 1];
             s.page.current = page;
           }
         });

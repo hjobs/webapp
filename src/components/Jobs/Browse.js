@@ -31,7 +31,7 @@ class Browse extends React.Component {
       },
       page: {
         current: null,
-        loadedTo: null,
+        loaded: null,
         total: null
       },
       itemPerPage: 15,
@@ -51,8 +51,12 @@ class Browse extends React.Component {
   serverCall(jobType = this.props.viewType, page = 1) {
     console.log("page = " + page);
     page = page || 1;
+    const pageIsEven = page % 2 === 0,
+          pageMin = pageIsEven ? page - 1 : page,
+          pageMax = pageIsEven ? page : page + 1;
+
     this.setState(s => { s.loading = true; s.jobs.viewing = null; return s; }, () => {
-      const urlSuffix = 'jobs?by_job_type=' + jobType + "&offset_by=" + ((page - 1) * this.state.itemPerPage);
+      const urlSuffix = 'jobs?by_job_type=' + jobType + "&offset_by=" + ((pageMin - 1) * this.state.itemPerPage);
       this.http.request(urlSuffix).then(res => {
         if (!res.ok) console.log(['res is not ok, logging res inside Jobs.js refresh() fetch()', res]);
         return res.json();
@@ -62,10 +66,12 @@ class Browse extends React.Component {
           this.setState(s => {
             s.page.total = Math.ceil(d.total_count / this.state.itemPerPage);
             s.page.current = page;
-            s.page.loadedTo = (this.state.page.loadedTo || 0) + Math.ceil(d.jobs.length / this.state.itemPerPage);
-            if (s.page.current === 1) s.jobs.all = d.jobs;
-            else s.jobs.all.push(... d.jobs);
-            s.jobs.viewing = this.sliceJobs(s.jobs.all, page);
+            if (!s.page.loaded) s.page.loaded = [];
+            s.page.loaded.push(pageMin, pageMax);
+            if (!s.jobs.all) s.jobs.all = new Array(s.page.total);
+            s.jobs.all[pageMin - 1] = d.jobs.slice(0, this.state.itemPerPage);
+            s.jobs.all[pageMax - 1] = d.jobs.slice(this.state.itemPerPage, this.state.itemPerPage * 2);
+            s.jobs.viewing = s.jobs.all[page - 1];
             s.loading = false;
             return s;
           }, () => console.log(["going to log this.state", this.state]));
@@ -92,19 +98,19 @@ class Browse extends React.Component {
     this.setState(s => {
       s.jobs.viewing = null;
       s.jobs.all = null;
-      s.page = { current: null, loadedTo: null, total: null };
+      s.page = { current: null, loaded: null, total: null };
       this.serverCall(jobType);
     });
   }
 
   /** @param {number} num */
   goToPage(page) {
-    if (!this.state.page.loadedTo || !this.state.jobs.all || !this.state.page.current || page > this.state.page.loadedTo) {
+    if (!this.state.jobs.all || !this.state.jobs.all[page - 1]) {
       this.serverCall(this.props.viewType, page);
     } else {
       this.setState(s => {
-        if (!!s.jobs.all && page <= this.state.page.loadedTo) {
-          s.jobs.viewing = this.sliceJobs(s.jobs.all, page);
+        if (!!s.jobs.all && this.state.page.loaded.indexOf(page) !== -1) {
+          s.jobs.viewing = s.jobs.all[page - 1];
           s.page.current = page;
         }
       });
