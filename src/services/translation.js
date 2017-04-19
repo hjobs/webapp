@@ -37,12 +37,14 @@ const tStrings = {
       postedBy: "Posted by:",
       attachmentHeader: "Attachment:",
       attachmentLink: "Link here, check it out!",
-      applyNow: "Apply Now"
+      applyNow: "Apply Now",
+      sendNow: "Send Now"
     },
     buttons: {
       cancel: "Cancel",
       close: "Close",
-      ok: "ok"
+      ok: "ok",
+      back: "Back"
     }
   },
   "zh-HK": {
@@ -81,11 +83,13 @@ const tStrings = {
       postedBy: "刑登者：",
       attachmentHeader: "附件：",
       attachmentLink: "按這裡打開",
-      applyNow: "即時申請"
+      applyNow: "即時申請",
+      sendNow: "傳送"
     },
     buttons: {
       cancel: "取消",
       close: "關閉",
+      back: "返回",
       ok: "ok"
     }
   }

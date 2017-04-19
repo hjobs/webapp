@@ -70,10 +70,14 @@ class App extends React.Component {
     const locale = this.translation.getLocale() === "en" ? "zh-HK" : "en";
     this.translation.setLocale(locale);
     const tStrings = this.translation.getTStrings(locale);
-    this.setState(s => { s.locale = locale; s.tStrings = tStrings; return s; }, () => {
+    this.setState(s => {
+      s.locale = locale;
+      s.tStrings = tStrings;
+      return s;
+    }, () => {
       this.http.log({
         name: "change translation",
-        action: locale,
+        action: this.state.locale,
         component: "navbar"
       });
     });
@@ -113,7 +117,11 @@ class App extends React.Component {
               </a>
             </Navbar.Brand>
             <Navbar.Toggle />
-            <div id="uiLang" style={{float: "right", disply: "inline-block", padding: "15px", color: "#888"}} onClick={() => { this.changeUILang(); }}>
+            <div
+              id="uiLang"
+              style={{float: "right", disply: "inline-block", padding: "15px", color: "#888"}}
+              onClick={() => { this.changeUILang(); }}
+            >
               <span style={{cursor: "pointer"}}>{this.state.locale === "en" ? "䌓" : "en"}</span>
             </div>
           </Navbar.Header>
@@ -138,9 +146,20 @@ class App extends React.Component {
                 {this.state.tStrings.navbar.postJobs}
               </NavItem>
             </Nav>
-            <Navbar.Text pullRight onClick={() => { this.changeUILang(); }}>
+            <Navbar.Text
+              pullRight
+              onClick={() => { this.changeUILang(); }}
+            >
               <span style={{cursor: "pointer"}}>{this.state.locale === "en" ? "䌓" : "en"}</span>
             </Navbar.Text>
+            { /*
+              <Navbar.Text
+                pullRight
+                // onClick={() => { this.changeUILang(); }}
+              >
+                <a href="http://dev.hjobs.hk:9080/auth/google">Login</a>
+              </Navbar.Text>
+            */ }
           </Navbar.Collapse>
         </Navbar>
         {content}
