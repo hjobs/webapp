@@ -88,7 +88,7 @@ class ApplyModal extends React.Component {
           job = this.props.data,
           appliedJobsArray = JSON.parse(localStorage.getItem("appliedJobs")),
           appliedBefore = !!appliedJobsArray && appliedJobsArray.indexOf(this.props.data.id) !== -1,
-          // emailStr = this.vars.getEmailStr('application', job),
+          emailStr = this.vars.getEmailStr('application', job),
           orgNames = this.vars.getOrgsNames(job.orgs, false),
           body = !applying ? (
             <Modal.Body bsClass="modal-body">
@@ -168,22 +168,26 @@ class ApplyModal extends React.Component {
           {
             appliedBefore ?
               <Button size="large" disabled color="green">You've applied!</Button> :
-              <Button
-                size="large"
-                className="inverse"
-                disabled={this.state.application.loading}
-                onClick={() => {
-                  if (!applying) this.toggleApply();
-                  else this.onClickSend();
-                  this.http.log({
-                    name: !applying ? "ClickApplyNow" : "ClickSendNow",
-                    action: "Click",
-                    job_id: job.id,
-                    page: "ApplyModal"
-                  });
-                }}>
-                {!applying ? t.applyModal.applyNow : t.applyModal.sendNow}
-              </Button>
+              <a href={emailStr}>
+                <Button
+                  size="large"
+                  className="inverse"
+                  disabled={this.state.application.loading}
+                  // onClick={() => {
+                  //   if (!applying) this.toggleApply();
+                  //   else this.onClickSend();
+                  //   this.http.log({
+                  //     name: !applying ? "ClickApplyNow" : "ClickSendNow",
+                  //     action: "Click",
+                  //     job_id: job.id,
+                  //     page: "ApplyModal"
+                  //   });
+                  // }}
+                >
+                  {/*!applying ? t.applyModal.applyNow : t.applyModal.sendNow*/}
+                  Apply Now
+                </Button>
+              </a>
           }
         </Modal.Footer>
       </Modal>

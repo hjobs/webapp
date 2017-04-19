@@ -64,6 +64,7 @@ class Browse extends React.Component {
         console.log(["going to log jobs data from server: d", d]);
         if (!!d && !d.error) {
           this.setState(s => {
+            d.jobs = this.processJobsDataFromHttp(d.jobs);
             s.page.total = Math.ceil(d.total_count / this.state.itemPerPage);
             s.page.current = page;
             if (!s.page.loaded) s.page.loaded = [];
