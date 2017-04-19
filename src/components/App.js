@@ -152,21 +152,24 @@ class App extends React.Component {
             >
               <span style={{cursor: "pointer"}}>{this.state.locale === "en" ? "䌓" : "en"}</span>
             </Navbar.Text>
-            { /*
-              <Navbar.Text
-                pullRight
-                // onClick={() => { this.changeUILang(); }}
-              >
-                <a href="http://dev.hjobs.hk:9080/auth/google">Login</a>
-              </Navbar.Text>
-            */ }
+            <Navbar.Text
+              pullRight
+              // onClick={() => { this.changeUILang(); }}
+            >
+              <a href="http://dev.hjobs.hk:9080/auth/google">Login</a>
+            </Navbar.Text>
           </Navbar.Collapse>
         </Navbar>
+        {/*this.props.children*/}
         {content}
       </div>
     );
   }
 }
+
+App.propTypes = {
+  children: React.PropTypes.any
+};
 
 export default App;
 

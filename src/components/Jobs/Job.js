@@ -89,7 +89,7 @@ class Job extends React.Component {
               <span className="link" onClick={() => { this.props.applyJob(); }}>{job.title}</span>
             </div>
           </div>
-          {job.periods && job.periods.length > 0 ?
+          {!!tags && tags.length > 0 ?
             <div className="flex-row flex-hStart flex-vCenter">
               {tags}
             </div> : <div className="full-width" style={{height: '5px'}} />

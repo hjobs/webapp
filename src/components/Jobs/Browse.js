@@ -64,13 +64,14 @@ class Browse extends React.Component {
         console.log(["going to log jobs data from server: d", d]);
         if (!!d && !d.error) {
           this.setState(s => {
+            const jobs = this.processJobsDataFromHttp(d.jobs);
             s.page.total = Math.ceil(d.total_count / this.state.itemPerPage);
             s.page.current = page;
             if (!s.page.loaded) s.page.loaded = [];
             s.page.loaded.push(pageMin, pageMax);
             if (!s.jobs.all) s.jobs.all = new Array(s.page.total);
-            s.jobs.all[pageMin - 1] = d.jobs.slice(0, this.state.itemPerPage);
-            s.jobs.all[pageMax - 1] = d.jobs.slice(this.state.itemPerPage, this.state.itemPerPage * 2);
+            s.jobs.all[pageMin - 1] = jobs.slice(0, this.state.itemPerPage);
+            s.jobs.all[pageMax - 1] = jobs.slice(this.state.itemPerPage, this.state.itemPerPage * 2);
             s.jobs.viewing = s.jobs.all[page - 1];
             s.loading = false;
             return s;
