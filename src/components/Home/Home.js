@@ -1,10 +1,11 @@
 import React from 'react';
+import Reflux from "reflux";
 import { Grid, Row, Col } from 'react-bootstrap';
 
 import Variable from '../../services/var';
 import Http from '../../services/http';
 
-class Home extends React.Component {
+class Home extends Reflux.Component {
   constructor(props) {
     super(props);
     this.vars = new Variable();

@@ -1,10 +1,10 @@
 import React from 'react';
 import Reflux from "reflux";
 import {
-  BrowserHistory as Router,
+  BrowserRouter as Router,
   Route,
   Redirect
-} from 'react-router';
+} from 'react-router-dom';
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
 import Home from './Home/Home';
@@ -100,7 +100,7 @@ class App extends Reflux.Component {
               </Navbar.Text>
             </Navbar.Collapse>
           </Navbar>
-          <Route exact path="/" component={<Redirect to="/jobs/stable" />} />
+          <Route exact path="/" component={() => <Redirect to="/jobs/stable" />} />
           <Route path="/jobs/:job_type" component={Browse} />
           <Route path="/home" component={Home} />
         </div>

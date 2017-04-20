@@ -1,6 +1,7 @@
 /** @typedef {'quick'|'stable'|'internship'|'project'} JobType */
 
 import React from 'react';
+import Reflux from "reflux";
 import 'whatwg-fetch';
 let Loading = require('react-loading');
 // import Loading from 'react-loading';
@@ -15,7 +16,7 @@ import PageNumber from '../Utilities/PageNumber';
 import Variable from '../../services/var';
 import Http from '../../services/http';
 
-class Browse extends React.Component {
+class Browse extends Reflux.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,11 +38,9 @@ class Browse extends React.Component {
       itemPerPage: 15,
       loading: false
     };
-    this.vars = new Variable();
-    this.http = new Http();
   }
 
-  componentWillMount() { this.refresh(); this.http.log({name: "Enter", page: "Browse", action: "Enter"}); }
+  componentWillMount() { this.refresh(); Http.log({name: "Enter", page: "Browse", action: "Enter"}); }
   componentWillReceiveProps(nextProps) { if (this.props.viewType !== nextProps.viewType) this.refresh(nextProps.viewType); }
 
   openModal(job) { this.setState(s => { s.modalShown = true; s.applyModalData = job; return s; }); }
@@ -57,7 +56,7 @@ class Browse extends React.Component {
 
     this.setState(s => { s.loading = true; s.jobs.viewing = null; return s; }, () => {
       const urlSuffix = 'jobs?by_job_type=' + jobType + "&offset_by=" + ((pageMin - 1) * this.state.itemPerPage);
-      this.http.request(urlSuffix).then(res => {
+      Http.request(urlSuffix).then(res => {
         if (!res.ok) console.log(['res is not ok, logging res inside Jobs.js refresh() fetch()', res]);
         return res.json();
       }).then(d => {
@@ -80,7 +79,7 @@ class Browse extends React.Component {
       }, err => { console.log(err); });
 
       if (!this.state.ad.array || this.state.ad.array.length === 0) {
-        this.http.request("ads").then(res => res.json()).then(d => {
+        Http.request("ads").then(res => res.json()).then(d => {
           console.log(["got ads", d]);
           if (!!d && d.length > 0) {
             this.setState(s => {
@@ -128,7 +127,7 @@ class Browse extends React.Component {
   adTimer(adArr, adCurr) {
     return window.setTimeout(() => {
       this.setState(s => {
-        const currIndex = this.vars.indexOfDataInArray(adCurr, adArr);
+        const currIndex = Variable.indexOfDataInArray(adCurr, adArr);
         const nextIndex = currIndex < (adArr.length - 1) ? currIndex + 1 : 0;
         s.ad.current = adArr[nextIndex];
         s.ad.timer = this.adTimer(adArr, s.ad.current);
@@ -199,17 +198,17 @@ class Browse extends React.Component {
       let str;
       if (arr.length === 1) {
         const d = arr[0].date;
-        str = this.vars.getMonth(d.getMonth()) + " " + this.vars.pad2(d.getDate());
+        str = Variable.getMonth(d.getMonth()) + " " + Variable.pad2(d.getDate());
       } else if (arr.length > 1) {
         const d1 = arr[0].date;
         const d2 = arr[arr.length - 1].date;
-        str = this.vars.getMonth(d1.getMonth()) + " " + this.vars.pad2(d1.getDate()) + " - " + this.vars.pad2(d2.getDate());
+        str = Variable.getMonth(d1.getMonth()) + " " + Variable.pad2(d1.getDate()) + " - " + Variable.pad2(d2.getDate());
       } else {
         return "...";
       }
       return str;
     });
-    // const dateTags = afterTodayPeriods.map(p => p.date.getDate() + " " + this.vars.getMonth(p.date.getMonth())); // for ungrouped dates
+    // const dateTags = afterTodayPeriods.map(p => p.date.getDate() + " " + Variable.getMonth(p.date.getMonth())); // for ungrouped dates
     return {periods: afterTodayPeriods, dateTags};
   }
 
@@ -266,12 +265,6 @@ class Browse extends React.Component {
     );
   }
 }
-
-Browse.propTypes = {
-  viewType: React.PropTypes.string.isRequired,
-  changeViewType: React.PropTypes.func.isRequired,
-  t: React.PropTypes.any.isRequired
-};
 
 export default Browse;
 
