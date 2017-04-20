@@ -1,26 +1,28 @@
+/**
+ * @typedef {'traffic-red' | 'traffic-orange' | 'traffic-blue' | null} trafficString
+ */
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-class Variable {
-  constructor() {
-    /** @type [{name: string, value: string}] - name is for displaying, use value in algorithm */
-    this.jobTypes = [
-      {value: "quick", jobSearchName: "Quick Jobs"},
-      {value: "stable", jobSearchName: "Stable Jobs"},
-      {value: "intern", jobSearchName: "Internsips"},
-      {value: "project", jobSearchName: "Projects"}
-    ];
-    this.urgencyTypes = [
-      {value: "urgent1", className: "traffic-red"},
-      {value: "urgent2", className: "traffic-orange"},
-      {value: "urgent3", className: "traffic-blue"}
-    ];
-  }
+const Variable = {
+  /** @type [{name: string, value: string}] - name is for displaying, use value in algorithm */
+  jobTypes: [
+    {value: "quick", jobSearchName: "Quick Jobs"},
+    {value: "stable", jobSearchName: "Stable Jobs"},
+    {value: "intern", jobSearchName: "Internsips"},
+    {value: "project", jobSearchName: "Projects"}
+  ],
+
+  urgencyTypes: [
+    {value: "urgent1", className: "traffic-red"},
+    {value: "urgent2", className: "traffic-orange"},
+    {value: "urgent3", className: "traffic-blue"}
+  ],
 
   /**
    * @return {string} email
    * @param {'application'|'contactus'} type
    */
-  getEmailStr(type, data) {
+  getEmailStr: (type, data) => {
     let str;
     switch (type) {
       case "application": {
@@ -55,26 +57,26 @@ class Variable {
     }
 
     return str || null;
-  }
+  },
 
   /** if encode === true, replace & with %26 @param {any[]} orgs @param {boolean} encode*/
-  getOrgsNames(orgs, encode = false) {
+  getOrgsNames: (orgs, encode = false) => {
     let orgNameArr = [];
     if (encode) orgNameArr = orgs.map(org => org.name.replace("&", "%26"));
     else orgNameArr = orgs.map(org => org.name);
     return orgNameArr.join(", ");
-  }
+  },
 
-  getOrgsEmails(orgs) {
+  getOrgsEmails: (orgs) => {
     const orgEmailArr = orgs.map(org => org.email);
     return orgEmailArr.join(",");
-  }
+  },
 
   /**
-   * @return {'traffic-red' | 'traffic-orange' | 'traffic-blue' | null}
+   * @return {trafficString}
    * @param {*} job
    */
-  getColorClass(job) {
+  getColorClass: (job) => {
     let colorClass;
     if (!!job.periods && job.periods.length > 0) {
       const earliestDate = job.periods.reduce((result, curr) => {
@@ -96,12 +98,12 @@ class Variable {
       colorClass = this.urgencyTypes[2].className;
     }
     return colorClass;
-  }
+  },
 
   /** @return {number} - 2 digit @param {number} num - 1 to 2 digit */
-  pad2(num) { return (num < 10) ? '0' + num.toString() : num; }
+  pad2: (num) => { return (num < 10) ? '0' + num.toString() : num; },
   /** @return {"Jan"| "Feb"| "Mar"| "Apr"| "May"| "Jun"| "Jul"| "Aug"| "Sep"| "Oct"| "Nov"| "Dec"} @param {0|1|2|3|4|5|6|7|8|9|10|11} num */
-  getMonth(num) { return months[num]; }
+  getMonth: (num) => { return months[num]; },
 
   /** @return {'? to ?'|'?'|'negotiable'} */
   getSalaryDescription(job) {
@@ -119,10 +121,10 @@ class Variable {
         break;
     }
     return salaryDescription;
-  }
+  },
 
-  enableDeveloper() { localStorage.setItem("developer", "true"); }
-  isDeveloper() { return localStorage.getItem("developer") === "true"; }
+  enableDeveloper: () => { localStorage.setItem("developer", "true"); },
+  isDeveloper: () => { return localStorage.getItem("developer") === "true"; },
 
   /**
    * get index in editArr by comparing against ids,
@@ -130,7 +132,7 @@ class Variable {
    * @param {object} data @param {object[]} editArr
    * @param {'narrowArr'} dataStructure
    */
-  indexOfDataInArray(data, arr, dataStructure = "narrowArr") {
+  indexOfDataInArray: (data, arr, dataStructure = "narrowArr") => {
     if (!data || !arr) { throw Error('no data or no arr'); }
     switch (dataStructure) {
       case "editArr": {
@@ -150,6 +152,6 @@ class Variable {
       }
     }
   }
-}
+};
 
 export default Variable;

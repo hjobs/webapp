@@ -1,10 +1,10 @@
 import Reflux from 'reflux';
 
-const JobActions = Reflux.createAction([
+export const JobActions = Reflux.createActions([
   'getJobs'
 ]);
 
-class JobStores extends Reflux.Store {
+class JobStore extends Reflux.Store {
   constructor() {
     super();
     this.listenables = JobActions;
@@ -14,4 +14,4 @@ class JobStores extends Reflux.Store {
   }
 }
 
-export default JobStores;
+export default JobStore;
