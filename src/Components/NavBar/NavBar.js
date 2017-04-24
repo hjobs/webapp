@@ -64,7 +64,7 @@ class NavBarWithoutRouter extends Reflux.Component {
                 active={/\/home/.test(urlPathname)}
                 eventKey={{currentTab: 1}}
                 href="#"
-                onClick={() => { this.props.history.replace('/home') }}>
+                onClick={() => { this.props.history.push('/home') }}>
                 {t.navbar.about}
               </NavItem>
 
@@ -72,7 +72,7 @@ class NavBarWithoutRouter extends Reflux.Component {
                 active={/\/jobs\//.test(urlPathname)}
                 eventKey={{currentTab: 2, jobsTabViewType: "stable"}}
                 href="#"
-                onClick={() => { this.props.history.replace('/jobs/stable') }}>
+                onClick={() => { this.props.history.push('/jobs/stable') }}>
                 {t.navbar.viewJobs}
               </NavItem>
               <NavItem

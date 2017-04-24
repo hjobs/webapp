@@ -169,7 +169,7 @@ class Browse extends Reflux.Component {
               localStorage.setItem("appliedJobs", JSON.stringify(appliedJobsArray));
               return s;
             }, () => {
-              this.props.history.replace(
+              this.props.history.push(
                 this.props.location.pathname + 
                 this.props.location.search.replace(
                   /(\?applying=|&applying=)[^&]+/,
@@ -190,7 +190,7 @@ class Browse extends Reflux.Component {
     });
   }
   modalOnClose() {
-    this.props.history.replace(
+    this.props.history.push(
       this.props.location.pathname +
       this.props.location.search.replace(
         /\?job=\d*|&job=\d*/gi,

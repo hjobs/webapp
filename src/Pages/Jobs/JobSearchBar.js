@@ -39,7 +39,7 @@ class JobSearchBarWithoutRouter extends Reflux.Component {
                     target: item.value
                   })
                   if (!this.state.jobs[match.params.jobType].loading) {
-                    history.replace('/jobs/' + item.value);
+                    history.push('/jobs/' + item.value);
                   }
                 }}
               >

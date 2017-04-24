@@ -31,7 +31,7 @@ class JobWithoutRouter extends Reflux.Component {
                 "?job=" + this.props.job.id
             )
           );
-    this.props.history.replace(url);
+    this.props.history.push(url);
   }
 
   render() {

@@ -54,7 +54,7 @@ class ApplyModalWithoutRouter extends Reflux.Component {
     }
     
     if (nextQueryStr !== queryStr) {
-      this.props.history.replace(
+      this.props.history.push(
         this.props.location.pathname +
         nextQueryStr
       );
