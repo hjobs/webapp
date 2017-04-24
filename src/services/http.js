@@ -2,14 +2,16 @@ import 'whatwg-fetch';
 
 import Variable from './var';
 
-// const baseUrl = "api.hjobs.hk:9080";
+/** @return {string} */
+const getToken = () => (localStorage.getItem("authToken") || null);
+
+// const baseUrl = "http://api.hjobs.hk:9080/";
 const baseUrl = "http://dev.hjobs.hk:9080/";
 // const baseUrl = "http://localhost:9080/";
-const token = localStorage.getItem("authToken") || null;
 
 const Http = {
   baseUrl,
-  token,
+  token: () => getToken(),
 
   /** param httpMethod defaults to 'GET', data defaults to null
    * @param {string} urlSuffix
@@ -18,22 +20,23 @@ const Http = {
    */
   request: (urlSuffix, httpMethod = "GET", data = null) => {
     const url = baseUrl + 'employee/' + urlSuffix;
+    const token = getToken();
     /** @type {RequestInit} */
     const obj = {
       method: httpMethod,
       headers: {"Content-Type": "application/json"}
     };
-    if (token) { obj.headers.Authorization = token; }
+    if (!!token) { obj.headers.Authorization = token; }
     if (!!data) { obj.body = JSON.stringify(data); }
     console.log(["inside http.js, url, obj", url, obj, data]);
 
     return fetch(url, obj);
   },
 
-  /** @param {{name: string, action: string, job_id: number, page: string, component: string, other: any}} data */
+  /** @param {{name: string, action: string, job_id: number, page: string, component: string, target: string}} data */
   log: (data) => {
-    if (Variable.isDeveloper()) return null;
-    if (this.currentUser) data.employee_id = this.currentUser.id;
+    if (localStorage.getItem("developer") === "true") return null;
+    const token = getToken();
     const url = baseUrl + "employee/logs";
     /** @type {RequestInit} */
     const obj = {
@@ -41,6 +44,7 @@ const Http = {
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({log: data})
     };
+    if (!!token) { obj.headers.Authorization = token; }
     return fetch(url, obj).then(res => res.json()).then(d => {
       console.log(d);
     });

@@ -1,22 +1,24 @@
 /**
  * @typedef {'traffic-red' | 'traffic-orange' | 'traffic-blue' | null} trafficString
+ * @typedef {{id: number, optionalAttributes: any}} objectWithId
  */
-const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+export const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+export const jobTypes = [
+  {value: "quick", jobSearchName: "Quick Jobs"},
+  {value: "stable", jobSearchName: "Stable Jobs"},
+  {value: "intern", jobSearchName: "Internsips"},
+  {value: "project", jobSearchName: "Projects"}
+];
+export const urgencyTypes = [
+  {value: "urgent1", className: "traffic-red"},
+  {value: "urgent2", className: "traffic-orange"},
+  {value: "urgent3", className: "traffic-blue"}
+];
 
 const Variable = {
   /** @type [{name: string, value: string}] - name is for displaying, use value in algorithm */
-  jobTypes: [
-    {value: "quick", jobSearchName: "Quick Jobs"},
-    {value: "stable", jobSearchName: "Stable Jobs"},
-    {value: "intern", jobSearchName: "Internsips"},
-    {value: "project", jobSearchName: "Projects"}
-  ],
-
-  urgencyTypes: [
-    {value: "urgent1", className: "traffic-red"},
-    {value: "urgent2", className: "traffic-orange"},
-    {value: "urgent3", className: "traffic-blue"}
-  ],
+  jobTypes,
+  urgencyTypes,
 
   /**
    * @return {string} email
@@ -86,16 +88,16 @@ const Variable = {
         else return result || null;
         return (!result || currTime - result < 0) ? currTime : result;
       }, null);
-      if (!earliestDate) return this.urgencyTypes[2].className;
+      if (!earliestDate) return urgencyTypes[2].className;
 
       const now = new Date();
       const daysDifference = (earliestDate - now) / 86400000; // 86400000 = 1 day
-      if (daysDifference < 0) colorClass = this.urgencyTypes[2].className;
-      else if (daysDifference < 7) colorClass = this.urgencyTypes[0].className;
-      else if (daysDifference < 14) colorClass = this.urgencyTypes[1].className;
-      else colorClass = this.urgencyTypes[2].className;
+      if (daysDifference < 0) colorClass = urgencyTypes[2].className;
+      else if (daysDifference < 7) colorClass = urgencyTypes[0].className;
+      else if (daysDifference < 14) colorClass = urgencyTypes[1].className;
+      else colorClass = urgencyTypes[2].className;
     } else {
-      colorClass = this.urgencyTypes[2].className;
+      colorClass = urgencyTypes[2].className;
     }
     return colorClass;
   },
@@ -123,24 +125,15 @@ const Variable = {
     return salaryDescription;
   },
 
-  enableDeveloper: () => { localStorage.setItem("developer", "true"); },
-  isDeveloper: () => { return localStorage.getItem("developer") === "true"; },
-
   /**
-   * get index in editArr by comparing against ids,
+   * get index in arr by comparing against ids,
    * @return {'-1'|number}
-   * @param {object} data @param {object[]} editArr
+   * @param {objectWithId} data @param {objectWithId[]} arr
    * @param {'narrowArr'} dataStructure
    */
   indexOfDataInArray: (data, arr, dataStructure = "narrowArr") => {
     if (!data || !arr) { throw Error('no data or no arr'); }
     switch (dataStructure) {
-      case "editArr": {
-        return arr.reduce((result, editData, i) => {
-          if (editData.data.id === data.id && editData.data.contentType === data.contentType) return i;
-          return result;
-        }, -1);
-      }
       case "narrowArr": {
         return arr.reduce((result, curr, i) => {
           if (curr.id === data.id) return i;

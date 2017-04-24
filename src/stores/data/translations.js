@@ -36,6 +36,7 @@ const tStrings = {
       attachmentHeader: "Attachment:",
       attachmentLink: "Link here, check it out!",
       applyNow: "Apply Now",
+      loginAndApplyNow: "Login & Apply Now",
       sendNow: "Send Now"
     },
     buttons: {
@@ -82,6 +83,7 @@ const tStrings = {
       attachmentHeader: "附件：",
       attachmentLink: "按這裡打開",
       applyNow: "即時申請",
+      loginAndApplyNow: "登入+即時申請",
       sendNow: "傳送"
     },
     buttons: {

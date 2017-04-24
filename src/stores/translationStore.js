@@ -37,7 +37,7 @@ class TranslationStore extends Reflux.Store {
       name: "change translation",
       action: this.state.locale,
       component: "navbar"
-    }).then(res => res.json()).then(d => { console.log(["log = " + str, d]); });
+    });
     return localStorage.setItem("locale", str);
   }
 }

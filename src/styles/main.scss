@@ -1,5 +1,5 @@
 @import 'flex';
-@import 'bootstrap';
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Righteous');
 
 $bright-bkgd: #f0ce00;
 $dark-bkgd: #101010;
@@ -78,7 +78,7 @@ span.link, span[link] {color: $blue; cursor: pointer;}
 
 .modal-footer {
   padding: 8px 8px 8px 8px !important;
-  border: 0px !important;
+  // border: 0px !important;
   button {margin-left: 5px; margin-right: 5px;}
 }
 
@@ -452,7 +452,6 @@ p {
   .modal-footer {
     border-radius: 0px 0px 5px 5px;
     // background-color: $bright-bkgd;
-    border-top: 0.5px solid #DDD !important;
     button { border: 0px !important; }
     button.transparent { background-color: transparent; }
     button.inverse { background-color: $dark-bkgd; color: $off-white; }
@@ -506,7 +505,8 @@ p {
     font-size: 14px;
     text-align: center;
     cursor: pointer;
-    border-radius: 0px 0px 10px 10px
+    border-radius: 0px 0px 10px 10px;
+    white-space: nowrap;
   }
   .active {
     background-color: $dark-bkgd;
