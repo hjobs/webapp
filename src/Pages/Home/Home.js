@@ -14,7 +14,8 @@ class Home extends Reflux.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalData: null
+      modalData: null,
+      clickCount: 0
     };
     this.stores = [MiscStore, TranslationStore];
   }
@@ -22,22 +23,25 @@ class Home extends Reflux.Component {
   componentDidMount() { Http.log({name: "EnterPage", page: "Home", action: "Enter"}); }
 
   listenForDeveloper() {
-    if (!this.state.clickCount || this.state.clickCount === null) return;
+    if (this.state.isDeveloper || this.state.clickCount === null) return;
     this.setState(s => {
-      s.clickCount++;
-      if (s.clickCount >= 9) {
-        MiscActions.enableDeveloper();
-        s.clickCount = null;
-      }
+      if (this.state.clickCount !== null && this.state.clickCount < 9) s.clickCount++;
       return s;
     }, () => {
-      window.setTimeout(() => {
-        if (this.state.clickCount === null) return;
+      if (this.state.clickCount >= 9) {
+        MiscActions.enableDeveloper();
         this.setState(s => {
-          s.clickCount--;
-          return s;
+          s.clickCount = null;
         });
-      }, 1800);
+      } else {
+        window.setTimeout(() => {
+          if (this.state.clickCount === null) return;
+          this.setState(s => {
+            s.clickCount--;
+            return s;
+          });
+        }, 1800);
+      }
     });
   }
 

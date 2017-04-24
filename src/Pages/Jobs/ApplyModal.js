@@ -22,19 +22,19 @@ import UserStore from '../../stores/userStore';
 class ApplyModalWithoutRouter extends Reflux.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      appliedJobs: localStorage.getItem("appliedJobs") || null
-    };
+    // this.state = {
+    //   appliedJobs: localStorage.getItem("appliedJobs") || null
+    // };
     this.stores = [TranslationStore, UserStore, JobStore];
     // this.modifyState(props);
   }
 
-  componentWillReceiveProps() {
-    this.setState(s => {
-      s.appliedJobs = localStorage.getItem("appliedJobs") || null;
-      return s;
-    });
-  }
+  // componentWillReceiveProps() {
+  //   this.setState(s => {
+  //     s.appliedJobs = localStorage.getItem("appliedJobs") || null;
+  //     return s;
+  //   });
+  // }
 
   toggleApply() {
     const queryStr = this.props.location.search,

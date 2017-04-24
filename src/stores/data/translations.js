@@ -44,6 +44,10 @@ const tStrings = {
       close: "Close",
       ok: "ok",
       back: "Back"
+    },
+    misc: {
+      login: 'Login',
+      logout: "Logout"
     }
   },
   "zh-HK": {
@@ -91,6 +95,10 @@ const tStrings = {
       close: "關閉",
       back: "返回",
       ok: "ok"
+    },
+    misc: {
+      login: '登入',
+      logout: "登出"
     }
   }
 };

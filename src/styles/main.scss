@@ -102,8 +102,8 @@ p {
 
 .navbar {
   p.navbar-right { margin-right: 15px; }
-  @media (max-width: 544px) { p.navbar-right { display: none; } }
-  @media (min-width: 544px) { div#uiLang { display: none; } }
+  @media (max-width: 960px) { p.navbar-right { display: none; } }
+  @media (min-width: 960px) { div#uiLang { display: none; } }
   .navbar-brand {
     padding-top: 8px;
     padding-bottom: 8px;

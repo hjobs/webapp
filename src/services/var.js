@@ -129,21 +129,13 @@ const Variable = {
    * get index in arr by comparing against ids,
    * @return {'-1'|number}
    * @param {objectWithId} data @param {objectWithId[]} arr
-   * @param {'narrowArr'} dataStructure
    */
-  indexOfDataInArray: (data, arr, dataStructure = "narrowArr") => {
+  indexOfDataInArray: (data, arr) => {
     if (!data || !arr) { throw Error('no data or no arr'); }
-    switch (dataStructure) {
-      case "narrowArr": {
-        return arr.reduce((result, curr, i) => {
-          if (curr.id === data.id) return i;
-          return result;
-        }, -1);
-      }
-      default: {
-        return -1;
-      }
-    }
+    return arr.reduce((result, curr, i) => {
+      if (curr.id === data.id) return i;
+      return result;
+    }, -1);
   }
 };
 

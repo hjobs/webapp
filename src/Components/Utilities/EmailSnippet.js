@@ -3,19 +3,13 @@ import Reflux from 'reflux';
 import Variable from '../../services/var';
 import { withRouter } from 'react-router-dom';
 
-import UserStore from '../../stores/userStore';
+// import UserStore from '../../stores/userStore';
 
 class EmailSnippet extends Reflux.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: JSON.parse(localStorage.getItem("user"))
-    }
-  }
 
   render() {
     const job = this.props.data;
-    const user = this.state.user;
+    const user = JSON.parse(localStorage.getItem("user"));
     if (!job) return null;
 
     return (

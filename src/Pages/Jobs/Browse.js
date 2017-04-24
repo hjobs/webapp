@@ -46,7 +46,7 @@ class Browse extends Reflux.Component {
 
   componentWillReceiveProps(nextProps) {
     this.checkRoute(nextProps);
-    this.prepareModalData();
+    this.prepareModalData(nextProps);
   }
 
   logNavigation(props) {
@@ -126,21 +126,22 @@ class Browse extends Reflux.Component {
     if (!props) props = this.props;
     const { location, match } = props;
     const jobType = match.params.jobType;
-    // console.log(["return modal data, jobType, this.state.jobs", jobType, this.state.jobs]);
+    console.log(["!location || !jobType || !this.state.jobs", !location, !jobType, !this.state.jobs]);
     if (!location || !jobType || !this.state.jobs) return null;
 
     const jobs = this.state.jobs[jobType];
     if (!jobs) return null;
 
-    const query = queryString.parse(location);
+    const query = queryString.parse(location.search);
     if (!query.job) return null;
 
-    const jobsInPage = jobs.data[query.page];
+    const jobsInPage = jobs.data[!!query.page ? (query.page - 1) : 0];
+    // console.log(["jobsInPage", jobsInPage])
     if (!jobsInPage) return null;
 
-    const jobIndex = Variable.indexOfDataInArray({id: query.job}, jobsInPage);
-    console.log(jobIndex);
-    return jobs[jobIndex] || null;
+    const jobIndex = Variable.indexOfDataInArray({id: +query.job}, jobsInPage);
+    // console.log(jobIndex);
+    return jobsInPage[jobIndex] || null;
   }
 
   modalOnConfirmApply() {

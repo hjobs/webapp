@@ -136,11 +136,11 @@ p {
 .navbar p.navbar-right {
   margin-right: 15px; }
 
-@media (max-width: 544px) {
+@media (max-width: 960px) {
   .navbar p.navbar-right {
     display: none; } }
 
-@media (min-width: 544px) {
+@media (min-width: 960px) {
   .navbar div#uiLang {
     display: none; } }
 

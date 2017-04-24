@@ -20,7 +20,7 @@ class JobWithoutRouter extends Reflux.Component {
       name: "ViewJob",
       action: "Click",
       component: "Job",
-      job_id: "this.props.job.id"
+      job_id: +this.props.job.id
     })
     const hasQuery = !!this.props.location.search,
           url = (

@@ -55,10 +55,11 @@ class UserStore extends Reflux.Store {
     return !!userObject;
   }
 
-  logOut() {
+  logout() {
     localStorage.removeItem("user");
     localStorage.removeItem("authToken");
     localStorage.removeItem("appliedJobs");
+    sessionStorage.removeItem("user_id");
     this.setState(this.getInitialState());
   }
 }

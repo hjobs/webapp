@@ -14,9 +14,9 @@ import '../../styles/main.css';
 import Logo from './logo-landscape.png';
 
 import TranslationStore, { TranslationActions } from '../../stores/translationStore';
-import UserStore from '../../stores/userStore';
+import UserStore, { UserActions } from '../../stores/userStore';
 
-// import Http from './services/http';
+import Http from '../../services/http';
 
 class NavBarWithoutRouter extends Reflux.Component {
   constructor(props) {
@@ -32,6 +32,9 @@ class NavBarWithoutRouter extends Reflux.Component {
   }
 
   render() {
+    const loggedIn = !!this.state.user,
+          t = this.state.tStrings,
+          urlPathname = this.props.location.pathname
     // console.log([this.props, this.state]);
     return (
       <div>
@@ -58,38 +61,48 @@ class NavBarWithoutRouter extends Reflux.Component {
           <Navbar.Collapse>
             <Nav pullRight>
               <NavItem
-                active={this.state.currentTab === 1}
+                active={/\/home/.test(urlPathname)}
                 eventKey={{currentTab: 1}}
                 href="#"
                 onClick={() => { this.props.history.replace('/home') }}>
-                {this.state.tStrings.navbar.about}
+                {t.navbar.about}
               </NavItem>
 
               <NavItem
-                active={this.state.currentTab === 2}
+                active={/\/jobs\//.test(urlPathname)}
                 eventKey={{currentTab: 2, jobsTabViewType: "stable"}}
                 href="#"
                 onClick={() => { this.props.history.replace('/jobs/stable') }}>
-                {this.state.tStrings.navbar.viewJobs}
+                {t.navbar.viewJobs}
               </NavItem>
               <NavItem
                 active={false}
                 onClick={() => window.open("http://admin.hjobs.hk")}>
-                {this.state.tStrings.navbar.postJobs}
+                {t.navbar.postJobs}
+              </NavItem>
+              <NavItem
+                active={false}
+                onClick={() => {
+                  if (loggedIn) {
+                    Http.log({
+                      name: "Logout",
+                      action: "Click",
+                      component: "Navbar"
+                    });
+                    UserActions.logout();
+                  }
+                  else window.open(Http.baseUrl + "auth/google", "_self")
+                }}>
+                {loggedIn ? t.misc.logout : t.misc.login}
               </NavItem>
             </Nav>
-            <Navbar.Text
-              pullRight
-              onClick={() => { this.changeUILang(); }}
-            >
-              <span style={{cursor: "pointer"}}>{this.state.locale === "en" ? "䌓" : "en"}</span>
-            </Navbar.Text>
-            <Navbar.Text
-              pullRight
-            >
-              <span>Login</span>
-            </Navbar.Text>
           </Navbar.Collapse>
+          <Navbar.Text
+            pullRight
+            onClick={() => { this.changeUILang(); }}
+          >
+            <span style={{cursor: "pointer"}}>{this.state.locale === "en" ? "䌓" : "en"}</span>
+          </Navbar.Text>
         </Navbar>
       </div>
     );

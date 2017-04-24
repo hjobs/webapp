@@ -36,7 +36,7 @@ class JobSearchBarWithoutRouter extends Reflux.Component {
                     name: "ChangeViewType",
                     action: "Click",
                     component: "JobSearchBar",
-                    target: "quick|stable|intern|project"
+                    target: item.value
                   })
                   if (!this.state.jobs[match.params.jobType].loading) {
                     history.replace('/jobs/' + item.value);
