@@ -1,37 +1,40 @@
-/** @typedef {{current: number, total: number, loadedTo: number}} Page */
-
 import React from 'react';
+import Reflux from 'reflux';
+import { withRouter, NavLink, RouteProps } from 'react-router-dom';
+const queryString = require('query-string');
 // import Variable from '../../services/var';
 // import Http from '../../services/http';
 
-class PageNumber extends React.Component {
-  // constructor(props) {
-    // super(props);
-    // this.state = {};
-    // this.vars = new Variable();
-    // this.http = new Http();
-  // }
+import JobStore from '../../stores/jobStore';
+
+class PageNumberWithoutRouter extends Reflux.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.store = JobStore;
+  }
 
   render() {
-    /** @type {Page} */
-    const page = this.props.page;
-    if (page.total === 1) return null;
+    const { match, location } = this.props;
+    // if (this.state.jobs[match])
+    // if (page.total === 1) return null;
+    const jobType = match.params.jobType;
+    const parsed = queryString.parse(location.search);
+    const page = +parsed.page || 1;
+    const totalPage = this.state.jobs[jobType].totalPages || 0;
+    if (!page || !jobType || !totalPage) return null;
     
     const pageArr = [];
-    for (let i = 1; i <= page.total; i++) {
-      let pageClassName = "page-number link";
-      if (i === page.current) pageClassName += " active";
+    for (let i = 1; i <= totalPage; i++) {
       pageArr.push(
-        <span
-          key={"page_number_" + i}
-          className={pageClassName}
-          onClick={() => { this.props.goToPage(i); }}>
-          {i}
-        </span>
+        <NavLink
+          key={"page-number" + i}
+          className="page-number link"
+          isActive={() => i === page}
+          activeClassName="active"
+          to={"/jobs/" + match.params.jobType + "?page=" + i}
+        >{i}</NavLink>
       );
-      // if (i !== page.total) {
-      //   pageArr.push(<span key={"page_number_separator_" + i}>|</span>);
-      // }
     }
 
     return (
@@ -42,9 +45,6 @@ class PageNumber extends React.Component {
   }
 }
 
-PageNumber.propTypes = {
-  page: React.PropTypes.object.isRequired,
-  goToPage: React.PropTypes.func.isRequired
-};
+const PageNumber = withRouter(PageNumberWithoutRouter);
 
 export default PageNumber;

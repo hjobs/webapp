@@ -1,36 +1,13 @@
 import React from 'react';
-import { render } from 'react-dom';
-// import { Router, Route, hashHistory } from 'react-router';
-// import createBrowserHistory from 'history/lib/createBrowserHistory'
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-import App from './components/App';
-// import translations from "./translations";
+import App from './App';
+import './index.css';
 
-// import Home from './components/Home/Home';
-// import Jobs from './components/Jobs/Jobs';
-
-window.React = React;
-
-// const history = useRouterHistory(createHistory)();
-// const history = createMemoryHistory({queryKey: false});
-// const routes = (
-//   <Router history={browserHistory} onUpdate={() => window.scrollTo(0, 0)}>
-//     <Route path="/" component={App}>
-//       <Route path="jobs/:type" component={Jobs} />
-//       <Route path="me" />
-//       <Route path="*" component={Home} />
-//     </Route>
-//   </Router>
-// );
-
-render(
-  <App />,
-  document.getElementById('app')
+ReactDOM.render(
+  <Router>
+    <App />
+  </Router>,
+  document.getElementById('root')
 );
-
-// ORIGINAL
-/* render(
-  (<Router history={hashHistory}>
-    <Route path="/" component={App} />
-  </Router>), document.getElementById('app')
-); */

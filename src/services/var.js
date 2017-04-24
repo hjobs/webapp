@@ -1,26 +1,30 @@
-const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+/**
+ * @typedef {'traffic-red' | 'traffic-orange' | 'traffic-blue' | null} trafficString
+ * @typedef {{id: number, optionalAttributes: any}} objectWithId
+ */
+export const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+export const jobTypes = [
+  {value: "quick", jobSearchName: "Quick Jobs"},
+  {value: "stable", jobSearchName: "Stable Jobs"},
+  {value: "intern", jobSearchName: "Internsips"},
+  {value: "project", jobSearchName: "Projects"}
+];
+export const urgencyTypes = [
+  {value: "urgent1", className: "traffic-red"},
+  {value: "urgent2", className: "traffic-orange"},
+  {value: "urgent3", className: "traffic-blue"}
+];
 
-class Variable {
-  constructor() {
-    /** @type [{name: string, value: string}] - name is for displaying, use value in algorithm */
-    this.jobTypes = [
-      {value: "quick", jobSearchName: "Quick Jobs"},
-      {value: "stable", jobSearchName: "Stable Jobs"},
-      {value: "intern", jobSearchName: "Internsips"},
-      {value: "project", jobSearchName: "Projects"}
-    ];
-    this.urgencyTypes = [
-      {value: "urgent1", className: "traffic-red"},
-      {value: "urgent2", className: "traffic-orange"},
-      {value: "urgent3", className: "traffic-blue"}
-    ];
-  }
+const Variable = {
+  /** @type [{name: string, value: string}] - name is for displaying, use value in algorithm */
+  jobTypes,
+  urgencyTypes,
 
   /**
    * @return {string} email
    * @param {'application'|'contactus'} type
    */
-  getEmailStr(type, data) {
+  getEmailStr: (type, data) => {
     let str;
     switch (type) {
       case "application": {
@@ -55,26 +59,26 @@ class Variable {
     }
 
     return str || null;
-  }
+  },
 
   /** if encode === true, replace & with %26 @param {any[]} orgs @param {boolean} encode*/
-  getOrgsNames(orgs, encode = false) {
+  getOrgsNames: (orgs, encode = false) => {
     let orgNameArr = [];
     if (encode) orgNameArr = orgs.map(org => org.name.replace("&", "%26"));
     else orgNameArr = orgs.map(org => org.name);
     return orgNameArr.join(", ");
-  }
+  },
 
-  getOrgsEmails(orgs) {
+  getOrgsEmails: (orgs) => {
     const orgEmailArr = orgs.map(org => org.email);
     return orgEmailArr.join(",");
-  }
+  },
 
   /**
-   * @return {'traffic-red' | 'traffic-orange' | 'traffic-blue' | null}
+   * @return {trafficString}
    * @param {*} job
    */
-  getColorClass(job) {
+  getColorClass: (job) => {
     let colorClass;
     if (!!job.periods && job.periods.length > 0) {
       const earliestDate = job.periods.reduce((result, curr) => {
@@ -84,24 +88,24 @@ class Variable {
         else return result || null;
         return (!result || currTime - result < 0) ? currTime : result;
       }, null);
-      if (!earliestDate) return this.urgencyTypes[2].className;
+      if (!earliestDate) return urgencyTypes[2].className;
 
       const now = new Date();
       const daysDifference = (earliestDate - now) / 86400000; // 86400000 = 1 day
-      if (daysDifference < 0) colorClass = this.urgencyTypes[2].className;
-      else if (daysDifference < 7) colorClass = this.urgencyTypes[0].className;
-      else if (daysDifference < 14) colorClass = this.urgencyTypes[1].className;
-      else colorClass = this.urgencyTypes[2].className;
+      if (daysDifference < 0) colorClass = urgencyTypes[2].className;
+      else if (daysDifference < 7) colorClass = urgencyTypes[0].className;
+      else if (daysDifference < 14) colorClass = urgencyTypes[1].className;
+      else colorClass = urgencyTypes[2].className;
     } else {
-      colorClass = this.urgencyTypes[2].className;
+      colorClass = urgencyTypes[2].className;
     }
     return colorClass;
-  }
+  },
 
   /** @return {number} - 2 digit @param {number} num - 1 to 2 digit */
-  pad2(num) { return (num < 10) ? '0' + num.toString() : num; }
+  pad2: (num) => { return (num < 10) ? '0' + num.toString() : num; },
   /** @return {"Jan"| "Feb"| "Mar"| "Apr"| "May"| "Jun"| "Jul"| "Aug"| "Sep"| "Oct"| "Nov"| "Dec"} @param {0|1|2|3|4|5|6|7|8|9|10|11} num */
-  getMonth(num) { return months[num]; }
+  getMonth: (num) => { return months[num]; },
 
   /** @return {'? to ?'|'?'|'negotiable'} */
   getSalaryDescription(job) {
@@ -119,37 +123,20 @@ class Variable {
         break;
     }
     return salaryDescription;
-  }
-
-  enableDeveloper() { localStorage.setItem("developer", "true"); }
-  isDeveloper() { return localStorage.getItem("developer") === "true"; }
+  },
 
   /**
-   * get index in editArr by comparing against ids,
+   * get index in arr by comparing against ids,
    * @return {'-1'|number}
-   * @param {object} data @param {object[]} editArr
-   * @param {'narrowArr'} dataStructure
+   * @param {objectWithId} data @param {objectWithId[]} arr
    */
-  indexOfDataInArray(data, arr, dataStructure = "narrowArr") {
+  indexOfDataInArray: (data, arr) => {
     if (!data || !arr) { throw Error('no data or no arr'); }
-    switch (dataStructure) {
-      case "editArr": {
-        return arr.reduce((result, editData, i) => {
-          if (editData.data.id === data.id && editData.data.contentType === data.contentType) return i;
-          return result;
-        }, -1);
-      }
-      case "narrowArr": {
-        return arr.reduce((result, curr, i) => {
-          if (curr.id === data.id) return i;
-          return result;
-        }, -1);
-      }
-      default: {
-        return -1;
-      }
-    }
+    return arr.reduce((result, curr, i) => {
+      if (curr.id === data.id) return i;
+      return result;
+    }, -1);
   }
-}
+};
 
 export default Variable;
