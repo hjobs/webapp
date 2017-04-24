@@ -25,11 +25,9 @@ class NavBarWithoutRouter extends Reflux.Component {
     this.stores = [TranslationStore, UserStore];
   }
 
-  handleSelect(eventKey) { if (!!eventKey) this.setState(eventKey, () => { window.scrollTo(0, 0); }); }
+  handleSelect() { window.scrollTo(0, 0); }
 
-  changeUILang() {
-    TranslationActions.setLocale(this.state.locale === "en" ? "zh-HK" : "en");
-  }
+  changeUILang() { TranslationActions.setLocale(this.state.locale === "en" ? "zh-HK" : "en"); }
 
   render() {
     const loggedIn = !!this.state.user,
@@ -40,7 +38,7 @@ class NavBarWithoutRouter extends Reflux.Component {
       <div>
         <Navbar
           fluid inverse collapseOnSelect fixedTop
-          onSelect={(eventKey) => this.handleSelect(eventKey)}
+          onSelect={() => this.handleSelect()}
         >
           <Navbar.Header>
             <Navbar.Brand>
@@ -62,7 +60,6 @@ class NavBarWithoutRouter extends Reflux.Component {
             <Nav pullRight>
               <NavItem
                 active={/\/home/.test(urlPathname)}
-                eventKey={{currentTab: 1}}
                 href="#"
                 onClick={() => { this.props.history.push('/home') }}>
                 {t.navbar.about}
@@ -70,7 +67,6 @@ class NavBarWithoutRouter extends Reflux.Component {
 
               <NavItem
                 active={/\/jobs\//.test(urlPathname)}
-                eventKey={{currentTab: 2, jobsTabViewType: "stable"}}
                 href="#"
                 onClick={() => { this.props.history.push('/jobs/stable') }}>
                 {t.navbar.viewJobs}
@@ -79,6 +75,12 @@ class NavBarWithoutRouter extends Reflux.Component {
                 active={false}
                 onClick={() => window.open("http://admin.hjobs.hk")}>
                 {t.navbar.postJobs}
+              </NavItem>
+              <NavItem
+                active={false}
+                onClick={() => { this.changeUILang(); }}
+              >
+                <span style={{cursor: "pointer"}}>{this.state.locale === "en" ? "䌓" : "en"}</span>
               </NavItem>
               <NavItem
                 active={false}
@@ -97,12 +99,6 @@ class NavBarWithoutRouter extends Reflux.Component {
               </NavItem>
             </Nav>
           </Navbar.Collapse>
-          <Navbar.Text
-            pullRight
-            onClick={() => { this.changeUILang(); }}
-          >
-            <span style={{cursor: "pointer"}}>{this.state.locale === "en" ? "䌓" : "en"}</span>
-          </Navbar.Text>
         </Navbar>
       </div>
     );
