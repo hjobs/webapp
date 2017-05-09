@@ -1,12 +1,11 @@
 import React from 'react';
 
-const ErrorDiv = (props) => {
-  const err = props.error;
+const ErrorDiv = ({error}) => {
   return (
     <div className="flex-row flex-vhCenter" style={{minHeight: "200px", padding: "20px"}}>
       {
-        !!err ?
-          err
+        !!error ?
+          error
           :
           "We encountered a server error. Please check you have connected to the internet or report to us through info@hjobs.hk :)"
       }

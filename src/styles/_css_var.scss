@@ -1,0 +1,41 @@
+$bright-bkgd: #f0ce00;
+$dark-bkgd: #101010;
+$white-bkgd: transparent;
+$white: #FDFDFD;
+$off-white: #F0F0F0;
+$light-gray: #CCCCCC;
+$blue: #005C5D;
+$link-blue: #337ab7;
+$red: #CD0000;
+
+$div-circle-bkgd: $bright-bkgd;
+$div-circle-border: $dark-bkgd;
+
+$jobsBkgd: transparent;
+$jobContainerBkgd: $white;
+$jobContainerBoxShadow: $off-white;
+$applyButtonBorder: $white;
+$applyButtonBkgd: $bright-bkgd;
+$applyButtonColor: white;
+
+$projectsBkgd: $bright-bkgd;
+$projectContainerBkgdOdd: $white;
+$projectContainerColorOdd: $dark-bkgd;
+$projectContainerBkgdEven: $dark-bkgd;
+$projectContainerColorEven: $white;
+$projectContainerBoxShadow: $off-white;
+
+$traffic-red: red;
+$traffic-orange: orange;
+$traffic-blue: blue;
+$traffic-red: #990515;
+$traffic-orange: #DF7800;
+$traffic-blue: #134D9C;
+$date-tag-background: $light-gray;
+$date-tag-color: $dark-bkgd;
+$job-color: #666666;
+
+$phoneTall: 544px; /* originally 575 */
+$phoneWide: 767px;
+$tablet: 1023px;
+$desktop: 1024px;

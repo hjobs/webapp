@@ -38,7 +38,7 @@ $modalBkgd: #f0ce00;
 .flex-vStart {align-items: flex-start;}
 .flex-vEnd {align-items: flex-end;}
 .flex-vhCenter {justify-content: center; align-items: center;}
-
+.flex-noWrap { flex-wrap: nowrap; }
 /*
 .flex-row-hCenter {@extend .flex-row; justify-content: center;}
 .flex-col-hCenter {@extend .flex-col; justify-content: center;}

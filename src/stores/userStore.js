@@ -4,49 +4,89 @@ import Reflux from 'reflux';
 // const queryString = require("query-string");
 
 import Http from '../services/http';
+import { getTranslations } from './translationStore';
+import { getJobExpEditErrors, getJobExpHttpArray, getLocationObject } from './data/profile';
 
-export const UserActions = Reflux.createActions([
-  'refreshUser',
-  'logout',
-  'setUser'
-]);
+export const UserActions = Reflux.createActions({
+  refreshUser: {},
+  logout: {},
+  setUser: {},
+  updateUser: {},
+  removeTemporaryUser: {},
+  toggleEditState: {},
+  editProfileItem: {},
+  cancelProfileEdit: {},
+  submitProfileEdit: {asyncResult: true}
+});
 
 class UserStore extends Reflux.Store {
   constructor() {
     super();
     this.state = this.getInitialState();
     this.listenables = UserActions;
-    // if (!!this.getAuthToken()) { this.getUserFromAuthToken(); }
+    this.refreshUser();
   }
 
   getInitialState() {
     return {
-      user: JSON.parse(localStorage.getItem('user')),
-      appliedJobs: JSON.parse(localStorage.getItem('appliedJobs'))
+      user: null,
+      authToken: localStorage.getItem("authToken"),
+      appliedJobs: JSON.parse(localStorage.getItem('appliedJobs')),
+      profile: this.getEmptyProfileEdit()
+    };
+  }
+
+  getEmptyProfileEdit() {
+    return {
+      editing: {key: null, data: null},
+      loading: false,
+      errorMsg: null
     };
   }
 
   getAuthToken() { return localStorage.getItem("authToken"); }
-  setAuthToken(val) { localStorage.setItem("authToken", val) }
 
-  refreshUser() { this.getUserFromAuthToken(); }
+  refreshUser() {
+    console.log(["refreshing user, logging this.getAuthToken()", this.getAuthToken()])
+    if (this.getAuthToken()) this.getUserFromAuthToken();
+  }
 
-  setUser(userObject) {
+  setUser(userObject, authToken) {
     if (this.userObjectIsValid(userObject)) {
-      localStorage.setItem("user", JSON.stringify(userObject));
-      // console.log("just localStorage.setItem('user', JSON.stringify(userObject));, and logging userObject", userObject)
-      this.setState(s => {
-        s.user = userObject;
-        return s;
-      });
+      // localStorage.setItem("user", JSON.stringify(userObject));
+      this.state.user = userObject;
+      if (!!authToken) this.state.authToken = authToken;
+      this.trigger(this.state);
     }
   }
 
+  setAppliedJobs(arr) {
+    localStorage.setItem("appliedJobs", JSON.stringify(arr));
+    this.setState({appliedJobs: arr});
+  }
+
+  updateUser(key, value) {
+    let user = this.state.user;
+    if (!user) user = {};
+    user[key] = value;
+    this.setState({user});
+  }
+
+  removeTemporaryUser() {
+    this.setState(s => {
+      s.user = null;
+      return s;
+    });
+  }
+
   getUserFromAuthToken() {
+    console.log("getting user from auth_token");
     Http.request('get_employee').then(res => res.json()).then(d => {
+      // console.log(d);
       if (!!d && !d.error) {
-        this.setAuthToken(d.auth_token);
-        this.setUser(d.user);
+        this.setUser(d);
+      } else {
+        this.logout(true);
       }
     })
   }
@@ -55,12 +95,171 @@ class UserStore extends Reflux.Store {
     return !!userObject;
   }
 
-  logout() {
+  logout(skipLog) {
+    if (!!skipLog) {
+      Http.log({
+        name: "Logout",
+        action: "Click",
+        component: "Navbar"
+      });
+    }
     localStorage.removeItem("user");
     localStorage.removeItem("authToken");
     localStorage.removeItem("appliedJobs");
     sessionStorage.removeItem("user_id");
     this.setState(this.getInitialState());
+  }
+
+
+
+
+
+
+
+  editProfileItem(data, key) {
+    let profile = this.state.profile;
+    if (!key && !profile.editing.key) return null;
+    if (!!key) profile.editing.key = key;
+    profile.editing.data = data;
+    this.setState({profile});
+  }
+
+  submitProfileEdit(data, key) {
+    const profile = this.state.profile,
+          editingKey = key || profile.editing.key,
+          t = getTranslations();
+    let editingData = data || profile.editing.data;  
+    profile.loading = true;
+    this.setState({profile});
+
+    const submit = (url, method, obj) => {
+      console.log(["submiting", url, method, obj]);
+      Http.request(url, method, obj).then(res => {
+        console.log(res);
+        if (!res.ok) return this.submitProfileEditFailed(res.statusText)
+        return res.json();
+      }).then(d => {
+        console.log(d);
+        if (!!d && !d.error) {
+          this.submitProfileEditCompleted(d);
+        } else {
+          this.submitProfileEditFailed(!!d ? d.error : null);
+        }
+      })
+    }
+
+    const url = "employees/" + this.state.user.id;
+    let  obj = { employee: {} };
+    switch (editingKey) {
+      case "location":
+        if (!editingData) {
+          submit(url, "PATCH", {employee: {location: {}}})
+        } else {
+          this.getGoogleDataFromStreet(editingData).then(data => {
+            console.log(["submitStreetName got google data", data]);
+            if (!data || data.status !== "OK") return this.submitProfileEditFailed(t.profile.cannotProcessStreetName);
+            obj.employee.location = getLocationObject(data, editingData);
+            submit(url, "PATCH", obj);
+          }).catch(() => this.submitProfileEditFailed(t.profile.cannotProcessStreetName));
+        }
+        break;
+      case "lang_qs":
+        let error = "";
+        editingData.forEach(editingObj => {
+          if (!editingObj.level && !error) error = (t.profile.missingFluency);
+        });
+        if (!!error) return this.submitProfileEditFailed(error);
+        obj.employee.lang_qs = editingData;
+        submit(url, "PATCH", obj);
+        break;
+      case (editingKey.match(/^job-exp/) || {}).input:
+        const errors = getJobExpEditErrors(editingData);
+        if (errors.length > 0) return this.submitProfileEditFailed(errors);
+        
+        const modifyJobExpThenSubmit = (locationData) => {
+          obj.employee = {
+            job_exps: getJobExpHttpArray(editingData, locationData)
+          };
+          console.log(["modifyJobExpThenSubmit, obj", obj]);
+          submit(url, "PATCH", obj)
+        }
+
+        let needToUpdateLocation;
+        if (!editingData.id) needToUpdateLocation = true; // is new edit
+        else {
+          const originalData = this.state.user.job_exps.reduce((result, curr) => {
+            if (!!result) return result;
+            if (curr.id === editingData.id) return curr;
+          }, null);
+          needToUpdateLocation = (originalData.location !== editingData.location);
+        }
+
+        if (needToUpdateLocation && !!editingData.location) {
+          this.getGoogleDataFromStreet(editingData.location).then(d => {
+            if (d.status !== "OK") return this.submitProfileEditFailed(t.profile.cannotProcessStreetName);
+            console.log("status === OK");
+            modifyJobExpThenSubmit(d);
+          }).catch(() => this.submitProfileEditFailed(t.profile.cannotProcessStreetName))
+        } else {
+          modifyJobExpThenSubmit();
+        }
+        break;
+      case "cv":
+        const hasHttp = /^http/i.test(editingData);
+        if (!hasHttp) editingData = "http://" + editingData;
+        obj.employee[editingKey] = editingData;
+        submit(url, "PATCH", obj);
+        break;
+      default:
+        obj.employee[editingKey] = editingData;
+        submit(url, "PATCH", obj)
+        break;
+    }
+  }
+
+  needToUpdateLocation(editingData) {
+    if (!editingData.id) return true;
+    const originalData = this.state.user.job_exps.reduce((result, curr) => {
+      if (!!result) return result;
+      if (curr.id === editingData.id) return curr;
+    }, null);
+    return (originalData.location !== editingData.location);
+  }
+
+  submitProfileEditCompleted(data) {
+    console.log(["submitProfileEditCompleted, logging data", data])
+    const user = data;
+    const profile = this.state.profile;
+    profile.errorMsg = null;
+    profile.loading = false;
+    profile.editing = {key: null, data: null};
+    this.setState({profile, user})
+  }
+
+  submitProfileEditFailed(reason) {
+    const profile = this.state.profile;
+    profile.errorMsg = reason || "error";
+    profile.loading = false;
+    this.setState({profile});
+  }
+
+  cancelProfileEdit() {
+    const profile = this.state.profile;
+    profile.editing = {key: null, data: null};
+    profile.loading = false;
+    profile.errorMsg = null;
+    this.setState({profile});
+  }
+
+  /** @param {string} street */
+  getGoogleDataFromStreet(street, region = "hk") {
+    street = street.replace(/\s/g, "+");
+    const googleUrl = "https://maps.googleapis.com/maps/api/geocode/" +
+                "json?" +
+                "region=" + region +
+                "&address=" + street +
+                "&key=AIzaSyDqDJTU7suCklbnStTcieulgVHci8myzcQ";
+    return Http.exRequest(googleUrl).then(res => res.json())
   }
 }
 

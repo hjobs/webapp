@@ -1188,6 +1188,10 @@ clone@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/clone/-/clone-1.0.2.tgz#260b7a99ebb1edfe247538175f783243cb19d149"
 
+clone@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/clone/-/clone-2.1.1.tgz#d217d1e961118e3ac9a4b8bba3285553bf647cdb"
+
 co@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
@@ -2219,6 +2223,10 @@ flat-cache@^1.2.1:
     del "^2.0.2"
     graceful-fs "^4.1.2"
     write "^0.2.1"
+
+flatpickr@^2.3.5, flatpickr@^2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-2.6.1.tgz#7272979b4b791cdb7b359076831704feb0927a41"
 
 flatten@^1.0.2:
   version "1.0.2"
@@ -4464,6 +4472,13 @@ react-dom@^15.5.4:
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
     prop-types "~15.5.7"
+
+react-flatpickr@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/react-flatpickr/-/react-flatpickr-3.3.0.tgz#d615c1024f0816b51d36a6ac3f5014c176ac8891"
+  dependencies:
+    flatpickr "^2.3.5"
+    prop-types "^15.5.7"
 
 react-loading@^0.0.9:
   version "0.0.9"

@@ -1,0 +1,36 @@
+@import '../../../styles/_css_var';
+$gray: #888;
+
+form.ui.form {
+  font-size: 16px;
+  .inline.field {
+    margin: 7px;
+    input {
+      background-color: transparent;
+      color: $light-gray;
+      border: 0px;
+      // box-shadow: 0px 0px 5px #444;
+      font-family: "open sans";
+      padding: 10px;
+      line-height: 15px;
+    }
+    ::-webkit-input-placeholder { color: $gray; }
+    :-moz-placeholder { color: $gray; }
+    ::-moz-placeholder { color: $gray; }
+    :-ms-input-placeholder { color: $gray; }
+  }
+  .button-group {
+    margin-top: 20px;
+    .field {
+      margin: 0px 5px 0px 5px;
+      button {
+        background-color: #444;
+        color: $off-white;
+        font-family: 'open sans';
+        font-weight: 400;
+        font-size: 16px;
+        padding: 10px;
+      }
+    }
+  }
+}

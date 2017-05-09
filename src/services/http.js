@@ -6,8 +6,8 @@ import Variable from './var';
 const getToken = () => (localStorage.getItem("authToken") || null);
 
 // const baseUrl = "http://api.hjobs.hk:9080/";
-const baseUrl = "http://dev.hjobs.hk:9080/";
-// const baseUrl = "http://localhost:9080/";
+// const baseUrl = "http://dev.hjobs.hk:9080/";
+const baseUrl = "http://localhost:9080/";
 
 const Http = {
   baseUrl,
@@ -24,12 +24,27 @@ const Http = {
     /** @type {RequestInit} */
     const obj = {
       method: httpMethod,
-      headers: {"Content-Type": "application/json"}
+      headers: {
+        "Content-Type": "application/json"
+      }
     };
-    if (!!token) { obj.headers.Authorization = token; }
-    if (!!data) { obj.body = JSON.stringify(data); }
+    if (!!token) obj.headers.Authorization = token;
+    if (!!data) obj.body = JSON.stringify(data);
     console.log(["inside http.js, url, obj", url, obj, data]);
 
+    return fetch(url, obj);
+  },
+
+  /** param httpMethod defaults to 'GET', data defaults to null
+  * @param {string} url @param {'GET'|'POST'|'PATCH'|'DELETE'} httpMethod @param {object} data
+  * @return {Promise<Response>}
+  */
+  exRequest: (url, httpMethod = "Get", data = null) => {
+    /** @type {RequestInit} */
+    const obj = {
+      method: httpMethod
+    };
+    if (!!data) obj.body = JSON.stringify(data);
     return fetch(url, obj);
   },
 

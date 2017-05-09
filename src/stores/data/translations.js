@@ -11,6 +11,9 @@ const tStrings = {
       edName: "Edmund To",
       edPosition: "Co-founder & CIO",
       edDescription: "Edmund is a young developer, aspiring to solve pressing impactful problems. He is excited to build a product loved by end-users, through leveraging the flexibility of startups.",
+      khzeerName: "Khizar Mohammad",
+      khzPosition: "PR & Business Strategist",
+      khzDescription: "Khizar's love for hospitality begun when he was 5, helping his mother in their backyard planting vegetables. He enrolled in one of the most innovative and long-standing hospitality education providers in town, and is now aiming to provide well versed client services and change the local perspective of the current hospitality industry.",
       contactHeader: "Contact Us",
       contactEmail: "Email"
     },
@@ -28,7 +31,8 @@ const tStrings = {
     navbar: {
       about: "About Us",
       viewJobs: "View Jobs",
-      postJobs: "Post Jobs"
+      postJobs: "Post Jobs",
+      profile: "My Profile"
     },
     applyModal: {
       aboutJob: "About this job:",
@@ -43,11 +47,65 @@ const tStrings = {
       cancel: "Cancel",
       close: "Close",
       ok: "ok",
-      back: "Back"
+      back: "Back",
+      save: "Save",
+      edit: "Edit",
+      done: "Done",
+      delete: "Delete"
+    },
+    login: {
+      custom1: "Choose to continue via social network, or create a new account ",
+      custom2: "here",
+      signInHere: "Sign in here",
+      signUpHere: "Sign up here",
+      terms1: "I agree to the ",
+      terms2: "terms and conditions",
+      emailNotValid: "Please enter a valid email",
+      agreeMissing: "Please agree to terms and conditions",
+      nameMissing: "Please enter your name",
+      emailMissing: "Please enter your email",
+      passwordMissing: "Please enter a password"
     },
     misc: {
       login: 'Login',
-      logout: "Logout"
+      logout: "Logout",
+      present: "Present",
+      linkHere: "Link here"
+    },
+    profile: {
+      notGiven: "Not Given",
+      jobExperience: "Job Experience",
+      locationPlaceholder: "e.g. 12 Nathan Road",
+      addLanguagePlaceholder: "Add Language",
+      levelPlaceholder: "-- Fluency --",
+      levelFluent: "Fluent",
+      levelGood: "Good",
+      levelBasic: "Basic",
+      missingFluency: "Please specify your fluency",
+      useCurrentLocation: "Use current location",
+      enterStreetName: "Enter street name",
+      tryStreetAddress: "There is an error when trying to process your location information. Try entering street address instead.",
+      geoNotSupported: "Your browser does not support geolocation, or you have previously blocked this website",
+      cannotProcessStreetName: "We cannot process your location information",
+      error: "There has been an error",
+      cv: {
+        none: "CV not given"
+      },
+      jobExp: {
+        error: {
+          workingOrTimeTo: "Please specify the employment period",
+          noCompany: "Please specify your company name"
+        },
+        placeholder: {
+          position: "Position e.g. Bartender",
+          company_name: "Company name",
+          description: "A short description, within 200 words",
+          time_from: "Work period from...",
+          time_to: "to...",
+          location: "Company location e.g. 17 Nathan Road",
+          working: "Currently working here"
+        }
+      }
     }
   },
   "zh-HK": {
@@ -62,6 +120,9 @@ const tStrings = {
       edName: "Edmund To",
       edPosition: "創始人 & CIO",
       edDescription: "Edmund 是一個年輕的軟件開發員，亦有數年酒店業的經驗。他希望能藉着多方面的才能，為旅遊酒店業內的企業及人才提供一個安全、容易使用的平台。",
+      khzeerName: "Khizar Mohammad",
+      khzPosition: "PR & Business Strategist",
+      khzDescription: "Khizar's love for hospitality begun when he was 5, helping his mother in their backyard planting vegetables. He enrolled in one of the most innovative and long-standing hospitality education providers in town, and is now aiming to provide well versed client services and change the local perspective of the current hospitality industry.",
       contactHeader: "聯絡我們",
       contactEmail: "電郵"
     },
@@ -79,7 +140,8 @@ const tStrings = {
     navbar: {
       about: "關於",
       viewJobs: "工作",
-      postJobs: "刑登"
+      postJobs: "刑登",
+      profile: "帳戶"
     },
     applyModal: {
       aboutJob: "關於本工作：",
@@ -94,11 +156,65 @@ const tStrings = {
       cancel: "取消",
       close: "關閉",
       back: "返回",
-      ok: "ok"
+      save: "儲存",
+      ok: "ok",
+      done: "完成",
+      edit: "編輯",
+      delete: "刪除"
     },
     misc: {
       login: '登入',
-      logout: "登出"
+      logout: "登出",
+      present: "目前",
+      linkHere: "連結"
+    },
+    login: {
+      custom1: "請以社交網絡登入。如欲另設電郵和密碼，請按",
+      custom2: "這裡",
+      signInHere: "按這裡登入",
+      signUpHere: "按這裡建立帳戶",
+      terms1: "我已閱讀並同意",
+      terms2: "條款和條件",
+      emailNotValid: "請輸入正確的電郵地址",
+      agreeMissing: "請同意條款和條件",
+      nameMissing: "請輸入姓名",
+      emailMissing: "請輸入電郵",
+      passwordMissing: "請輸入密碼"
+    },
+    profile: {
+      notGiven: "沒有提供",
+      jobExperience: "工作經驗",
+      locationPlaceholder: "e.g. 12 Nathan Road",
+      addLanguagePlaceholder: "新增語言",
+      levelPlaceholder: "-- 能力 --",
+      levelFluent: "流利",
+      levelGood: "良好",
+      levelBasic: "基本",
+      missingFluency: "請註明你的語言能力",
+      useCurrentLocation: "使用現在位置",
+      enterStreetName: "輸入街號",
+      tryStreetAddress: "我們無法識別你的所在位置，請嘗試使用街號",
+      geoNotSupported: "我們無法取得你的位置，請嘗試使用街號或確保你的瀏覽允許我們使用你的位置資料",
+      cannotProcessStreetName: "我們無法處理你的地址",
+      error: "我們無法處理你的資料",
+      cv: {
+        none: "沒有提供履歷"
+      },
+      jobExp: {
+        error: {
+          workingOrTimeTo: "請註明就職時間",
+          noCompany: "請註明公司名稠"
+        },
+        placeholder: {
+          position: "職稱 e.g. 酒吧服務員",
+          company_name: "公司名稱",
+          description: "200字以內的描述",
+          time_from: "工作期間 從...",
+          time_to: "到...",
+          location: "工作地點 e.g. 彌敦道17號",
+          working: "仍在職"
+        }
+      }
     }
   }
 };

@@ -1,0 +1,11 @@
+.social-button-container {
+  cursor: pointer;
+  display: inline-block;
+  height: 36px;
+  margin: 7px;
+  img {
+    min-height: 36px;
+    max-height: 36px;
+    width: auto;
+  }
+}

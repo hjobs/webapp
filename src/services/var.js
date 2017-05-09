@@ -1,3 +1,5 @@
+import tStrings from "../stores/data/translations"
+
 /**
  * @typedef {'traffic-red' | 'traffic-orange' | 'traffic-blue' | null} trafficString
  * @typedef {{id: number, optionalAttributes: any}} objectWithId
@@ -15,10 +17,38 @@ export const urgencyTypes = [
   {value: "urgent3", className: "traffic-blue"}
 ];
 
+/** @return {number} - 2 digit @param {number} num - 1 to 2 digit */
+export const pad2 = (num) => { return (num < 10) ? '0' + num.toString() : num; };
+/** @return {"Jan"| "Feb"| "Mar"| "Apr"| "May"| "Jun"| "Jul"| "Aug"| "Sep"| "Oct"| "Nov"| "Dec"} @param {0|1|2|3|4|5|6|7|8|9|10|11} num */
+export const getMonth = (num) => { return months[num]; };
+/** @param {Date} date @return {string} */
+export const timeStamp = (date) => { return pad2(date.getHours()) + ":" + pad2(date.getMinutes()) + ", " + pad2(date.getDate()) + "-" + pad2(date.getMonth() + 1) + "-" + date.getFullYear(); };
+/** @param {Date} date @return {string} */
+export const dateStamp = (date) => { return date.getDate() + " " + getMonth(date.getMonth()) + ", " + date.getFullYear().toString().slice(2); };
+/** */
+export const getEmptyJobExp = () => { return {
+  position: "",
+  description: "",
+  time_from: "",
+  time_to: "",
+  location: "",
+  working: "",
+  org: "",
+  company_name: ""
+}; };
+export const geolocationMappingObject = [
+  {fromKey: "street_number", to: "street_number"},
+  {fromKey: "route", to: "street_name"},
+  {fromKey: "country", to: "country"},
+  {fromKey: "administrative_area_level_1", to: "region"},
+  {fromKey: "neighborhood", to: "city"}
+];
+
 const Variable = {
   /** @type [{name: string, value: string}] - name is for displaying, use value in algorithm */
   jobTypes,
   urgencyTypes,
+  pad2, getMonth, timeStamp, dateStamp, getEmptyJobExp,
 
   /**
    * @return {string} email
@@ -102,18 +132,13 @@ const Variable = {
     return colorClass;
   },
 
-  /** @return {number} - 2 digit @param {number} num - 1 to 2 digit */
-  pad2: (num) => { return (num < 10) ? '0' + num.toString() : num; },
-  /** @return {"Jan"| "Feb"| "Mar"| "Apr"| "May"| "Jun"| "Jul"| "Aug"| "Sep"| "Oct"| "Nov"| "Dec"} @param {0|1|2|3|4|5|6|7|8|9|10|11} num */
-  getMonth: (num) => { return months[num]; },
-
   /** @return {'? to ?'|'?'|'negotiable'} */
   getSalaryDescription(job) {
     let salaryDescription = "";
     const addUnit = str => (!job.salary_unit ? str : (str += " /" + job.salary_unit));
     switch (job.salary_type) {
       case "range":
-        salaryDescription = addUnit(job.salary_high + " - " + job.salary_low);
+        salaryDescription = addUnit(job.salary_low + " - " + job.salary_high);
         break;
       case "specific":
         salaryDescription = addUnit(job.salary_value);
@@ -136,6 +161,14 @@ const Variable = {
       if (curr.id === data.id) return i;
       return result;
     }, -1);
+  },
+
+  profileEditStateTriggered:(pathname) => {
+    return /^\/profile\/edit/i.test(pathname);
+  },
+
+  getTStrings: () => {
+    return tStrings[localStorage.getItem("locale") || "en"];
   }
 };
 

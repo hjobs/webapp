@@ -11,9 +11,12 @@
   "homepage": "http://www.hjobs.hk",
   "dependencies": {
     "bootstrap": "3",
+    "clone": "^2.1.1",
+    "flatpickr": "^2.6.1",
     "react": "^15.5.4",
     "react-bootstrap": "^0.30.9",
     "react-dom": "^15.5.4",
+    "react-flatpickr": "^3.3.0",
     "react-loading": "^0.0.9",
     "react-router-dom": "^4.1.1",
     "reflux": "^6.4.1",

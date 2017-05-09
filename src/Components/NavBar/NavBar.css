@@ -1,0 +1,33 @@
+/* originally 575 */
+.navbar p.navbar-right {
+  margin-right: 15px; }
+
+@media (max-width: 767px) {
+  .navbar p.navbar-right {
+    display: none; } }
+
+@media (min-width: 767px) {
+  .navbar div#uiLang {
+    display: none; } }
+
+.navbar .navbar-brand {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  height: 50px; }
+
+.navbar .navbar-brand img {
+  display: block;
+  max-height: 100%;
+  width: auto;
+  cursor: pointer; }
+
+.navbar a.navbar-link {
+  color: #9d9d9d;
+  text-decoration: none; }
+
+.navbar .active > a > a.navbar-link {
+  color: #F0F0F0; }
+
+.navbar-inverse {
+  background-color: #101010;
+  border-color: #101010; }
