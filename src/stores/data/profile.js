@@ -764,7 +764,7 @@ export const userIconTextObjects = [
   {key: "email", iconName: "at", inputType: "email"},
   {key: "phone", iconName: "phone", inputType: "tel"},
   {key: "location", iconName: "location arrow",
-    getValue: obj => obj.address || getTranslations().profile.notGiven,
+    getValue: obj => !obj ? getTranslations().profile.notGiven : obj.address || getTranslations().profile.notGiven,
     getInitialEditValue: obj => obj.street || "",
     editType: "Location"
   },
