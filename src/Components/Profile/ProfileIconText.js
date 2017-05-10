@@ -69,7 +69,7 @@ class ProfileIconText extends Reflux.Component {
       case "Location":
         return <EditLocation />;
       default:
-        return <EditText domType={context.editType || "input"} inputType={context.inputType || null} doNotSubmitOnEnter={context.doNotSubmitOnEnter} />;
+        return (<EditText context={context}/>);
     }
   }
 

@@ -89,7 +89,8 @@ const tStrings = {
       cannotProcessStreetName: "We cannot process your location information",
       error: "There has been an error",
       cv: {
-        none: "CV not given"
+        none: "CV not given",
+        placeholder: "Enter a link to your cv (e.g. Dropbox, Onedrive, GoogleDrive)",
       },
       jobExp: {
         error: {
@@ -198,7 +199,8 @@ const tStrings = {
       cannotProcessStreetName: "我們無法處理你的地址",
       error: "我們無法處理你的資料",
       cv: {
-        none: "沒有提供履歷"
+        none: "沒有提供履歷",
+        placeholder: "請提供你的履歷連結，例如 Dropbox, Onedrive, GoogleDrive"
       },
       jobExp: {
         error: {

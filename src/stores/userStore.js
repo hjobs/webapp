@@ -129,6 +129,10 @@ class UserStore extends Reflux.Store {
           editingKey = key || profile.editing.key,
           t = getTranslations();
     let editingData = data || profile.editing.data;  
+    if (
+      (profile.editing.data === this.state.user[editingKey]) ||
+      (!editingData.toString() && !this.state.user[editingKey])
+    ) return this.submitProfileEditCompleted(this.state.user);
     profile.loading = true;
     this.setState({profile});
 
@@ -205,13 +209,15 @@ class UserStore extends Reflux.Store {
         }
         break;
       case "cv":
-        const hasHttp = /^http/i.test(editingData);
-        if (!hasHttp) editingData = "http://" + editingData;
-        obj.employee[editingKey] = editingData;
+        if (!!editingData) {
+          const hasHttp = /^http/i.test(editingData);
+          if (!hasHttp) editingData = "http://" + editingData;
+        }
+        obj.employee[editingKey] = !!editingData ? editingData : null;
         submit(url, "PATCH", obj);
         break;
       default:
-        obj.employee[editingKey] = editingData;
+        obj.employee[editingKey] = !!editingData ? editingData : null;
         submit(url, "PATCH", obj)
         break;
     }

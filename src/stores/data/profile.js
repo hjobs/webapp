@@ -765,8 +765,9 @@ export const userIconTextObjects = [
   {key: "phone", iconName: "phone", inputType: "tel"},
   {key: "location", iconName: "location arrow",
     getValue: obj => !obj ? getTranslations().profile.notGiven : obj.address || getTranslations().profile.notGiven,
-    getInitialEditValue: obj => obj.street || "",
-    editType: "Location"
+    getInitialEditValue: obj => !obj ? "" : obj.street || "",
+    editType: "Location",
+    placeholder: getTranslations().profile.locationPlaceholder
   },
   {key: "lang_qs", iconName: "comment outline",
     getInitialEditValue: obj => {
@@ -797,7 +798,8 @@ export const userIconTextObjects = [
       return (
         <a href={url} target="_blank">{url} (CV)</a>
       );
-    }
+    },
+    placeholder: getTranslations().profile.cv.placeholder
   },
   {
       key: "description",
