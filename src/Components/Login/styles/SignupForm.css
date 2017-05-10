@@ -1,40 +1,31 @@
 /* originally 575 */
 form.ui.form {
   font-size: 16px; }
-
-form.ui.form .inline.field {
-  margin: 7px; }
-
-form.ui.form .inline.field input {
-  background-color: transparent;
-  color: #CCCCCC;
-  border: 0px;
-  font-family: "open sans";
-  padding: 10px;
-  line-height: 15px; }
-
-form.ui.form .inline.field ::-webkit-input-placeholder {
-  color: #888; }
-
-form.ui.form .inline.field :-moz-placeholder {
-  color: #888; }
-
-form.ui.form .inline.field ::-moz-placeholder {
-  color: #888; }
-
-form.ui.form .inline.field :-ms-input-placeholder {
-  color: #888; }
-
-form.ui.form .button-group {
-  margin-top: 20px; }
-
-form.ui.form .button-group .field {
-  margin: 0px 5px 0px 5px; }
-
-form.ui.form .button-group .field button {
-  background-color: #444;
-  color: #F0F0F0;
-  font-family: 'open sans';
-  font-weight: 400;
-  font-size: 16px;
-  padding: 10px; }
+  form.ui.form .inline.field {
+    margin: 7px; }
+    form.ui.form .inline.field input {
+      background-color: transparent;
+      color: #CCCCCC;
+      border: 0px;
+      font-family: "open sans";
+      padding: 10px;
+      line-height: 15px; }
+    form.ui.form .inline.field ::-webkit-input-placeholder {
+      color: #888; }
+    form.ui.form .inline.field :-moz-placeholder {
+      color: #888; }
+    form.ui.form .inline.field ::-moz-placeholder {
+      color: #888; }
+    form.ui.form .inline.field :-ms-input-placeholder {
+      color: #888; }
+  form.ui.form .button-group {
+    margin-top: 20px; }
+    form.ui.form .button-group .field {
+      margin: 0px 5px 0px 5px; }
+      form.ui.form .button-group .field button {
+        background-color: #444;
+        color: #F0F0F0;
+        font-family: 'open sans';
+        font-weight: 400;
+        font-size: 16px;
+        padding: 10px; }
