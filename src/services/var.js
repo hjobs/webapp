@@ -44,6 +44,31 @@ export const geolocationMappingObject = [
   {fromKey: "neighborhood", to: "city"}
 ];
 
+/** @return {trafficString} @param {*} job */
+export const getColorClass = (job) => {
+  let colorClass;
+  if (!!job.periods && job.periods.length > 0) {
+    const earliestDate = job.periods.reduce((result, curr) => {
+      let currTime;
+      if (!!curr.start_time) currTime = new Date(curr.start_time);
+      else if (!!curr.date) currTime = new Date(curr.date);
+      else return result || null;
+      return (!result || currTime - result < 0) ? currTime : result;
+    }, null);
+    if (!earliestDate) return urgencyTypes[2].className;
+
+    const now = new Date();
+    const daysDifference = (earliestDate - now) / 86400000; // 86400000 = 1 day
+    if (daysDifference < 0) colorClass = urgencyTypes[2].className;
+    else if (daysDifference < 7) colorClass = urgencyTypes[0].className;
+    else if (daysDifference < 14) colorClass = urgencyTypes[1].className;
+    else colorClass = urgencyTypes[2].className;
+  } else {
+    colorClass = urgencyTypes[2].className;
+  }
+  return colorClass;
+};
+
 const Variable = {
   /** @type [{name: string, value: string}] - name is for displaying, use value in algorithm */
   jobTypes,
@@ -104,33 +129,7 @@ const Variable = {
     return orgEmailArr.join(",");
   },
 
-  /**
-   * @return {trafficString}
-   * @param {*} job
-   */
-  getColorClass: (job) => {
-    let colorClass;
-    if (!!job.periods && job.periods.length > 0) {
-      const earliestDate = job.periods.reduce((result, curr) => {
-        let currTime;
-        if (!!curr.start_time) currTime = new Date(curr.start_time);
-        else if (!!curr.date) currTime = new Date(curr.date);
-        else return result || null;
-        return (!result || currTime - result < 0) ? currTime : result;
-      }, null);
-      if (!earliestDate) return urgencyTypes[2].className;
-
-      const now = new Date();
-      const daysDifference = (earliestDate - now) / 86400000; // 86400000 = 1 day
-      if (daysDifference < 0) colorClass = urgencyTypes[2].className;
-      else if (daysDifference < 7) colorClass = urgencyTypes[0].className;
-      else if (daysDifference < 14) colorClass = urgencyTypes[1].className;
-      else colorClass = urgencyTypes[2].className;
-    } else {
-      colorClass = urgencyTypes[2].className;
-    }
-    return colorClass;
-  },
+  getColorClass,
 
   /** @return {'? to ?'|'?'|'negotiable'} */
   getSalaryDescription(job) {

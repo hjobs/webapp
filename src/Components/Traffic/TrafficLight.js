@@ -1,6 +1,7 @@
 import React from 'react';
 import Reflux from 'reflux';
 // import { Grid, Row, Col } from 'react-bootstrap';
+import "./styles/Traffic.css";
 
 import Variable from '../../services/var';
 
