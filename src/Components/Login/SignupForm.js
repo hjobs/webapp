@@ -171,7 +171,7 @@ class SignupForm extends Reflux.Component {
                 onClick={(e, d) => { LoginActions.toggleAgree(d.checked); }}                
               />
                 {this.state.tStrings.login.terms1}
-                <Link to="/terms">
+                <Link to="/legal/terms">
                   {this.state.tStrings.login.terms2}
                 </Link>
             </div>

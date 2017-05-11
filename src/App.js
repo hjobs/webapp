@@ -1,17 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import './styles/main.css';
 
-// import Home from './Containers/Home/Home';
-// import Browse from './Containers/Jobs/Browse';
-// import Test from './Containers/Test/Test';
-
-// import Variable from './services/var';
-// import Http from './services/http';
-// import Translation from './services/translation';
-
-// import JobStore from './stores/jobStore';
-// import TranslationStore from './stores/translationStore';
-
 import React from 'react';
 import Reflux from "reflux";
 import {
@@ -25,6 +14,7 @@ import Home from './Containers/Home/Home';
 import Browse from './Containers/Jobs/Browse';
 import LoginPage from './Containers/LoginPage/LoginPage';
 import ProfilePage from './Containers/Profile/ProfilePage';
+import Terms from './Containers/Legal/Terms';
 const queryString = require("query-string");
 
 import NavBar from './Components/NavBar/NavBar';
@@ -105,6 +95,7 @@ class App extends Reflux.Component {
           <Route path="/home" component={Home} />
           <Route path="/login" component={LoginPage} />
           <Route path="/profile" component={ProfilePage} />
+          <Route path="/legal/terms" component={Terms} />
           <Route component={() => <Redirect to="/jobs/stable" />} />
         </Switch>
       </div>
