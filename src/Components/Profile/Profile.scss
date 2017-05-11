@@ -4,8 +4,29 @@
   div.icon, div.detail {
     display: inline-block;
   }
+  div.icon {
+    flex-grow: 0;
+  }
   div.detail {
-    width: calc(100% - 1em);
+    // width: calc(100% - 2em);
+    flex-grow: 1;
+    input {
+      background-color: transparent;
+      border: 0px;
+    }
+  }
+}
+
+.edit-icon {
+  font-size: 14px !important;
+  color: $link-blue;
+}
+
+.save-cancel-container {
+  padding: 10px 0px;
+  .ui.button {
+    border: 0px;
+    margin: 0px 5px;
   }
 }
 
@@ -14,13 +35,13 @@
   margin: auto;
 }
 
-.editable-text {
-  color: $blue;
-  cursor: pointer;
-}
-.editable-text:hover {
-  text-decoration: underline;
-}
+// .editable-text {
+//   color: $blue;
+//   cursor: pointer;
+// }
+// .editable-text:hover {
+//   text-decoration: underline;
+// }
 
 textarea.edit-text {
   max-width: 100%;

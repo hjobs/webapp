@@ -29,6 +29,8 @@ section {
 
 p.link, span.link, span[link] {color: $link-blue; cursor: pointer;}
 p.link:hover, span.link:hover, span[link]:hover {text-decoration: underline;}
+.ui.green.button { background-color: $green !important; }
+.ui.red.button { background-color: $red !important; }
 
 .yellow-button {
   margin-top: 5px !important;

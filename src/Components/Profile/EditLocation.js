@@ -1,7 +1,7 @@
 import React from 'react';
 import Reflux from 'reflux';
 // import { withRouter } from 'react-router-dom';
-import { Button, Input, Dimmer, Loader } from 'semantic-ui-react';
+import { Button, Dimmer, Loader } from 'semantic-ui-react';
 // import './Profile.css';
 
 import UserStore, { UserActions } from '../../stores/userStore';
@@ -127,9 +127,10 @@ class EditLocation extends Reflux.Component {
     // }
     return (
       <div className="edit-location-container full-width">
-        <Input
-          focus
-          loading={profile.loading}
+        <input
+          className="full-width"
+          autoFocus
+          disabled={profile.loading}
           value={profile.editing.data}
           placeholder={this.state.tStrings.profile.locationPlaceholder}
           onChange={(event) => {

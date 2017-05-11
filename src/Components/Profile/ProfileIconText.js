@@ -7,6 +7,7 @@ import './Profile.css';
 import EditText from './EditText';
 import EditLocation from './EditLocation';
 import EditLanguage from './EditLanguage';
+import SaveCancel from './SaveCancel';
 
 import UserStore, { UserActions } from '../../stores/userStore';
 import TranslationStore from '../../stores/translationStore';
@@ -23,6 +24,7 @@ class ProfileIconText extends Reflux.Component {
 
   initiateEdit() {
     const context = this.props.context;
+    console.log(["initiate edit, logging context", context]);
     const editData = (
       context.getInitialEditValue?
         context.getInitialEditValue(this.state.user[context.key]) :
@@ -33,30 +35,43 @@ class ProfileIconText extends Reflux.Component {
 
   renderDetail() {
     const context = this.props.context,
-          editStateTriggered = Variable.profileEditStateTriggered(this.props.location.pathname),
           t = this.state.tStrings,
-          canInitiateEdit = !!editStateTriggered && this.state.profile.editing.key === null;
+          canInitiateEdit = this.state.profile.editing.key === null;
 
-    let textClassName = editStateTriggered && !this.state.profile.editing.key ? "editable-text" : "";
+    let textClassName = !this.state.profile.editing.key ? "editable-text" : "";
     if (context.elementClassName) textClassName += " " + context.elementClassName;
 
     let text = t.profile.notGiven;
     const userInfo = this.state.user[context.key];
-    if (!!context.getValue) text = context.getValue(userInfo, editStateTriggered);
+    if (!!context.getValue) text = context.getValue(userInfo);
     else if ( !!userInfo && userInfo !== null && !!userInfo.toString()) {
       text = userInfo;
     }
+    let textSpan = (
+      <span className="text-span">
+        {text}{' '}
+        {
+          !canInitiateEdit ? null :
+            <Icon
+              className="edit-icon link"
+              link
+              name="pencil"
+              onClick={() => this.initiateEdit()}
+            />
+        }
+      </span>
+    );
 
     let props = {
-      className: textClassName,
-      onClick: canInitiateEdit ? () => { this.initiateEdit(); } : null
+      className: textClassName
+      // onClick: canInitiateEdit ? () => { this.initiateEdit(); } : null
     };
 
     return (
       React.createElement(
         context.element || 'span',
         props,
-        text
+        textSpan
       )
     )
   }
@@ -75,25 +90,32 @@ class ProfileIconText extends Reflux.Component {
 
   render() {
     const context = this.props.context,
-          editStateTriggered = Variable.profileEditStateTriggered(this.props.location.pathname),
-          editing = editStateTriggered && this.state.profile.editing.key === context.key;
+          editing = this.state.profile.editing.key === context.key;
 
     return (
-      <div className="flex-row flex-vStart flex-noWrap icon-detail">
-        {
-          !context.iconName ? null :
-            <div className="icon">
-              <Icon name={context.iconName} />
-            </div>
-        }
-        <div className="detail">
+      <div>
+        <div className="flex-row flex-vStart flex-noWrap icon-detail">
           {
-            !editing ?
-              this.renderDetail()
-              :
-              this.renderEdit()
+            !context.iconName ? null :
+              <div className="icon">
+                <Icon name={context.iconName} />
+              </div>
           }
+          <div className="detail">
+            {
+              !editing ?
+                this.renderDetail()
+                :
+                this.renderEdit()
+            }
+          </div>
         </div>
+        {
+          !editing ? null :
+          <div className="save-cancel-container">
+            <SaveCancel />
+          </div>
+        }
       </div>
     );
   }

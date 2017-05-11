@@ -16,9 +16,6 @@ import UserStore from '../../stores/userStore';
 class ProfilePage extends Reflux.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   modal: this.getModalInitialState()
-    // };
     this.store = UserStore;
   }
 

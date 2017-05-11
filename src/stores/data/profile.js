@@ -802,9 +802,8 @@ export const userIconTextObjects = [
     key: "cv",
     iconName: "attach",
     inputType: "url",
-    getValue: (url, editStateTriggered) => {
+    getValue: url => {
       if (!url) return getTranslations().profile.cv.none;
-      if (editStateTriggered) return url + " (CV)";
       return (
         <a href={url} target="_blank">{url} (CV)</a>
       );
@@ -823,13 +822,14 @@ export const userIconTextObjects = [
 export const getJobExpEditErrors = (editingData) => {
     const errors = [],
           t = getTranslations();
+    if (!editingData.position) errors.push(t.profile.jobExp.error.noPosition)
     if ((!editingData.working && !editingData.time_to) || !editingData.time_from) errors.push(t.profile.jobExp.error.workingOrTimeTo)
     else if (new Date(editingData.time_from) > new Date(editingData.time_to)) errors.push(t.profile.jobExp.error.time)
     if (!editingData.company_name && !editingData.org) errors.push(t.profile.jobExp.error.noCompany)
     if (editingData.working) editingData.time_to = null;
     if (!!editingData.company_name) editingData.org = null;
 
-    return errors.join(". ");
+    return errors.join(".\n");
 }
 
 export const getLocationObject = (data, originalStreetName) => {

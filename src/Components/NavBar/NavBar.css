@@ -14,11 +14,12 @@
   padding-top: 8px;
   padding-bottom: 8px;
   height: 50px; }
-  .navbar .navbar-brand img {
-    display: block;
-    max-height: 100%;
-    width: auto;
-    cursor: pointer; }
+
+.navbar .navbar-brand img {
+  display: block;
+  max-height: 100%;
+  width: auto;
+  cursor: pointer; }
 
 .navbar a.navbar-link {
   color: #9d9d9d;

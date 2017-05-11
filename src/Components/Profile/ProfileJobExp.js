@@ -7,6 +7,7 @@ import clone from 'clone';
 import 'flatpickr/dist/themes/dark.css';
 
 // import EditText from './EditText';
+import SaveCancel from './SaveCancel';
 import UserStore, { UserActions } from '../../stores/userStore';
 import TranslationStore from '../../stores/translationStore';
 
@@ -21,9 +22,6 @@ class ProfileJobExp extends Reflux.Component {
   }
 
   initiateEdit(job_exp) {
-    const editStateTriggered =this.props.location.pathname === "/profile/edit";
-    if (!editStateTriggered) { console.log("edit state is not triggered. Job Exp won't be edited."); return; }
-
     const isNew = !job_exp,
           key = 'job-exp-' + (isNew ? "new" : job_exp.id);
     job_exp = isNew ? getEmptyJobExp() : clone(job_exp);
@@ -40,10 +38,9 @@ class ProfileJobExp extends Reflux.Component {
 
   renderDetail() {
     const t = this.state.tStrings,
-          editStateTriggered = this.props.location.pathname === "/profile/edit",
           notGiven = t.profile.notGiven;
     if (!this.state.user.job_exps) return <p className="text-center">{notGiven}</p>;
-    const jobExpContainerClassName = "job-exp-container" + (editStateTriggered ? " editable-text" : "")
+    const jobExpContainerClassName = "job-exp-container"
     
     const arr = this.state.user.job_exps.map(job_exp => {
       const companyName = job_exp.company_name || (!job_exp.org ? notGiven  : job_exp.org.name);
@@ -55,7 +52,7 @@ class ProfileJobExp extends Reflux.Component {
           className={jobExpContainerClassName}
           onClick={() => this.initiateEdit(job_exp) }
         >
-          <h3>{job_exp.position}</h3>
+          <h3>{job_exp.position} <Icon className="edit-icon" name="pencil" /></h3>
           <div className="job-exp-detail-container">
             <div className="detail-company-name">{companyName}</div>
             <div className="detail-time">{timeFrom} - {timeTo}</div>
@@ -166,14 +163,20 @@ class ProfileJobExp extends Reflux.Component {
         }
         {
           this.editIsNew() ? null :
-            <div className="text-center">
-              <Button
-                color="red"
+            <div className="text-center delete-container">
+              <span
+                className="link"
                 onClick={() => this.delete()}
-                content={t.buttons.delete}
-              />
+              >
+                {t.profile.jobExp.remove}
+              </span>
             </div>
         }
+        
+        <p className="text-red pre-line">
+          {this.state.profile.errorMsg}
+        </p>
+        <SaveCancel />
       </div>
     )
   }
@@ -182,7 +185,6 @@ class ProfileJobExp extends Reflux.Component {
 
   render() {
     const t = this.state.tStrings,
-          editStateTriggered = this.props.location.pathname === "/profile/edit",
           editing = /^job-exp-/.test(this.state.profile.editing.key);
     return (
       <div className="job-exps-container">
@@ -200,15 +202,17 @@ class ProfileJobExp extends Reflux.Component {
           }
         </div>
         {
-          !editStateTriggered || editing ? null :
-          <div className="text-center">
-            <Button
-              color="green"
-              size="large"
-              onClick={() => this.initiateEdit()}
-              content="Add"
-            />
-          </div>
+          editing ? null :
+            <div className="text-center">
+              <Button
+                color="green"
+                size="large"
+                icon
+                style={{minWidth: "100px"}}
+                onClick={() => this.initiateEdit()}
+                content={<Icon name="plus" />}
+              />
+            </div>
         }
       </div>
     );

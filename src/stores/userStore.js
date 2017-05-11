@@ -13,7 +13,6 @@ export const UserActions = Reflux.createActions({
   setUser: {},
   updateUser: {},
   removeTemporaryUser: {},
-  toggleEditState: {},
   editProfileItem: {},
   cancelProfileEdit: {},
   submitProfileEdit: {asyncResult: true}

@@ -95,7 +95,8 @@ const tStrings = {
       jobExp: {
         error: {
           workingOrTimeTo: "Please specify the employment period",
-          noCompany: "Please specify your company name"
+          noCompany: "Please specify your company name",
+          noPosition: "Please specify your position"
         },
         placeholder: {
           position: "Position e.g. Bartender",
@@ -105,7 +106,8 @@ const tStrings = {
           time_to: "to...",
           location: "Company location e.g. 17 Nathan Road",
           working: "Currently working here"
-        }
+        },
+        remove: "Remove this job experience"
       }
     }
   },
@@ -205,7 +207,8 @@ const tStrings = {
       jobExp: {
         error: {
           workingOrTimeTo: "請註明就職時間",
-          noCompany: "請註明公司名稠"
+          noCompany: "請註明公司名稠",
+          noPosition: "請註明你的職位"
         },
         placeholder: {
           position: "職稱 e.g. 酒吧服務員",
@@ -215,7 +218,8 @@ const tStrings = {
           time_to: "到...",
           location: "工作地點 e.g. 彌敦道17號",
           working: "仍在職"
-        }
+        },
+        remove: "刪除這工作經驗"
       }
     }
   }
