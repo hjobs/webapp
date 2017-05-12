@@ -41,7 +41,6 @@ class SignupForm extends Reflux.Component {
   getInitialState() {
     return {
       loading: false,
-      signup: true,
       loginForm: this.getInitialForm(),
       errors: []
     }
@@ -61,7 +60,7 @@ class SignupForm extends Reflux.Component {
           t = this.state.tStrings;
     const err = [];
     ['name', 'email', 'password'].forEach(key => {
-      if (key === "name" && !this.state.signup) return;
+      if (key === "name" && !this.state.login.isSignUp) return;
       if (!form[key]) err.push(t.login[key + "Missing"]);
     })
     if (!err || err.length === 0) {
@@ -70,7 +69,7 @@ class SignupForm extends Reflux.Component {
         form.email.split(".").length < 2
       ) err.push(t.login.emailNotValid);
     }
-    if (this.state.signup && !this.state.login.agreed) err.push(t.login.missingAgree);
+    if (this.state.login.isSignUp && !this.state.login.agreed) err.push(t.login.missingAgree);
     console.log(["err", err]);
     this.setState(s => {
       s.errors = err;
@@ -80,10 +79,7 @@ class SignupForm extends Reflux.Component {
   }
 
   toggleSignInUp() {
-    this.setState(s => {
-      s.signup = !s.signup;
-      return s;
-    });
+    LoginActions.toggle("isSignUp");
   }
 
   handleChange(key, value) {
@@ -103,9 +99,9 @@ class SignupForm extends Reflux.Component {
       })
     }
     if (!errors || errors.length === 0) {
-      const url = this.state.signup ? "employees" : "authenticate",
+      const url = this.state.login.isSignUp ? "employees" : "authenticate",
             method = "POST",
-            obj = this.state.signup ? {
+            obj = this.state.login.isSignUp ? {
                     employee: this.state.loginForm
                   } : {
                     email: this.state.loginForm.email,
@@ -126,12 +122,10 @@ class SignupForm extends Reflux.Component {
     this.setState(s => {
       s.loginForm = this.getInitialForm();
       return s;
-    }, () => this.toggleCustomLogin())
+    }, () => LoginActions.toggle("customLogin"))
   }
 
-  toggleCustomLogin() {
-    LoginActions.toggleCustomLogin();
-  }
+  toggleCustomLogin() { LoginActions.toggle("customLogin"); }
 
   renderForm() {
     const form = this.state.loginForm,
@@ -142,11 +136,11 @@ class SignupForm extends Reflux.Component {
           className="link text-right"
           onClick={() => this.toggleSignInUp()}
         >
-          {this.state.signup ? t.login.signInHere : t.login.signUpHere}
+          {this.state.login.isSignUp ? t.login.signInHere : t.login.signUpHere}
         </p>
         {
           loginFormFields.map(field => {
-            if (!this.state.signup && field.key === "name") return null;
+            if (!this.state.login.isSignUp && field.key === "name") return null;
             return (
               <Field
                 key={'signup-form-' + field.key}
@@ -159,27 +153,6 @@ class SignupForm extends Reflux.Component {
               />
             )
           })
-        }
-        {
-          !this.state.signup ? null :
-          (<div>
-            <div className="agree text-center">
-              <input
-                type="checkbox"
-                value=""
-                checked={this.state.login.agreed}
-                onClick={(e, d) => { LoginActions.toggleAgree(d.checked); }}                
-              />
-                {this.state.tStrings.login.terms1}
-                <Link to="/legal/terms">
-                  {this.state.tStrings.login.terms2}
-                </Link>
-            </div>
-            {
-              !this.state.login.errorMsg ? null :
-              <p className="text-red">{this.state.login.errorMsg}</p>
-            }
-          </div>)
         }
         <p className="text-red text-center">
           {

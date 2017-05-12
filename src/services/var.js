@@ -69,11 +69,16 @@ export const getColorClass = (job) => {
   return colorClass;
 };
 
+export const getTStrings = () => {
+  return tStrings[localStorage.getItem("locale") || "en"];
+};
+
 const Variable = {
   /** @type [{name: string, value: string}] - name is for displaying, use value in algorithm */
   jobTypes,
   urgencyTypes,
   pad2, getMonth, timeStamp, dateStamp, getEmptyJobExp,
+  getTStrings,
 
   /**
    * @return {string} email
@@ -164,10 +169,6 @@ const Variable = {
 
   profileEditStateTriggered:(pathname) => {
     return /^\/profile\/edit/i.test(pathname);
-  },
-
-  getTStrings: () => {
-    return tStrings[localStorage.getItem("locale") || "en"];
   }
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Reflux from 'reflux';
 // import Variable from '../../services/var';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 // import { Checkbox } from 'semantic-ui-react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import './styles/Login.css';
@@ -19,7 +19,7 @@ class Login extends Reflux.Component {
   }
 
   toggleCustomLogin() {
-    LoginActions.toggleCustomLogin();
+    LoginActions.toggle("customLogin");
   }
 
   render() {
@@ -37,6 +37,37 @@ class Login extends Reflux.Component {
             </div>
           </Col>
         </Row>
+        {
+          this.state.login.customLogin && !this.state.login.isSignUp ? null :
+          (
+            <Row>
+              <Col>
+                <div>
+                  <div className="agree text-center">
+                    <input
+                      type="checkbox"
+                      value=""
+                      checked={this.state.login.agreed}
+                      onChange={(e) => {
+                        const checked = e.target.checked;
+                        console.log(checked);
+                        LoginActions.toggle("agreed", checked);
+                      }}
+                    />
+                      {this.state.tStrings.login.terms1}
+                      <Link to="/legal/terms">
+                        {this.state.tStrings.login.terms2}
+                      </Link>
+                  </div>
+                  {
+                    !this.state.login.errorMsg ? null :
+                    <p className="text-red text-center pre-line">{this.state.login.errorMsg}</p>
+                  }
+                </div>
+              </Col>
+            </Row>
+          )
+        }
       </Grid>
     );
   }

@@ -1,11 +1,13 @@
 import Reflux from 'reflux';
 
-// import Variable from '../services/var';
+import { getTranslations } from './translationStore'
+
+// import { getTStrings } from '../services/var';
 // import Http from '../services/http';
 
 export const LoginActions = Reflux.createActions({
-  toggleCustomLogin: {},
-  toggleAgree: {}
+  toggle: {},
+  agreedMissingError: {}
 });
 
 class LoginStore extends Reflux.Store {
@@ -20,20 +22,23 @@ class LoginStore extends Reflux.Store {
       login: {
         errorMsg: null,
         customLogin: false,
-        agreed: false
+        agreed: false,
+        isSignUp: true
       }
     };
   }
 
-  toggleCustomLogin() {
+  /** @param {"agreed"|"customLogin"|"isSignUp"} key @param {boolean} val */
+  toggle(key, val) {
+    if (val === null || val === undefined) val = !this.state.login[key];
     const login = this.state.login;
-    login.customLogin = !login.customLogin
+    login[key] = val;
     this.setState({login});
   }
 
-  toggleAgree(val) {
+  agreedMissingError() {
     const login = this.state.login;
-    login.agreed = val || !this.state.login.agreed;
+    login.errorMsg = getTranslations().login.agreeMissing;
     this.setState({login});
   }
 

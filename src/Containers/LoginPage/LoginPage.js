@@ -10,21 +10,12 @@ import Login from '../../Components/Login/Login';
 import UserStore from '../../stores/userStore';
 
 // import Variable from '../../services/var';
-import Http from '../../services/http';
 
 class LoginPage extends Reflux.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   modal: this.getModalInitialState()
-    // };
     this.store = UserStore;
   }
-
-  // getBlankState() {
-  //   return {
-  //   };
-  // }
 
   render() {
     if (!!this.state.authToken && !!this.state.user) return <Redirect to="/jobs/stable" />;
