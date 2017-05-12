@@ -5,7 +5,7 @@ import Variable from './var';
 /** @return {string} */
 const getToken = () => (localStorage.getItem("authToken") || null);
 
-const baseUrl = "http://api.hjobs.hk:9080/";
+const baseUrl = "https://api.hjobs.hk:9080/";
 // const baseUrl = "https://dev.hjobs.hk:9080/";
 // const baseUrl = "http://localhost:9080/";
 
