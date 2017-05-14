@@ -68,6 +68,7 @@ class JobStore extends Reflux.Store {
         if (!res.ok) console.log(['res is not ok, logging res inside Jobs.js refresh() fetch()', res]);
         return res.json();
       }).then(d => {
+        console.log(d);
         if (!!d && !d.error) {
           this.setState(s => {
             const jobs = this.processJobsDataFromHttp(d.jobs);
@@ -90,6 +91,7 @@ class JobStore extends Reflux.Store {
           });
         } else throw Error("Server error.")
       }).catch(err => { this.setState(s => {
+        console.log(err);
         s.jobs[jobType].error = JSON.stringify(err);
         s.jobs[jobType].loading = false;
         return s;

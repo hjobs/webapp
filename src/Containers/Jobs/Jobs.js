@@ -25,6 +25,7 @@ class JobsWithoutRouter extends Reflux.Component {
   }
 
   componentDidMount() {
+    super.componentWillMount.call(this);
     const jobType = this.props.match.params.jobType
     const page = queryString.parse(this.props.location.search).page || 1;
     this.loadJobsIfNeeded(jobType, page);
@@ -40,7 +41,7 @@ class JobsWithoutRouter extends Reflux.Component {
     if (urlChanged) {
       window.scrollTo(0, 0);
       const page = +queryString.parse(nextProps.location.search).page || 1;
-      this.loadJobsIfNeeded(nextProps.match.params.jobType, +page);
+      this.loadJobsIfNeeded(nextProps.match.params.jobType, page);
     }
   }
 

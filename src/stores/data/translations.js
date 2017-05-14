@@ -28,6 +28,9 @@ const tStrings = {
       urgent2: "7-14 days",
       urgent3: ">14 days"
     },
+    job: {
+      "salaryMore": "+ more"
+    },
     navbar: {
       about: "About Us",
       viewJobs: "View Jobs",
@@ -70,7 +73,12 @@ const tStrings = {
       login: 'Login',
       logout: "Logout",
       present: "Present",
-      linkHere: "Link here"
+      linkHere: "Link here",
+      languages: {
+        "en": "English",
+        "zh_can": "Cantonese",
+        "zh_man": "Mandarin"
+      }
     },
     profile: {
       notGiven: "Not Given",
@@ -140,6 +148,9 @@ const tStrings = {
       urgent2: "7-14 天",
       urgent3: ">14 天"
     },
+    job: {
+      "salaryMore": "+ 更多"
+    },
     navbar: {
       about: "關於",
       viewJobs: "工作",
@@ -169,7 +180,12 @@ const tStrings = {
       login: '登入',
       logout: "登出",
       present: "目前",
-      linkHere: "連結"
+      linkHere: "連結",
+      languages: {
+        "en": "英文",
+        "zh_can": "粵語",
+        "zh_man": "國語"
+      }
     },
     login: {
       custom1: "請以社交網絡登入。如欲另設電郵和密碼，請按",

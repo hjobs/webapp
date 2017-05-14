@@ -3,7 +3,6 @@
 import React from 'react';
 import Reflux from 'reflux';
 import { withRouter } from 'react-router-dom';
-// import TimeAgo from 'react-timeago';
 import { Button } from "semantic-ui-react";
 import { Modal } from 'react-bootstrap';
 let Loading = require('react-loading');
