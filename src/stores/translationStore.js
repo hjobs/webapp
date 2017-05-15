@@ -34,16 +34,16 @@ class TranslationStore extends Reflux.Store {
 
   /** @param {translationOptions} str */
   setLocale(str) {
-    this.setState(s => {
-      s.locale = str;
-      s.tStrings = tStrings[str];
-      return s;
-    }, () => {
-      Http.log({
-        name: "change translation",
-        action: this.state.locale,
-        component: "navbar"
-      });
+    if (!str) return null;
+    const nextState = this.state;
+    nextState.locale = str;
+    nextState.tStrings = tStrings[str];
+    this.setState(nextState);
+    Http.log({
+      name: "ChangeTranslation",
+      action: "Click",
+      target: str,
+      component: "Navbar"
     });
   }
 }

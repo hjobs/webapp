@@ -1,9 +1,6 @@
 import React from 'react';
 import Reflux from "reflux";
 import {
-  // BrowserRouter as Router
-  // Route,
-  // Redirect
   Link,
   withRouter
 } from 'react-router-dom';
@@ -13,7 +10,7 @@ import './NavBar.css';
 import Logo from './logo-landscape.png';
 
 import TranslationStore, { TranslationActions } from '../../stores/translationStore';
-import UserStore, { UserActions } from '../../stores/userStore';
+import UserStore from '../../stores/userStore';
 
 import Http from '../../services/http';
 
@@ -24,10 +21,7 @@ class NavBarWithoutRouter extends Reflux.Component {
     this.stores = [TranslationStore, UserStore];
   }
 
-  handleSelect(e) {
-    // console.log(e);
-    window.scrollTo(0, 0);
-  }
+  handleSelect() { window.scrollTo(0, 0); }
 
   changeUILang() { TranslationActions.setLocale(this.state.locale === "en" ? "zh-HK" : "en"); }
 
