@@ -15,10 +15,12 @@
     "flatpickr": "^2.6.1",
     "react": "^15.5.4",
     "react-bootstrap": "^0.30.9",
+    "react-copy-to-clipboard": "^5.0.0",
     "react-dom": "^15.5.4",
     "react-flatpickr": "^3.3.0",
     "react-loading": "^0.0.9",
     "react-router-dom": "^4.1.1",
+    "react-share": "^1.13.2",
     "reflux": "^6.4.1",
     "semantic-ui-react": "^0.68.0"
   },

@@ -12,7 +12,7 @@ import Http from '../../services/http';
 import ErrorDiv from '../../Components/Utilities/ErrorDiv';
 import EmailSnippet from '../../Components/Utilities/EmailSnippet';
 import Login from '../../Components/Login/Login';
-import { Tags, Salary, Location } from '../../Components/Job/JobComponents';
+import { Tags, Salary, Location, ActionButtons } from '../../Components/Job/JobComponents';
 
 import JobStore from '../../stores/jobStore';
 import TranslationStore from '../../stores/translationStore';
@@ -69,9 +69,8 @@ class ApplyModalWithoutRouter extends Reflux.Component {
         const orgNames = Variable.getOrgsNames(job.orgs, false);
         body = (
           <Modal.Body bsClass="modal-body">
-            <p>
-              <Tags job={job} />
-            </p>
+            <ActionButtons job={job} style={{paddingBottom: "10px"}} />
+            <Tags job={job} />
             <p>
               <b>Salary:</b><br />
               <Salary job={job} showBonus />
