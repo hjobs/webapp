@@ -29,7 +29,8 @@ const tStrings = {
       urgent3: ">14 days"
     },
     job: {
-      "salaryMore": "+ more"
+      "salaryMore": "+ more",
+      bonus: "Bonus"
     },
     navbar: {
       about: "About Us",
@@ -149,7 +150,8 @@ const tStrings = {
       urgent3: ">14 天"
     },
     job: {
-      "salaryMore": "+ 更多"
+      "salaryMore": "+ 更多",
+      bonus: "紅利"
     },
     navbar: {
       about: "關於",

@@ -1,5 +1,3 @@
-/** @typedef {id: number, otherAttributes: any} jobObject */
-
 import React from 'react';
 import Reflux from 'reflux';
 import { withRouter } from 'react-router-dom';
@@ -14,6 +12,7 @@ import Http from '../../services/http';
 import ErrorDiv from '../../Components/Utilities/ErrorDiv';
 import EmailSnippet from '../../Components/Utilities/EmailSnippet';
 import Login from '../../Components/Login/Login';
+import { Tags, Salary, Location } from '../../Components/Job/JobComponents';
 
 import JobStore from '../../stores/jobStore';
 import TranslationStore from '../../stores/translationStore';
@@ -71,12 +70,24 @@ class ApplyModalWithoutRouter extends Reflux.Component {
         body = (
           <Modal.Body bsClass="modal-body">
             <p>
+              <Tags job={job} />
+            </p>
+            <p>
+              <b>Salary:</b><br />
+              <Salary job={job} showBonus />
+            </p>
+            <p>
+              <Location job={job} />
+            </p>
+            <p>
               <b>{t.applyModal.aboutJob}</b> <br />
               {job.description}
             </p>
             <p>
               <b>{t.applyModal.postedBy}</b><br />
               {orgNames}{'  '}
+            </p>
+            <p>
             </p>
             {
               job.attachment_url ?

@@ -1,0 +1,25 @@
+@import "../../../styles/css_var";
+
+.tags-container {
+  padding: 5px 0px;
+}
+
+.tag {
+  margin: 2.5px 0px;
+  text-align: center;
+  div {
+    background-color: $date-tag-background;
+    border-radius: 15px;
+    color: $date-tag-color;
+    margin: 0px 5px 0px 0px;
+    padding: 0px 10px;
+  }
+  div.event {
+    background-color: #666;
+    color: $off-white;
+  }
+  div.lang {
+    background-color: #AAA;
+    color: $off-white;
+  }
+}

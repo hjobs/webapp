@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 let Loading = require('react-loading');
 const queryString = require('query-string');
 
+import './styles/jobs.css';
 import Job from './Job';
 import ErrorDiv from '../../Components/Utilities/ErrorDiv';
 
@@ -17,7 +18,7 @@ const NoListing = () => (
   </div>
 );
 
-class JobsWithoutRouter extends Reflux.Component {
+class Jobs extends Reflux.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -143,15 +144,7 @@ class JobsWithoutRouter extends Reflux.Component {
   }
 }
 
-// JobsWithoutRouter.propTypes = {
-//   openModal: React.PropTypes.func.isRequired,
-//   jobs: React.PropTypes.any.isRequired,
-//   ad: React.PropTypes.any
-// };
-
-const Jobs = withRouter(JobsWithoutRouter);
-
-export default Jobs;
+export default withRouter(Jobs);
 
 // <Job imgSrc={data[i].imgSrc} title={data[i].title} name={data[i].name} date={data[i].date} applyJob={this.applyJob.bind((data[i]))} key={i} />
 //

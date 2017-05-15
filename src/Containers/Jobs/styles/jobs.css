@@ -1,0 +1,21 @@
+/* originally 575 */
+.jobs {
+  background-color: transparent;
+  padding: 50px 0px;
+  padding: 0px;
+  margin: 0px;
+  text-align: left; }
+  .jobs #job-outter-outter-div {
+    width: 100%; }
+  .jobs .outter-div {
+    max-width: 600px;
+    width: 100%;
+    background-color: #FDFDFD;
+    border: 1.5px solid #EEE;
+    box-shadow: 0px 0px 50px #D0D0D0; }
+    @media screen and (min-width: 544px) {
+      .jobs .outter-div {
+        padding: 10px; } }
+    @media screen and (max-width: 544px) {
+      .jobs .outter-div {
+        padding: 0px; } }

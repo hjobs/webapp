@@ -69,8 +69,27 @@ export const getColorClass = (job) => {
   return colorClass;
 };
 
+/** return current translation object */
 export const getTStrings = () => {
   return tStrings[localStorage.getItem("locale") || "en"];
+};
+
+/** @return {'? to ?'|'?'|'negotiable'} */
+export const getSalaryDescription = (job) => {
+  let salaryDescription = "";
+  const addUnit = str => (!job.salary_unit ? str : (str += " /" + job.salary_unit));
+  switch (job.salary_type) {
+    case "range":
+      salaryDescription = addUnit(job.salary_low + " - " + job.salary_high);
+      break;
+    case "specific":
+      salaryDescription = addUnit(job.salary_value);
+      break;
+    case "negotiable": default:
+      salaryDescription = "negotiable";
+      break;
+  }
+  return salaryDescription;
 };
 
 const Variable = {
@@ -79,6 +98,8 @@ const Variable = {
   urgencyTypes,
   pad2, getMonth, timeStamp, dateStamp, getEmptyJobExp,
   getTStrings,
+  getColorClass,
+  getSalaryDescription,
 
   /**
    * @return {string} email
@@ -132,26 +153,6 @@ const Variable = {
   getOrgsEmails: (orgs) => {
     const orgEmailArr = orgs.map(org => org.email);
     return orgEmailArr.join(",");
-  },
-
-  getColorClass,
-
-  /** @return {'? to ?'|'?'|'negotiable'} */
-  getSalaryDescription(job) {
-    let salaryDescription = "";
-    const addUnit = str => (!job.salary_unit ? str : (str += " /" + job.salary_unit));
-    switch (job.salary_type) {
-      case "range":
-        salaryDescription = addUnit(job.salary_low + " - " + job.salary_high);
-        break;
-      case "specific":
-        salaryDescription = addUnit(job.salary_value);
-        break;
-      case "negotiable": default:
-        salaryDescription = "negotiable";
-        break;
-    }
-    return salaryDescription;
   },
 
   /**

@@ -3,7 +3,6 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="google-signin-client_id" content="1028740402657-h0hp0v8lqr3ou0vra4p6np5akf1i5qib.apps.googleusercontent.com">
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.2/semantic.min.css"></link>
     <script src="https://use.fontawesome.com/4ff21ee06b.js"></script>
@@ -20,6 +19,9 @@
   </head>
   <body>
     <div id="fb-root"></div>
+    <div id="root"></div>
+
+    <!--Facebook Share Button-->
     <script>(function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
@@ -27,8 +29,6 @@
       js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.9&appId=1267662459949897";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));</script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <div id="root"></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -39,5 +39,6 @@
       To begin the development, run `npm start`.
       To create a production bundle, use `npm run build`.
     -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700|Righteous"/>
   </body>
 </html>

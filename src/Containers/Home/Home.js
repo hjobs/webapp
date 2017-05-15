@@ -4,6 +4,7 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import JoImage from './jo.jpg';
 import EdmundImage from './edmund.jpg';
 import KhzeerImage from './khzeer.jpg';
+import './styles/Home.css';
 
 import Variable from '../../services/var';
 import Http from '../../services/http';

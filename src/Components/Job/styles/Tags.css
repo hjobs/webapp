@@ -1,0 +1,19 @@
+/* originally 575 */
+.tags-container {
+  padding: 5px 0px; }
+
+.tag {
+  margin: 2.5px 0px;
+  text-align: center; }
+  .tag div {
+    background-color: #CCCCCC;
+    border-radius: 15px;
+    color: #101010;
+    margin: 0px 5px 0px 0px;
+    padding: 0px 10px; }
+  .tag div.event {
+    background-color: #666;
+    color: #F0F0F0; }
+  .tag div.lang {
+    background-color: #AAA;
+    color: #F0F0F0; }

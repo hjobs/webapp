@@ -1,0 +1,112 @@
+/* originally 575 */
+.home {
+  padding: 0px; }
+  .home .about-banner-container {
+    background-color: #f0ce00;
+    padding: 20px 5% 20px 5%; }
+    .home .about-banner-container .about-banner {
+      color: #101010;
+      max-width: 700px;
+      width: 100%;
+      padding: 40px; }
+      .home .about-banner-container .about-banner h1, .home .about-banner-container .about-banner h2, .home .about-banner-container .about-banner h3, .home .about-banner-container .about-banner h4, .home .about-banner-container .about-banner h5, .home .about-banner-container .about-banner h6, .home .about-banner-container .about-banner p {
+        color: #101010; }
+      .home .about-banner-container .about-banner p {
+        font-size: 1.1em; }
+  .home .about-choice-container {
+    background-color: #FDFDFD;
+    padding: 20px 5% 20px 5%; }
+    @media screen and (max-width: 544px) {
+      .home .about-choice-container {
+        padding: 20px 0px 10px 0px; } }
+    .home .about-choice-container .about-choice {
+      padding: 0px; }
+      .home .about-choice-container .about-choice h1, .home .about-choice-container .about-choice h2, .home .about-choice-container .about-choice h3, .home .about-choice-container .about-choice h4, .home .about-choice-container .about-choice h5, .home .about-choice-container .about-choice h6, .home .about-choice-container .about-choice p {
+        color: black; }
+  .home .about-choice-container .about-choice .container {
+    width: 100%;
+    padding: 10px; }
+    .home .about-choice-container .about-choice .container .div-circle {
+      background-color: #f0ce00;
+      border-radius: 50%;
+      cursor: pointer;
+      -webkit-box-shadow: 0 0 10px 3px #101010;
+      /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+      -moz-box-shadow: 0 0 10px 3px #101010;
+      /* Firefox 3.5 - 3.6 */
+      box-shadow: 0 0 10px 3px #101010;
+      /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+      margin-top: 10px;
+      margin-bottom: 10px; }
+    .home .about-choice-container .about-choice .container .div-circle-big {
+      padding: 10px;
+      width: 40vw;
+      height: 40vw;
+      max-width: 280px;
+      max-height: 280px;
+      min-width: 161px;
+      min-height: 161px; }
+    .home .about-choice-container .about-choice .container .div-circle-small {
+      padding: 7px;
+      width: 32vw;
+      height: 32vw;
+      max-width: 200px;
+      max-height: 200px;
+      min-width: 120px;
+      min-height: 120px; }
+  .home .about-intro-container {
+    background-color: #FDFDFD;
+    padding: 20px 5% 20px 5%; }
+    .home .about-intro-container .about-intro {
+      max-width: 900px;
+      padding: 0px; }
+      .home .about-intro-container .about-intro h1, .home .about-intro-container .about-intro h2, .home .about-intro-container .about-intro h3, .home .about-intro-container .about-intro h4, .home .about-intro-container .about-intro h5, .home .about-intro-container .about-intro h6, .home .about-intro-container .about-intro p {
+        color: black; }
+  .home .about-feature-container {
+    background-color: transparent;
+    padding: 20px 5% 20px 5%; }
+    .home .about-feature-container .about-feature {
+      max-width: 900px;
+      padding: 0px; }
+      .home .about-feature-container .about-feature h1, .home .about-feature-container .about-feature h2, .home .about-feature-container .about-feature h3, .home .about-feature-container .about-feature h4, .home .about-feature-container .about-feature h5, .home .about-feature-container .about-feature h6, .home .about-feature-container .about-feature p {
+        color: black; }
+      .home .about-feature-container .about-feature h4 {
+        margin-bottom: 0px !important; }
+      .home .about-feature-container .about-feature .column {
+        padding: 10px; }
+  .home .about-team-container {
+    background-color: #101010;
+    padding: 10px 5% 10px 5%;
+    font-weight: 300; }
+    .home .about-team-container .about-team {
+      max-width: 700px;
+      width: 100%;
+      padding: 15px; }
+      .home .about-team-container .about-team h2 {
+        color: #f0ce00;
+        margin-bottom: 30px; }
+      .home .about-team-container .about-team img {
+        width: 100px;
+        height: 100px; }
+      .home .about-team-container .about-team h4, .home .about-team-container .about-team p {
+        color: #FDFDFD;
+        max-width: 300px; }
+      .home .about-team-container .about-team .title {
+        color: #AAA;
+        display: block; }
+      .home .about-team-container .about-team .person-container {
+        padding-top: 20px;
+        padding-bottom: 20px; }
+  .home .contact-container {
+    background-color: #f0ce00;
+    padding: 20px 5% 20px 5%; }
+    .home .contact-container .contact {
+      color: #101010;
+      max-width: 700px;
+      width: 100%;
+      padding: 40px; }
+      .home .contact-container .contact h1, .home .contact-container .contact h2, .home .contact-container .contact h3, .home .contact-container .contact h4, .home .contact-container .contact h5, .home .contact-container .contact h6, .home .contact-container .contact p {
+        color: #101010; }
+      .home .contact-container .contact .link {
+        cursor: pointer;
+        text-decoration: none; }
