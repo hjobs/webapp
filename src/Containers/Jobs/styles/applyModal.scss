@@ -1,0 +1,57 @@
+@import '../../../styles/css_var';
+
+.apply-job-modal.modal-dialog {
+  @media screen and (max-width: $phoneTall) {
+    width: 100vw;
+    height: 100vh;
+    margin: 0px;
+    .modal-content>.modal-body {
+      height: calc(100vh - 41px - 45px - 80px);
+    }
+  }
+  @media screen and (min-width: $phoneTall) {
+    width: 90vw !important;
+    max-width: 600px;
+    margin: 30px auto;
+    .modal-content>.modal-body {
+      height: calc(100vh - 41px - 45px - 70px);
+    }
+  }
+  .modal-content>.modal-body {
+    overflow: scroll;
+    h1,h2,h3,h4,h5,h6 {
+      font-family: 'Open Sans', "sans-serif";
+      font-weight: bold;
+    }
+    p.indented { margin-left: 10px !important; }
+  }
+  .modal-content>.modal-body.applying {
+    background-color: $dark-bkgd;
+    color: white;
+    label, .label { font-weight: 300; }
+    button {
+      background-color: $white;
+      color: $dark-bkgd;
+    }
+  }
+  .modal-header {
+    border-radius: 5px 5px 0px 0px;
+    background-color: $bright-bkgd;
+    color: $dark-bkgd;
+    padding: 10px 15px;
+    font-weight: bold;
+    // p { height: 1.5em; overflow: hidden; text-overflow: ellipsis; }
+  }
+  .modal-footer {
+    border-radius: 0px 0px 5px 5px;
+    // background-color: $bright-bkgd;
+    button { border: 0px !important; }
+    button.transparent { background-color: transparent; }
+    button.inverse { background-color: $dark-bkgd; color: $off-white; }
+  }
+  .modal-footer.black {
+    background-color: $dark-bkgd;
+    button { color: $white; }
+    button.inverse { background-color: $white; color: $dark-bkgd; }
+  }
+}

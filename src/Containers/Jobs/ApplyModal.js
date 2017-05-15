@@ -5,6 +5,7 @@ import { Button } from "semantic-ui-react";
 import { Modal } from 'react-bootstrap';
 let Loading = require('react-loading');
 const queryString = require("query-string");
+import './styles/applyModal.css';
 
 import Variable from '../../services/var';
 import Http from '../../services/http';
@@ -69,33 +70,41 @@ class ApplyModalWithoutRouter extends Reflux.Component {
         const orgNames = Variable.getOrgsNames(job.orgs, false);
         body = (
           <Modal.Body bsClass="modal-body">
-            <ActionButtons job={job} style={{paddingBottom: "10px"}} />
-            <Tags job={job} />
-            <p>
-              <b>Salary:</b><br />
-              <Salary job={job} showBonus />
-            </p>
-            <p>
-              <Location job={job} />
-            </p>
-            <p>
-              <b>{t.applyModal.aboutJob}</b> <br />
-              {job.description}
-            </p>
-            <p>
-              <b>{t.applyModal.postedBy}</b><br />
-              {orgNames}{'  '}
-            </p>
-            <p>
-            </p>
-            {
-              job.attachment_url ?
-                <p>
-                  <b>{t.applyModal.attachmentHeader}</b>{' '}
-                  <a href={job.attachment_url}>{t.applyModal.attachmentLink}</a>
-                </p>
-                : null
-            }
+            <div className="modal-body-content" style={{
+              overflow: "scroll",
+              height: "calc(100% - 30px)"
+            }}>
+              <Tags job={job} />
+              <p>
+                <b>Salary:</b><br />
+                <Salary job={job} showBonus />
+              </p>
+              <p>
+                <Location job={job} />
+              </p>
+              <p>
+                <b>{t.applyModal.aboutJob}</b> <br />
+                {job.description}
+              </p>
+              <p>
+                <b>{t.applyModal.postedBy}</b><br />
+                {orgNames}{'  '}
+              </p>
+              {
+                job.attachment_url ?
+                  <p>
+                    <b>{t.applyModal.attachmentHeader}</b><br />
+                    <a href={job.attachment_url}>{t.applyModal.attachmentLink}</a>
+                  </p>
+                  : null
+              }
+            </div>
+            <ActionButtons job={job} style={{
+              position: "absolute",
+              bottom: 10,
+              left: 0,
+              right: 0
+            }} />
           </Modal.Body>
         );
       }
