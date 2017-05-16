@@ -1,9 +1,9 @@
 import React from 'react';
-import Reflux from 'reflux';
+// import Reflux from 'reflux';
 import { withRouter } from 'react-router-dom';
 
 import TrafficLight from '../../Components/Traffic/TrafficLight';
-import { Tags, Location, Salary, ActionButtons } from '../../Components/Job/JobComponents';
+import { Tags, Location, Salary } from '../../Components/Job/JobComponents';
 import './styles/job.css';
 
 // import TranslationStore from '../../stores/translationStore';
@@ -11,7 +11,7 @@ import './styles/job.css';
 import Http from '../../services/http';
 // import Variable from '../../services/var';
 
-class Job extends Reflux.Component {
+class Job extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};

@@ -169,7 +169,7 @@ class ApplyModalWithoutRouter extends Reflux.Component {
                   if (!applying) this.toggleApply();
                   else this.props.onConfirmApply();
                   Http.log({
-                    name: !applying ? "ClickApplyNow" : "ClickSendNow",
+                    name: "Apply",
                     action: "Click",
                     job_id: job.id,
                     target: !applying ? "Initiate" : "Send",

@@ -92,6 +92,44 @@ export const getSalaryDescription = (job) => {
   return salaryDescription;
 };
 
+/** @return {string} email @param {'application'|'contactus'} type */
+export const getEmailStr = (type, data) => {
+  let str;
+  switch (type) {
+    case "application": {
+      if (data) {
+        const orgName = this.getOrgsNames(data.orgs, true);
+        const email = this.getOrgsEmails(data.orgs);
+        const title = (data.title + ' - Hjobs.hk').replace(/\s|\r/g, "%20");
+
+        const body =
+          ("Dear " + orgName + ",%0A%0A" +
+          "I am interested in your posting " + data.title + ". Please contact me at: (ENTER YOUR INFO HERE)%0A%0A" +
+          "Look forward to your speedy reply," +
+          "%0A(YOUR NAME HERE)").replace(/\s|\r/g, "%20");
+
+        str =
+          'mailto:' + email +
+          '?subject=RE%20' + title +
+          '&body=' + body;
+      }
+      break;
+    }
+    case "contactus": {
+      str =
+        'mailto:info@hjobs.hk' +
+        '?subject=RE%20' +
+        'Inquiry'.replace(" ", "%20") +
+        '&body=' +
+        'Let us know what your inquiry is :)'.replace(" ", "%20");
+      break;
+    }
+    default: break;
+  }
+
+  return str || null;
+};
+
 const Variable = {
   /** @type [{name: string, value: string}] - name is for displaying, use value in algorithm */
   jobTypes,
@@ -100,47 +138,7 @@ const Variable = {
   getTStrings,
   getColorClass,
   getSalaryDescription,
-
-  /**
-   * @return {string} email
-   * @param {'application'|'contactus'} type
-   */
-  getEmailStr: (type, data) => {
-    let str;
-    switch (type) {
-      case "application": {
-        if (data) {
-          const orgName = this.getOrgsNames(data.orgs, true);
-          const email = this.getOrgsEmails(data.orgs);
-          const title = (data.title + ' - Hjobs.hk').replace(/\s|\r/g, "%20");
-
-          const body =
-            ("Dear " + orgName + ",%0A%0A" +
-            "I am interested in your posting " + data.title + ". Please contact me at: (ENTER YOUR INFO HERE)%0A%0A" +
-            "Look forward to your speedy reply," +
-            "%0A(YOUR NAME HERE)").replace(/\s|\r/g, "%20");
-
-          str =
-            'mailto:' + email +
-            '?subject=RE%20' + title +
-            '&body=' + body;
-        }
-        break;
-      }
-      case "contactus": {
-        str =
-          'mailto:info@hjobs.hk' +
-          '?subject=RE%20' +
-          'Inquiry'.replace(" ", "%20") +
-          '&body=' +
-          'Let us know what your inquiry is :)'.replace(" ", "%20");
-        break;
-      }
-      default: break;
-    }
-
-    return str || null;
-  },
+  getEmailStr,
 
   /** if encode === true, replace & with %26 @param {any[]} orgs @param {boolean} encode*/
   getOrgsNames: (orgs, encode = false) => {

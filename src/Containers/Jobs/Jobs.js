@@ -12,6 +12,8 @@ import ErrorDiv from '../../Components/Utilities/ErrorDiv';
 import JobStore, { JobActions } from '../../stores/jobStore';
 import AdStore from '../../stores/adStore';
 
+import { log } from '../../services/http';
+
 const NoListing = () => (
   <div className="flex-row flex-vhCenter" style={{minHeight: "200px", padding: "20px"}}>
     No listing. Try other categories!
@@ -43,6 +45,23 @@ class Jobs extends Reflux.Component {
       window.scrollTo(0, 0);
       const page = +queryString.parse(nextProps.location.search).page || 1;
       this.loadJobsIfNeeded(nextProps.match.params.jobType, page);
+    }
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (
+      !!nextState.ad.current &&
+      (
+        !this.state.ad || !this.state.ad.id ||
+        this.state.ad.current.id !== nextState.ad.current.id
+      )
+    ) {
+      log({
+        name: "Ad",
+        action: "Load",
+        component: "Jobs",
+        target: nextState.ad.current.id
+      });
     }
   }
 

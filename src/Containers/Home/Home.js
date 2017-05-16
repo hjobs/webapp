@@ -6,8 +6,8 @@ import EdmundImage from './edmund.jpg';
 import KhzeerImage from './khzeer.jpg';
 import './styles/Home.css';
 
-import Variable from '../../services/var';
-import Http from '../../services/http';
+import { getEmailStr } from '../../services/var';
+import { log } from '../../services/http';
 
 import MiscStore, { MiscActions } from "../../stores/miscStore";
 import TranslationStore from "../../stores/translationStore";
@@ -16,13 +16,13 @@ class Home extends Reflux.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalData: null,
       clickCount: 0
     };
     this.stores = [MiscStore, TranslationStore];
+    this.storeKeys = ["isDeveloper", "tStrings"];
   }
 
-  componentDidMount() { Http.log({name: "EnterPage", page: "Home", action: "Enter"}); }
+  componentDidMount() { log({name: "EnterPage", page: "Home", action: "Enter"}); }
 
   listenForDeveloper() {
     if (this.state.isDeveloper || this.state.clickCount === null) return;
@@ -51,7 +51,7 @@ class Home extends Reflux.Component {
   closeModal() { this.setState(s => { s.modalData = null; return s; }); }
 
   render() {
-    const str = Variable.getEmailStr('contactus');
+    const str = getEmailStr('contactus');
     const t = this.state.tStrings;
     console.log(["home.js, logging this.props and this.state", this.props, this.state]);
 
@@ -63,31 +63,6 @@ class Home extends Reflux.Component {
             <h2 onClick={() => { this.listenForDeveloper(); }}>{t.home.hero}</h2>
           </div>
         </div>
-
-        { /* circles
-        <div className="about-choice-container flex-col flex-vhCenter text-center full-width">
-          <div className="about-choice flex-col flex-vhCenter">
-            <Grid>
-              <Row className="show-grid">
-                <Col xs={24} sm={12} md={12} lg={12} className="flex-row flex-vhCenter">
-                  <div
-                    onClick={() => { this.props.goToPage(2, "quick"); }}
-                    className="div-circle div-circle-small flex-row flex-vhCenter">
-                    <h3>View Jobs</h3>
-                  </div>
-                </Col>
-                <Col xs={24} sm={12} md={12} lg={12} className="flex-row flex-vhCenter">
-                  <div
-                    onClick={() => { window.open("http://admin.hjobs.hk"); }}
-                    className="div-circle div-circle-small flex-row flex-vhCenter">
-                    <h3>Post Jobs</h3>
-                  </div>
-                </Col>
-              </Row>
-            </Grid>
-          </div>
-        </div>
-        */ }
 
         {/* Our Service */}
         <div className="about-intro-container flex-col flex-vhCenter text-center full-width">
@@ -133,7 +108,7 @@ class Home extends Reflux.Component {
             <p>{t.home.contactEmail}{': '}
               <a
                 className="link"
-                onClick={() => { Http.log({name: "OpenEmail", action: "Click", page: "Home", component: "ContactUs"}); }}
+                onClick={() => { log({name: "OpenEmail", action: "Click", page: "Home", component: "ContactUs"}); }}
                 href={str}>
                 <u>info@hjobs.hk</u>
               </a>
@@ -147,68 +122,3 @@ class Home extends Reflux.Component {
 }
 
 export default Home;
-
-// <div className="about-feature-container flex-col flex-vhCenter text-center full-width">
-//           <div className="about-feature flex-col flex-vhCenter">
-//           </div>
-//         </div>
-            // <Grid>
-            //   <Row className="show-grid">
-            //     <Col xs={24} sm={12} md={12} lg={12} className="flex-row flex-vhCenter">
-            //       <div
-            //         onClick={() => { this.props.goToPage(2, "quick"); }}
-            //         className="div-circle div-circle-big flex-row flex-vhCenter">
-            //         <h3>Looking for a quick job?</h3>
-            //       </div>
-            //     </Col>
-            //     <Col xs={24} sm={12} md={12} lg={12} className="flex-row flex-vhCenter">
-            //       <div
-            //         onClick={() => { this.props.goToPage(2, "stable"); }}
-            //         className="div-circle div-circle-big flex-row flex-vhCenter">
-            //         <h3>Looking for a stable job?</h3>
-            //       </div>
-            //     </Col>
-            //   </Row>
-            //   <Row className="show-grid">
-            //     <Col xs={24} sm={12} md={12} lg={12} className="flex-row flex-vhCenter">
-            //       <div
-            //         onClick={() => { this.props.goToPage(2, "project"); }}
-            //         className="div-circle div-circle-small flex-row flex-vhCenter">
-            //         <div className="text-center">
-            //           <span className="project-1">Looking for a project?</span>
-            //           <span className="project-2"> (market research, consultancy)</span>
-            //         </div>
-            //       </div>
-            //     </Col>
-            //     <Col xs={24} sm={12} md={12} lg={12} className="flex-row flex-vhCenter">
-            //       <div
-            //         onClick={() => { window.open("http://admin.hjobs.hk"); }}
-            //         className="div-circle div-circle-small flex-row flex-vhCenter">
-            //         <h4>Looking to post jobs or projects?</h4>
-            //       </div>
-            //     </Col>
-            //   </Row>
-            // </Grid>
-      /* Featured jobs
-        <div className="about-choice-container flex-col flex-vhCenter text-center full-width">
-          <div className="jobs full-width flex-col flex-vhCenter">
-            <Description />
-            {this.props.loading ? <div style={{height: "120px"}} /> :
-              <Jobs
-                openModal={(job) => { this.openModal(job); }}
-                jobs={this.props.jobs}
-              />
-            }
-            <div style={{marginTop: "15px"}}>
-              <span className="link" onClick={() => { this.props.goToPage(2, "quick"); }} style={{textDecoration: "underline"}}>
-                view all jobs
-              </span>
-            </div>
-            <ApplyModal
-              data={this.state.modalData}
-              shown={!!this.state.modalData}
-              closeModal={() => { this.closeModal(); }}
-            />
-          </div>
-        </div>
-        */

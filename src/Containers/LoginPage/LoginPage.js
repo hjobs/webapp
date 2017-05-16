@@ -9,12 +9,11 @@ import Login from '../../Components/Login/Login';
 
 import UserStore from '../../stores/userStore';
 
-// import Variable from '../../services/var';
-
 class LoginPage extends Reflux.Component {
   constructor(props) {
     super(props);
     this.store = UserStore;
+    this.storeKeys = ["user", "authToken"];
   }
 
   render() {

@@ -12,7 +12,7 @@ import Logo from './logo-landscape.png';
 import TranslationStore, { TranslationActions } from '../../stores/translationStore';
 import UserStore from '../../stores/userStore';
 
-import Http from '../../services/http';
+import { log } from '../../services/http';
 
 class NavBarWithoutRouter extends Reflux.Component {
   constructor(props) {
@@ -79,8 +79,8 @@ class NavBarWithoutRouter extends Reflux.Component {
                     this.props.history.push("/profile");
                   }
                   else {
-                    Http.log({
-                      name: "Login",
+                    log({
+                      name: "GoToLogin",
                       action: "Click",
                       component: "Navbar"
                     });

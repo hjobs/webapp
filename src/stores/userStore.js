@@ -3,8 +3,10 @@ import Reflux from 'reflux';
 // import { withRouter, matchPath } from 'react-router-dom';
 // const queryString = require("query-string");
 
-import Http from '../services/http';
+import { log, request, exRequest } from '../services/http';
 import { getTranslations } from './translationStore';
+
+import { profileEditLog } from './data/log';
 import { getJobExpEditErrors, getJobExpHttpArray, getLocationObject } from './data/profile';
 
 export const UserActions = Reflux.createActions({
@@ -80,7 +82,7 @@ class UserStore extends Reflux.Store {
 
   getUserFromAuthToken() {
     console.log("getting user from auth_token");
-    Http.request('get_employee').then(res => res.json()).then(d => {
+    request('get_employee').then(res => res.json()).then(d => {
       // console.log(d);
       if (!!d && !d.error) {
         this.setUser(d);
@@ -96,7 +98,7 @@ class UserStore extends Reflux.Store {
 
   logout(skipLog) {
     if (!!skipLog) {
-      Http.log({
+      log({
         name: "Logout",
         action: "Click",
         component: "Navbar"
@@ -137,7 +139,7 @@ class UserStore extends Reflux.Store {
 
     const submit = (url, method, obj) => {
       console.log(["submiting", url, method, obj]);
-      Http.request(url, method, obj).then(res => {
+      request(url, method, obj).then(res => {
         console.log(res);
         if (!res.ok) return this.submitProfileEditFailed(res.statusText)
         return res.json();
@@ -233,12 +235,13 @@ class UserStore extends Reflux.Store {
 
   submitProfileEditCompleted(data) {
     console.log(["submitProfileEditCompleted, logging data", data])
+    const editKeyToLog = this.state.profile.editing.key;
     const user = data;
     const profile = this.state.profile;
     profile.errorMsg = null;
     profile.loading = false;
     profile.editing = {key: null, data: null};
-    this.setState({profile, user})
+    this.setState({profile, user}, () => log(profileEditLog(editKeyToLog)) )
   }
 
   submitProfileEditFailed(reason) {
@@ -264,7 +267,7 @@ class UserStore extends Reflux.Store {
                 "region=" + region +
                 "&address=" + street +
                 "&key=AIzaSyDqDJTU7suCklbnStTcieulgVHci8myzcQ";
-    return Http.exRequest(googleUrl).then(res => res.json())
+    return exRequest(googleUrl).then(res => res.json())
   }
 }
 
