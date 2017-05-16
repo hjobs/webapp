@@ -1,4 +1,5 @@
 import Reflux from 'reflux';
+import clone from 'clone';
 
 import Variable from '../services/var';
 import Http from '../services/http';
@@ -31,27 +32,23 @@ class AdStore extends Reflux.Store {
     Http.request("ads").then(res => res.json()).then(d => {
       console.log(["got ads", d]);
       if (!!d && d.length > 0) {
-        this.setState(s => {
-          s.ad.array = d;
-          s.ad.current = d[0];
-          s.ad.timer = this.adTimer(d, d[0]);
-          return s;
-        });
+        const nextState = clone(this.state);
+        nextState.ad.array = d;
+        nextState.ad.current = d[0];
+        nextState.ad.timer = this.adTimer(d, d[0])
+        this.setState(nextState);
       }
     });
   }
 
   adTimer(adArr, adCurr) {
     return window.setTimeout(() => {
-      const currIndex = Variable.indexOfDataInArray(adCurr, adArr);
-      const nextIndex = currIndex < (adArr.length - 1) ? currIndex + 1 : 0;
-      this.setState({
-        ad: {
-          current: adArr[nextIndex],
-          timer: this.adTimer(adArr, adArr[nextIndex]),
-          array: this.state.ad.array
-        }
-      });
+      const currIndex = Variable.indexOfDataInArray(adCurr, adArr),
+            nextIndex = currIndex < (adArr.length - 1) ? currIndex + 1 : 0,
+            nextState = clone(this.state);
+      nextState.ad.current = adArr[nextIndex];
+      nextState.ad.timer = this.adTimer(adArr, adArr[nextIndex])
+      this.setState(nextState);
     }, 10000);
   }
 

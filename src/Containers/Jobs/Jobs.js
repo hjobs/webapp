@@ -52,7 +52,7 @@ class Jobs extends Reflux.Component {
     if (
       !!nextState.ad.current &&
       (
-        !this.state.ad || !this.state.ad.id ||
+        !this.state.ad.current || !this.state.ad.current.id ||
         this.state.ad.current.id !== nextState.ad.current.id
       )
     ) {
