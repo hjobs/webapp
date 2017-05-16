@@ -60,7 +60,7 @@ class Jobs extends Reflux.Component {
         name: "Ad",
         action: "Load",
         component: "Jobs",
-        target: nextState.ad.current.id
+        ad_id: nextState.ad.current.id
       });
     }
   }
@@ -144,7 +144,7 @@ class Jobs extends Reflux.Component {
                 name: "Ad",
                 action: "Click",
                 component: "Ad",
-                target: "ad.id"
+                ad_id: ad.id
               })}
             >
               <Image src={ad.image} className="full-width" responsive />
