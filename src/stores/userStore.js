@@ -96,8 +96,9 @@ class UserStore extends Reflux.Store {
     return !!userObject;
   }
 
+  /** @param {boolean} skipLog */
   logout(skipLog) {
-    if (!!skipLog) {
+    if (skipLog === true) {
       log({
         name: "Logout",
         action: "Click",
@@ -241,7 +242,8 @@ class UserStore extends Reflux.Store {
     profile.errorMsg = null;
     profile.loading = false;
     profile.editing = {key: null, data: null};
-    this.setState({profile, user}, () => log(profileEditLog(editKeyToLog)) )
+    this.setState({profile, user});
+    log(profileEditLog(editKeyToLog))
   }
 
   submitProfileEditFailed(reason) {
