@@ -98,7 +98,7 @@ class UserStore extends Reflux.Store {
 
   /** @param {boolean} skipLog */
   logout(skipLog) {
-    if (skipLog === true) {
+    if (skipLog !== true) {
       log({
         name: "Logout",
         action: "Click",

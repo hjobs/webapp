@@ -17,7 +17,7 @@ class MiscStore extends Reflux.Store {
 
   enableDeveloper() {
     console.log("enableDeveloper called");
-    if (this.state.isDeveloper) {
+    if (!this.state.isDeveloper) {
       localStorage.setItem("developer", "true");
       Http.log({name: "EnableDeveloper", page: "Home", action: "Click", component: "HeroBanner"});
       const nextState = this.state;
