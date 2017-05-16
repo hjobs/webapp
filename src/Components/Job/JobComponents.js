@@ -1,6 +1,6 @@
 import Location from './Location';
 import Salary from './Salary';
 import Tags from './Tags';
-import ActionButtons from './ActionButtons';
+import ShareButtons from './ShareButtons';
 
-export { Location, Salary, Tags, ActionButtons };
+export { Location, Salary, Tags, ShareButtons };

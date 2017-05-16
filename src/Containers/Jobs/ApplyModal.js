@@ -13,7 +13,7 @@ import Http from '../../services/http';
 import ErrorDiv from '../../Components/Utilities/ErrorDiv';
 import EmailSnippet from '../../Components/Utilities/EmailSnippet';
 import Login from '../../Components/Login/Login';
-import { Tags, Salary, Location, ActionButtons } from '../../Components/Job/JobComponents';
+import { Tags, Salary, Location, ShareButtons } from '../../Components/Job/JobComponents';
 
 import JobStore from '../../stores/jobStore';
 import TranslationStore from '../../stores/translationStore';
@@ -99,7 +99,7 @@ class ApplyModalWithoutRouter extends Reflux.Component {
                   : null
               }
             </div>
-            <ActionButtons job={job} style={{
+            <ShareButtons job={job} style={{
               position: "absolute",
               bottom: 10,
               left: 0,
