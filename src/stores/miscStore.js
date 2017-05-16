@@ -1,6 +1,6 @@
 import Reflux from 'reflux';
 
-import Http from '../services/http';
+import { log } from '../services/http';
 
 export const MiscActions = Reflux.createActions([
   'enableDeveloper'
@@ -18,8 +18,8 @@ class MiscStore extends Reflux.Store {
   enableDeveloper() {
     console.log("enableDeveloper called");
     if (!this.state.isDeveloper) {
+      log({name: "EnableDeveloper", page: "Home", action: "Click", component: "HeroBanner"});
       localStorage.setItem("developer", "true");
-      Http.log({name: "EnableDeveloper", page: "Home", action: "Click", component: "HeroBanner"});
       const nextState = this.state;
       nextState.isDeveloper = true;
       this.setState(nextState);
