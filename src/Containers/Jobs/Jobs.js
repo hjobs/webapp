@@ -138,7 +138,15 @@ class Jobs extends Reflux.Component {
       if (i === adIndex && !!ad) {
         arr.push(
           <div className="job-cell full-width" key={"ad-" + ad.id}>
-            <a href={!!ad.link ? ad.link : null}>
+            <a
+              href={!!ad.link ? ad.link : null}
+              onClick={() => log({
+                name: "Ad",
+                action: "Click",
+                component: "Ad",
+                target: "ad.id"
+              })}
+            >
               <Image src={ad.image} className="full-width" responsive />
             </a>
           </div>
