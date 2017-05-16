@@ -6,8 +6,8 @@ import 'whatwg-fetch';
 const getToken = () => (localStorage.getItem("authToken") || null);
 
 // const baseUrl = "https://api.hjobs.hk/";
-// const baseUrl = "https://dev.hjobs.hk/";
-const baseUrl = "http://localhost:9080/";
+const baseUrl = "https://dev.hjobs.hk/";
+// const baseUrl = "http://localhost:9080/";
 
 /** param httpMethod defaults to 'GET', data defaults to null
 * @param {string} urlSuffix

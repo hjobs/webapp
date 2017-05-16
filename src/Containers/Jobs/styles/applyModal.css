@@ -4,37 +4,33 @@
     width: 100vw;
     height: 100vh;
     margin: 0px; }
-  .apply-job-modal.modal-dialog .modal-content > .modal-body {
-    height: calc(100vh - 41px - 45px - 80px); } }
+    .apply-job-modal.modal-dialog .modal-content > .modal-body {
+      height: calc(100vh - 41px - 45px - 80px); } }
 
 @media screen and (min-width: 544px) {
   .apply-job-modal.modal-dialog {
     width: 90vw !important;
     max-width: 600px;
     margin: 30px auto; }
-  .apply-job-modal.modal-dialog .modal-content > .modal-body {
-    height: calc(100vh - 41px - 45px - 70px); } }
+    .apply-job-modal.modal-dialog .modal-content > .modal-body {
+      height: calc(100vh - 41px - 45px - 70px); } }
 
 .apply-job-modal.modal-dialog .modal-content > .modal-body {
   overflow: scroll; }
-
-.apply-job-modal.modal-dialog .modal-content > .modal-body h1, .apply-job-modal.modal-dialog .modal-content > .modal-body h2, .apply-job-modal.modal-dialog .modal-content > .modal-body h3, .apply-job-modal.modal-dialog .modal-content > .modal-body h4, .apply-job-modal.modal-dialog .modal-content > .modal-body h5, .apply-job-modal.modal-dialog .modal-content > .modal-body h6 {
-  font-family: 'Open Sans', "sans-serif";
-  font-weight: bold; }
-
-.apply-job-modal.modal-dialog .modal-content > .modal-body p.indented {
-  margin-left: 10px !important; }
+  .apply-job-modal.modal-dialog .modal-content > .modal-body h1, .apply-job-modal.modal-dialog .modal-content > .modal-body h2, .apply-job-modal.modal-dialog .modal-content > .modal-body h3, .apply-job-modal.modal-dialog .modal-content > .modal-body h4, .apply-job-modal.modal-dialog .modal-content > .modal-body h5, .apply-job-modal.modal-dialog .modal-content > .modal-body h6 {
+    font-family: 'Open Sans', "sans-serif";
+    font-weight: bold; }
+  .apply-job-modal.modal-dialog .modal-content > .modal-body p.indented {
+    margin-left: 10px !important; }
 
 .apply-job-modal.modal-dialog .modal-content > .modal-body.applying {
   background-color: #101010;
   color: white; }
-
-.apply-job-modal.modal-dialog .modal-content > .modal-body.applying label, .apply-job-modal.modal-dialog .modal-content > .modal-body.applying .label {
-  font-weight: 300; }
-
-.apply-job-modal.modal-dialog .modal-content > .modal-body.applying button {
-  background-color: #FDFDFD;
-  color: #101010; }
+  .apply-job-modal.modal-dialog .modal-content > .modal-body.applying label, .apply-job-modal.modal-dialog .modal-content > .modal-body.applying .label {
+    font-weight: 300; }
+  .apply-job-modal.modal-dialog .modal-content > .modal-body.applying button {
+    background-color: #FDFDFD;
+    color: #101010; }
 
 .apply-job-modal.modal-dialog .modal-header {
   border-radius: 5px 5px 0px 0px;
@@ -45,23 +41,18 @@
 
 .apply-job-modal.modal-dialog .modal-footer {
   border-radius: 0px 0px 5px 5px; }
-
-.apply-job-modal.modal-dialog .modal-footer button {
-  border: 0px !important; }
-
-.apply-job-modal.modal-dialog .modal-footer button.transparent {
-  background-color: transparent; }
-
-.apply-job-modal.modal-dialog .modal-footer button.inverse {
-  background-color: #101010;
-  color: #F0F0F0; }
+  .apply-job-modal.modal-dialog .modal-footer button {
+    border: 0px !important; }
+  .apply-job-modal.modal-dialog .modal-footer button.transparent {
+    background-color: transparent; }
+  .apply-job-modal.modal-dialog .modal-footer button.inverse {
+    background-color: #101010;
+    color: #F0F0F0; }
 
 .apply-job-modal.modal-dialog .modal-footer.black {
   background-color: #101010; }
-
-.apply-job-modal.modal-dialog .modal-footer.black button {
-  color: #FDFDFD; }
-
-.apply-job-modal.modal-dialog .modal-footer.black button.inverse {
-  background-color: #FDFDFD;
-  color: #101010; }
+  .apply-job-modal.modal-dialog .modal-footer.black button {
+    color: #FDFDFD; }
+  .apply-job-modal.modal-dialog .modal-footer.black button.inverse {
+    background-color: #FDFDFD;
+    color: #101010; }
