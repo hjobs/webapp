@@ -23,30 +23,22 @@ import JobStore from './stores/jobStore';
 import UserStore, { UserActions } from './stores/userStore';
 import TranslationStore, { TranslationActions } from './stores/translationStore';
 
-// import Variable from '../services/var';
-// import Http from './services/http';
-
 class App extends Reflux.Component {
   constructor() {
     super();
     this.state = {};
     this.stores = [JobStore, TranslationStore, UserStore];
-    console.log = () => {};
+    if (process.env.NODE_ENV !== "development") console.log = () => {};
   }
 
   componentWillMount() {
     super.componentWillMount.call(this);
 
     const query = queryString.parse(this.props.location.search);
-    if (!!query.auth_token) {
-      localStorage.setItem("authToken", query.auth_token);
-    }
     if (!!query.user) {
       const userObject = JSON.parse(query.user);
       console.log(["user data is here", userObject]);
-      // window.setTimeout(() => { 
-        UserActions.setUser(userObject, query.auth_token);
-      // }, 300);
+      UserActions.setUser(userObject, query.auth_token);
     }
 
     this.hideQuery();
@@ -84,9 +76,6 @@ class App extends Reflux.Component {
   }
 
   render() {
-    // const query = queryString.parse(this.props.location.search),
-          // shouldNotRoute = !!query.user || !!query.auth_token;
-    // console.log([this.props, this.state]);
     return (
       <div style={{paddingTop: "50px"}}>
         <NavBar />
