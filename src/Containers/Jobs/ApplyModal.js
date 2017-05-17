@@ -11,7 +11,7 @@ import Variable from '../../services/var';
 import Http from '../../services/http';
 
 import ErrorDiv from '../../Components/Utilities/ErrorDiv';
-import EmailSnippet from '../../Components/Utilities/EmailSnippet';
+import ApplyMessage from '../../Components/Job/ApplyMessage';
 import Login from '../../Components/Login/Login';
 import { Tags, Salary, Location, ShareButtons } from '../../Components/Job/JobComponents';
 
@@ -116,7 +116,9 @@ class ApplyModalWithoutRouter extends Reflux.Component {
               modal.loading ?
               <div className="flex-col flex-vhCenter"><Loading /></div>:
               <div className="flex-col flex-vhCenter" style={{overflow: "scroll", minHeight: "100%"}}>
-                <EmailSnippet data={this.props.modal.data} />
+                {//<EmailSnippet data={this.props.modal.data} />
+                }
+                <ApplyMessage user={this.state.user} />
                 <div style={{height: "20px"}} />
                   {
                     signedIn ? null :
