@@ -7,20 +7,20 @@ const tStrings = {
     hi: "Hi",
     intro: "When you confirm, you will be applying for this job, at the push of a button!",
     loggedIn: "You can change your profile (via the top toolbar) at any time, and changes are reflected immediately so that you do not have to worry about an oudated CV!",
-    notLoggedIn: "",
+    notLoggedIn: "Please sign in to our one-stop solution, applying to this and many other jobs, and easily building your most updated CV!",
     cheers: "Cheers!"
   },
   "zh-HK": {
     hi: "你好",
     intro: "當你確認後，我們會代你提交申請，即時通時有關僱主。",
     loggedIn: "你可以在提交申請後再到你的帳戶填寫你的工作紀驗等資料。你的僱主會看到你最新的資料，讓你能輕鬆管理你的履歷。",
-    notLoggedIn: "",
+    notLoggedIn: "請以下列方法登入或建立帳戶。成功後，你便可以使用我們的一站式平台輕鬆申請工作及建立履歷。",
     cheers: "Cheers!"
   }
 }
 
 const ApplyMessage = ({user}) => {
-  const t = tStrings[getLocale()],
+  const t = tStrings[getLocale()];
   return (
     <div style={{
       lineHeight: 1.5,

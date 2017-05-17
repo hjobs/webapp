@@ -69,7 +69,7 @@ class SignupForm extends Reflux.Component {
         form.email.split(".").length < 2
       ) err.push(t.login.emailNotValid);
     }
-    if (this.state.login.isSignUp && !this.state.login.agreed) err.push(t.login.missingAgree);
+    if (this.state.login.isSignUp && !this.state.login.agreed) err.push(t.login.agreeMissing);
     console.log(["err", err]);
     this.setState(s => {
       s.errors = err;

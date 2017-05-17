@@ -109,7 +109,7 @@ class ApplyModalWithoutRouter extends Reflux.Component {
         );
       }
     } else { // applying
-      const signedIn = localStorage.getItem("authToken");
+      const signedIn = !!this.state.authToken;
       body = (
         <Modal.Body bsClass="modal-body applying">
             {
@@ -165,7 +165,7 @@ class ApplyModalWithoutRouter extends Reflux.Component {
               <Button
                 size="large"
                 className="inverse"
-                disabled={modal.loading || (applying && !localStorage.getItem("authToken"))}
+                disabled={modal.loading || (applying && !this.state.authToken)}
                 loading={modal.loading}
                 onClick={() => {
                   if (!applying) this.toggleApply();
