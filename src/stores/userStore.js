@@ -13,6 +13,7 @@ export const UserActions = Reflux.createActions({
   refreshUser: {},
   logout: {},
   setUser: {},
+  setAppliedJobs: {},
   updateUser: {},
   removeTemporaryUser: {},
   editProfileItem: {},
@@ -53,11 +54,15 @@ class UserStore extends Reflux.Store {
   }
 
   setUser(userObject, authToken) {
+    console.log(["inside userStore, setting user", userObject, authToken]);
+    if (!!authToken) localStorage.setItem("authToken", authToken);
     if (this.userObjectIsValid(userObject)) {
       // localStorage.setItem("user", JSON.stringify(userObject));
-      this.state.user = userObject;
-      if (!!authToken) this.state.authToken = authToken;
-      this.trigger(this.state);
+      const nextState = this.state;
+      nextState.user = userObject;
+      if (!!authToken) nextState.authToken = authToken;
+      this.setState(nextState)
+      // this.trigger(this.state);
     }
   }
 

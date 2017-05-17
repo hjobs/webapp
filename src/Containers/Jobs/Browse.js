@@ -46,7 +46,9 @@ class Browse extends Reflux.Component {
 
   componentWillReceiveProps(nextProps) {
     this.checkRoute(nextProps);
-    this.prepareModalData(nextProps);
+    if (nextProps.location.search !== this.props.location.search) {
+      this.prepareModalData(nextProps);
+    }
   }
 
   logNavigation(props) {
@@ -160,23 +162,24 @@ class Browse extends Reflux.Component {
           .then(d => {
             // console.log(["d = ", d]);
             if (!d) throw Error("Error in application. Check internet connection");
-            let appliedJobsArray = JSON.parse(localStorage.getItem("appliedJobs")) || [];
+            let appliedJobsArray = this.state.appliedJobs || [];
             if (!appliedJobsArray) appliedJobsArray = [];
             appliedJobsArray.push(this.state.modal.data.id);
-            localStorage.setItem("appliedJobs", JSON.stringify(appliedJobsArray));
+            // localStorage.setItem("appliedJobs", JSON.stringify(appliedJobsArray));
 
             this.setState(s => {
               s.modal.loading = false;
               s.modal.error = false;
               return s;
             }, () => {
+              UserActions.setAppliedJobs(appliedJobsArray);
               this.props.history.push(
                 this.props.location.pathname + 
                 this.props.location.search.replace(
                   /(\?applying=|&applying=)[^&]+/,
                   ""
                 )
-              );           
+              );
             });
           })
           .catch(err => {

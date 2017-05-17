@@ -31,7 +31,7 @@ class App extends Reflux.Component {
     super();
     this.state = {};
     this.stores = [JobStore, TranslationStore, UserStore];
-    console.log = () => {};
+    // console.log = () => {};
   }
 
   componentWillMount() {
