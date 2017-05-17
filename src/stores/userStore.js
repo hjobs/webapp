@@ -105,10 +105,10 @@ class UserStore extends Reflux.Store {
         component: "Navbar"
       });
     }
+    request("logout");
     localStorage.removeItem("user");
     localStorage.removeItem("authToken");
     localStorage.removeItem("appliedJobs");
-    sessionStorage.removeItem("user_id");
     this.setState(this.getInitialState());
   }
 
