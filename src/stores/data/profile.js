@@ -3,12 +3,6 @@ import clone from 'clone';
 import { getTranslations } from '../translationStore';
 import { geolocationMappingObject } from '../../services/var';
 
-// export const languageArray = [
-//   {name: "English", value: "english", key: "english"},
-//   {name: "Cantonese", value: "zh-can", key: "cantonese"},
-//   {name: "Mandarin", value: "zh-man", key: "mandarin"}
-// ];
-
 export const langObj = {
     "ab":{
         "name":"Abkhaz",

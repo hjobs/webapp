@@ -12,11 +12,12 @@ export const TranslationActions = Reflux.createActions([
   'getTranslations'
 ]);
 
+/** @return {string} */
 export const getLocale = () => {
   return localStorage.getItem("locale") || "en";
 };
 
-/** @param {translationOptions} str */
+/** @param {translationOptions} str @return {string} */
 export const getTranslations = (str) => {
   const key = str || getLocale();
   return tStrings[key];
