@@ -6,7 +6,7 @@ const Location = ({job}) => {
   return (
     <span>
       <i className="fa fa-map-marker" aria-hidden="true"></i>{" "}
-      {job.locations.map(l => l.address).join(", ")}<br />
+      {job.locations.map(l => l.city || l.address).join(", ")}<br />
     </span>
   );
 }
