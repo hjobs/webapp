@@ -46,8 +46,9 @@ export default class ActionButtons extends Reflux.Component {
 
   render() {
     if (!this.props.job) return null;
-    const t = tStrings[this.state.locale],
-          link = "https://www.hjobs.hk/jobs/stable?job=" + this.props.job.id;
+    const { job } = this.props,
+          t = tStrings[this.state.locale],
+          link = "https://www.hjobs.hk/jobs/stable?job=" + job.id;
 
     return (
       <div className="flex-row flex-hCenter flex-vEnd" style={this.props.style}>
@@ -65,7 +66,12 @@ export default class ActionButtons extends Reflux.Component {
               item.type,
               {
                 className: "padded-sides social-button",
-                url: link
+                url: link,
+                title: job.title,
+                description: job.description,
+                picture: job.photo || job.orgs[0].logo,
+                hashtags: "hjobs",
+                separator: " - from HJobs - "
               },
               React.createElement(
                 generateShareIcon(item.key),
