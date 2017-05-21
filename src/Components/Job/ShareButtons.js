@@ -70,7 +70,7 @@ export default class ActionButtons extends Reflux.Component {
                 title: job.title,
                 description: job.description,
                 picture: job.photo || job.orgs[0].logo,
-                hashtags: "hjobs",
+                hashtags: ["hjobs"],
                 separator: " - from HJobs - "
               },
               React.createElement(
