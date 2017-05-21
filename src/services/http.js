@@ -5,12 +5,9 @@ import 'whatwg-fetch';
 /** @return {string} */
 const getToken = () => (localStorage.getItem("authToken") || null);
 
-export const baseUrl = (
-  process.env.NODE_ENV === "development" ?
-  "https://dev.hjobs.hk/":
-  // "http://localhost:9080/":
-  "https://api.hjobs.hk/"
-);
+export const baseUrl = "https://dev.hjobs.hk/";
+// export const baseUrl = "http://localhost:9080/";
+// export const baseUrl = "https://api.hjobs.hk/";
 
 /** param httpMethod defaults to 'GET', data defaults to null
 * @param {string} urlSuffix
