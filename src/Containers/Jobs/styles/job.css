@@ -30,11 +30,11 @@
     padding-left: 15px;
     padding-right: 7.5px;
     width: calc(70% - 10px); }
-    .job-container .detail-container p {
+    .job-container .detail-container .icon-text {
       margin-left: 1.5px;
       color: #666666;
       font-weight: 300; }
-      .job-container .detail-container p i {
+      .job-container .detail-container .icon-text i {
         font-size: 0.9em;
         margin-right: 8px;
         min-width: 5px; }

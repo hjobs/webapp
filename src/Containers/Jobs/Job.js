@@ -41,14 +41,13 @@ class Job extends React.Component {
     const job = this.props.job;
     if (!job) return null;
     const org = job.orgs[0];
-    const imgSrc = !!job.photo ? job.photo : (!org ? "" : org.logo);
 
     return (
       <div className="job-container flex-row" onClick={() => this.openModal()}>
         {/* Image */}
         <div
           className="job-thumbnail"
-          style={{backgroundImage: "url('" + imgSrc + "')"}} />
+          style={{backgroundImage: "url('" + job.photo + "')"}} />
         <div className="detail-container">
           {/* Traffic Light */}
           <div className="flex-row flex-hStart flex-vCenter">
@@ -59,7 +58,7 @@ class Job extends React.Component {
           </div>
           {/* Tags */}
           <Tags job={job} />
-          <p>
+          <div className="icon-text">
             {/* Salary */}
             <Salary job={job} />
             <br />
@@ -68,7 +67,7 @@ class Job extends React.Component {
             {/* Org Name */}
             <i className="fa fa-building" aria-hidden="true"></i>{" "}
             {org.name}
-          </p>
+          </div>
         </div>
       </div>
     );
