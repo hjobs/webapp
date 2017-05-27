@@ -1,6 +1,7 @@
 import React from 'react';
 import Reflux from 'reflux';
 import { Redirect } from 'react-router-dom';
+import { Dimmer, Loader } from 'semantic-ui-react';
 import './styles/ProfilePage.css';
 
 import ProfileContent from './ProfileContent';
@@ -17,6 +18,7 @@ class ProfilePage extends Reflux.Component {
   constructor(props) {
     super(props);
     this.store = UserStore;
+    this.storeKeys = ["authToken", "profile"];
   }
 
   render() {
@@ -25,6 +27,7 @@ class ProfilePage extends Reflux.Component {
       <div className="flex-col flex-vCenter profile-page-container">
         <ProfileContent />
         <ProfileControls />
+        <Dimmer active={this.state.profile.loading} page children={<Loader />} />
       </div>
     );
   }

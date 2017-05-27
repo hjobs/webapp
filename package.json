@@ -10,6 +10,7 @@
   "license": "MIT",
   "homepage": "http://www.hjobs.hk",
   "dependencies": {
+    "aws-sdk": "^2.58.0",
     "bootstrap": "3",
     "clone": "^2.1.1",
     "flatpickr": "^2.6.1",

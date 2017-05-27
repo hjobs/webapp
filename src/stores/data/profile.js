@@ -769,7 +769,9 @@ export const userIconTextObjects = [
     editType: "Location",
     placeholder: getTranslations().profile.locationPlaceholder
   },
-  {key: "lang_qs", iconName: "comment outline",
+  {
+    key: "lang_qs",
+    iconName: "comment outline",
     getInitialEditValue: obj => {
       if (!!obj.toString()) return clone(obj);
       return [
@@ -791,14 +793,15 @@ export const userIconTextObjects = [
   {
     key: "cv",
     iconName: "attach",
-    inputType: "url",
     getValue: url => {
       if (!url) return getTranslations().profile.cv.none;
       return (
-        <a href={url} target="_blank">{url} (CV)</a>
+        <a href={url} target="_blank">{getTranslations().profile.cv.view}</a>
       );
     },
-    placeholder: getTranslations().profile.cv.placeholder
+    getInitialEditValue: () => "",
+    placeholder: getTranslations().profile.cv.placeholder,
+    editType: "CV"
   },
   {
       key: "description",

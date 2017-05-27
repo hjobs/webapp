@@ -3,7 +3,9 @@ import Reflux from 'reflux';
 // import { withRouter, matchPath } from 'react-router-dom';
 // const queryString = require("query-string");
 
+import { yyyymmddhhmmss } from '../services/var';
 import { log, request, exRequest } from '../services/http';
+import { uploadPhoto, deletePhoto } from '../services/upload';
 import { getTranslations } from './translationStore';
 
 import { profileEditLog } from './data/log';
@@ -57,12 +59,10 @@ class UserStore extends Reflux.Store {
     console.log(["inside userStore, setting user", userObject, authToken]);
     if (!!authToken) localStorage.setItem("authToken", authToken);
     if (this.userObjectIsValid(userObject)) {
-      // localStorage.setItem("user", JSON.stringify(userObject));
       const nextState = this.state;
       nextState.user = userObject;
       if (!!authToken) nextState.authToken = authToken;
       this.setState(nextState)
-      // this.trigger(this.state);
     }
   }
 
@@ -97,9 +97,7 @@ class UserStore extends Reflux.Store {
     })
   }
 
-  userObjectIsValid(userObject) {
-    return !!userObject;
-  }
+  userObjectIsValid(userObject) { return !!userObject; }
 
   /** @param {boolean} skipLog */
   logout(skipLog) {
@@ -138,7 +136,7 @@ class UserStore extends Reflux.Store {
     let editingData = data || profile.editing.data;  
     if (
       (profile.editing.data === this.state.user[editingKey]) ||
-      (!editingData.toString() && !this.state.user[editingKey])
+      ((editingData === null || !editingData.toString()) && !this.state.user[editingKey])
     ) return this.submitProfileEditCompleted(this.state.user);
     profile.loading = true;
     this.setState({profile});
@@ -154,7 +152,7 @@ class UserStore extends Reflux.Store {
         if (!!d && !d.error) {
           this.submitProfileEditCompleted(d);
         } else {
-          this.submitProfileEditFailed(!!d ? d.error : null);
+          this.submitProfileEditFailed(!!d ? d.error : "There is an error with your data");
         }
       })
     }
@@ -215,13 +213,29 @@ class UserStore extends Reflux.Store {
           modifyJobExpThenSubmit();
         }
         break;
-      case "cv":
-        if (!!editingData) {
-          const hasHttp = /^http/i.test(editingData);
-          if (!hasHttp) editingData = "http://" + editingData;
-        }
-        obj.employee[editingKey] = !!editingData ? editingData : null;
-        submit(url, "PATCH", obj);
+      // case "cv":
+      //   if (!!editingData) {
+      //     const hasHttp = /^http/i.test(editingData);
+      //     if (!hasHttp) editingData = "http://" + editingData;
+      //   }
+      //   obj.employee[editingKey] = !!editingData ? editingData : null;
+      //   submit(url, "PATCH", obj);
+      //   break;
+      case "image": case "cv":
+        const prevUrl = this.state.user[editingKey];
+        uploadPhoto({
+          uriComponents: [
+            "Employees",
+            this.state.user.name || this.state.user.first_name,
+            editingKey + yyyymmddhhmmss(new Date())
+          ],
+          file: editingData
+        }).then(objectUrl => {
+          if (!objectUrl) return this.submitProfileEditFailed("No file found");
+          obj.employee[editingKey] = objectUrl;
+          submit(url, "PATCH", obj);
+          deletePhoto(prevUrl);
+        }).catch(reason => this.submitProfileEditFailed(reason.toString()))
         break;
       default:
         obj.employee[editingKey] = !!editingData ? editingData : null;

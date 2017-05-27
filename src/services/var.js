@@ -25,7 +25,16 @@ export const getMonth = (num) => { return months[num]; };
 export const timeStamp = (date) => { return pad2(date.getHours()) + ":" + pad2(date.getMinutes()) + ", " + pad2(date.getDate()) + "-" + pad2(date.getMonth() + 1) + "-" + date.getFullYear(); };
 /** @param {Date} date @return {string} */
 export const dateStamp = (date) => { return date.getDate() + " " + getMonth(date.getMonth()) + ", " + date.getFullYear().toString().slice(2); };
-/** */
+/** @param {Date} date @return {string} */
+export const yyyymmddhhmmss = date => (
+  date.getFullYear() +
+  pad2(date.getMonth() + 1) + 
+  pad2(date.getDate()) +
+  pad2(date.getHours()) +
+  pad2(date.getMinutes()) +
+  pad2(date.getSeconds())
+);
+
 export const getEmptyJobExp = () => { return {
   position: "",
   description: "",

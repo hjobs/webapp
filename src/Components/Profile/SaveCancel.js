@@ -15,7 +15,7 @@ class SaveCancel extends Reflux.Component {
   render() {
     const t = this.state.tStrings;
     return (
-      <div className="flex-row flex-vhCenter save-cancel">
+      <div className="flex-row flex-vhCenter save-cancel" style={this.props.style || null}>
         <Button
           color="green"
           content={t.buttons.save}
@@ -30,5 +30,9 @@ class SaveCancel extends Reflux.Component {
     )
   }
 }
+
+SaveCancel.propTypes = {
+  style: React.PropTypes.object
+};
 
 export default SaveCancel;

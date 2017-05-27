@@ -15,11 +15,9 @@
   font-size: 14px !important;
   color: #337ab7; }
 
-.save-cancel-container {
-  padding: 10px 0px; }
-  .save-cancel-container .ui.button {
-    border: 0px;
-    margin: 0px 5px; }
+.save-cancel-container .ui.button {
+  border: 0px;
+  margin: 0px 5px; }
 
 .profile-detail-container {
   max-width: 450px;

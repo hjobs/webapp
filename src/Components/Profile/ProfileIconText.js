@@ -8,13 +8,10 @@ import EditText from './EditText';
 import EditLocation from './EditLocation';
 import EditLanguage from './EditLanguage';
 import SaveCancel from './SaveCancel';
+import FileInput from '../Utilities/FileInput'
 
 import UserStore, { UserActions } from '../../stores/userStore';
 import TranslationStore from '../../stores/translationStore';
-
-import Variable from '../../services/var';
-
-// import { userIconTextObjects } from '../../stores/data/profile';
 
 class ProfileIconText extends Reflux.Component {
   constructor(props) {
@@ -83,6 +80,14 @@ class ProfileIconText extends Reflux.Component {
         return <EditLanguage />;
       case "Location":
         return <EditLocation />;
+      case "CV":
+        return <FileInput
+          accept="*"
+          handleChange={(file) => {
+            if (!file) return;
+            UserActions.editProfileItem(file);
+          }}
+        />;
       default:
         return (<EditText context={context}/>);
     }
@@ -113,7 +118,10 @@ class ProfileIconText extends Reflux.Component {
         {
           !editing ? null :
           <div className="save-cancel-container">
-            <SaveCancel />
+            <SaveCancel
+              style={{padding: "10px 0px"}}
+            />
+            <p className="text-red" children={this.state.profile.errorMsg} />
           </div>
         }
       </div>

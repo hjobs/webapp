@@ -99,6 +99,7 @@ const tStrings = {
       error: "There has been an error",
       cv: {
         none: "CV not given",
+        view: "View Your CV",
         placeholder: "Enter a link to your cv (e.g. Dropbox, Onedrive, GoogleDrive)",
       },
       jobExp: {
@@ -220,6 +221,7 @@ const tStrings = {
       error: "我們無法處理你的資料",
       cv: {
         none: "沒有提供履歷",
+        view: "查看你的CV",
         placeholder: "請提供你的履歷連結，例如 Dropbox, Onedrive, GoogleDrive"
       },
       jobExp: {
