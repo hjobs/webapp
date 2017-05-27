@@ -21,19 +21,23 @@ class ProfilePicture extends Reflux.Component {
           errorMsg = this.state.profile.errorMsg;
     return (
       <div className="flex-col flex-vhCenter">
-        <Image
-          shape="circular"
-          src={this.state.user.image}
+        <div
+          className="job-thumbnail"
           style={{
-            height: imageSize,
+            backgroundImage: "url('" + this.state.user.image + "')",
             width: imageSize,
-            cursor: "pointer",
-            border: !editing ? "0px" : "1px solid " + Themes.colors.linkBlue
+            height: imageSize,
+            maxWidth: imageSize,
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+            borderRadius: "50%",
+            border: !editing ? "0px" : "1px solid " + Themes.colors.linkBlue,
+            cursor: "pointer"
           }}
           onClick={() => {
             if (!this.state.profile.editing.key) UserActions.editProfileItem(null, "image")
           }}
-          alt="profile image"
         />
         {
           !editing ? null :
