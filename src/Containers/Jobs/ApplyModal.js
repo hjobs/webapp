@@ -70,6 +70,10 @@ class ApplyModalWithoutRouter extends Reflux.Component {
         const orgNames = Variable.getOrgsNames(job.orgs, false);
         body = (
           <Modal.Body bsClass="modal-body">
+            <meta property="og:url"                content={location.href} />
+            <meta property="og:title"              content={job.title} />
+            <meta property="og:description"        content={job.orgs ? orgNames : job.description} />
+            <meta property="og:image"              content="https://assets.hjobs.hk/Companies/HJobs/logo.png" />
             <div className="modal-body-content" style={{
               overflow: "scroll",
               height: "calc(100% - 30px)"
@@ -197,36 +201,3 @@ class ApplyModalWithoutRouter extends Reflux.Component {
 const ApplyModal = withRouter(ApplyModalWithoutRouter);
 
 export default ApplyModal;
-
-// I am interested in your job " + job.title + ". Please contact me at: (ENTER YOUR INFO HERE)Look forward to your speedy reply,%0A";
-// <Form
-//   loading={this.state.application.loading}
-//   className="flex-col flex-vhCenter text-center full-width full-height"
-// >
-//   <p>Just give us your name and email, and we will send your application through!</p>
-// <Form.Group inline>
-//     <Form.Field
-//       placeholder="Your name"
-//       control="input"
-//       value={application.name}
-//       onChange={(e) => {
-//         const val = e.target.value;
-//         this.setState(s => { s.application.name = val; return s; });
-//       }}
-//     />
-//   </Form.Group>
-//   <Form.Group inline>
-//     <Form.Field
-//       placeholder="Your email"
-//       control="input"
-//       value={application.email}
-//       onChange={(e) => {
-//         const val = e.target.value;
-//         this.setState(s => { s.application.email = val; return s; });
-//       }}
-//     />
-//   </Form.Group>
-//   <p className="red-text" style={{marginTop: "10px"}}>
-//     {this.state.application.errorMsg}
-//   </p>
-// </Form>

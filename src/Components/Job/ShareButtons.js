@@ -63,7 +63,11 @@ export default class ActionButtons extends Reflux.Component {
             data-layout="button" data-size="small" data-mobile-iframe="true">
             <a
               className="fb-xfbml-parse-ignore" target="_blank"
-              href={"https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.hjobs.hk%2Fjobs%2Fstable%3Fjob%3D" + job.id + "&amp;src=sdkpreparse"}>
+              href={
+                "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.hjobs.hk%2Fjobs%2Fstable%3Fjob%3D" +
+                job.id +
+                "&amp;src=sdkpreparse"
+              }>
               <FacebookIcon round size={22} />
             </a>
           </div>
