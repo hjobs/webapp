@@ -47,7 +47,7 @@ class Job extends React.Component {
         {/* Image */}
         <div
           className="job-thumbnail"
-          style={{backgroundImage: "url('" + encodeURIComponent(job.photo) + "')"}} />
+          style={{backgroundImage: "url('" + job.photo + "')"}} />
         <div className="detail-container">
           {/* Traffic Light */}
           <div className="flex-row flex-hStart flex-vCenter">
