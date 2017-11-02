@@ -3,7 +3,7 @@ const tStrings = {
     home: {
       hero: "Connecting everyday people to hospitality",
       serviceHeader: "Our Service",
-      serviceBody: "We are a non-profit website setup to help hospitality employers and employees’ connect. In addition to job postings, we also encourage businesses to post projects i.e. re-design a restaurant menu, doing in-depth research on potential markets, that can then be completed by any competitive individual!",
+      serviceBody: "We are a non-profit website setup to help hospitality employers and employees connect. “Quick Jobs” provides job seekers with one-off work, while “Stable Jobs” and “Internships” provide more routine working hours and arrangements.",
       teamHeader: "Our Team",
       joName: "Jo Sutton",
       joPosition: "Co-founder & CEO",
@@ -125,7 +125,7 @@ const tStrings = {
     home: {
       hero: "建造旅遊酒店業與你的橋梁",
       serviceHeader: "我們的服務",
-      serviceBody: "HJobs至力建造一個本地旅遊酒店業的平台，讓僱主及雇員可更容易認識對方。在這裡你可以追求自己熱愛的工作、尋找職業方向；亦可以找到合適的人才、。除了散工及長工外，HJobs 亦提供實習機會和多元化項目，讓你打造自己的將來。",
+      serviceBody: "HJobs至力建造一個本地旅遊酒店業的平台，讓僱主及雇員可更容易認識對方。在這裡你可以追求自己熱愛的工作、尋找職業方向；亦可以找到合適的人才。",
       teamHeader: "我們的團隊",
       joName: "Jo Sutton",
       joPosition: "創始人 & CEO",
