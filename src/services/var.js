@@ -8,8 +8,8 @@ export const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "
 export const jobTypes = [
   {value: "quick", jobSearchName: "Quick Jobs"},
   {value: "stable", jobSearchName: "Stable Jobs"},
-  {value: "intern", jobSearchName: "Internsips"},
-  {value: "project", jobSearchName: "Projects"}
+  {value: "intern", jobSearchName: "Internsips"}
+  // {value: "project", jobSearchName: "Projects"}
 ];
 export const urgencyTypes = [
   {value: "urgent1", className: "traffic-red"},
