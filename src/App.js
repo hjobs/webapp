@@ -28,6 +28,7 @@ class App extends Reflux.Component {
     super();
     this.state = {};
     this.stores = [JobStore, TranslationStore, UserStore];
+    console.log(["process.env.TEST_SERVER = ",process.env.TEST_SERVER]);
     if (!process.env.TEST_SERVER) console.log = () => {};
   }
 
