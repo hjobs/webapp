@@ -28,7 +28,7 @@ class App extends Reflux.Component {
     super();
     this.state = {};
     this.stores = [JobStore, TranslationStore, UserStore];
-    if (process.env.NODE_ENV !== "development" || !process.env.TEST_SERVER) console.log = () => {};
+    if (!process.env.TEST_SERVER) console.log = () => {};
   }
 
   componentWillMount() {
