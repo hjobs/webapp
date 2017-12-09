@@ -2,6 +2,7 @@ import React from 'react';
 import './styles/Tags.css';
 
 import { getTStrings } from '../../services/var';
+import { jobTagTranslations } from '../../stores/data/jobTags';
 
 const Tag = (props) => (
   <div className={"flex-row flex-vhCenter tag"}>
@@ -39,6 +40,18 @@ export const Tags = ({job}) => {
           key={job.id + "-datetag-" + dateTagStr}
           string={dateTagStr}
           type="date"
+        />
+      );
+    });
+  }
+
+  if (!!job.tags && job.tags.length > 0) {
+    job.tags.forEach(t => {
+      tags.push(
+        <Tag
+          key={job.id + "-job_tag-" + t}
+          string={jobTagTranslations.code[t]}
+          type="job_tag"
         />
       );
     });
