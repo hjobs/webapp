@@ -1,4 +1,5 @@
 import tStrings from "../stores/data/translations"
+export const queryStringOption = {arrayFormat: 'bracket'};
 
 /**
  * @typedef {'traffic-red' | 'traffic-orange' | 'traffic-blue' | null} trafficString
@@ -177,7 +178,8 @@ const Variable = {
 
   profileEditStateTriggered:(pathname) => {
     return /^\/profile\/edit/i.test(pathname);
-  }
+  },
+  queryStringOption
 };
 
 export default Variable;

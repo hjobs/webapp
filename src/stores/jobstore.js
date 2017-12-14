@@ -48,22 +48,30 @@ class JobStore extends Reflux.Store {
           loading: false,
           error: null
         },
+        filters: [],
         itemsPerPage
       }
     };
   }
 
-  shout() { window.alert("fuck"); }
-
   /** @param {JobType} jobType @param {number} page */
-  loadJobs(jobType, page) {
+  loadJobs(jobType, page, filter) {
     // console.log("page = " + page);
     page = !page ? 1 : +page;
     const pageIsEven = page % 2 === 0,
           pageMin = pageIsEven ? page - 1 : page,
-          pageMax = pageIsEven ? page : page + 1;
+          pageMax = pageIsEven ? page : page + 1,
+          urlSuffixArray = [
+            "by_job_type=" + jobType,
+            "offset_by=" + ((pageMin - 1) * itemsPerPage),
+          ];
+          if (!!filter && filter.length > 0) {
+            urlSuffixArray.push(filter.map((value) => ("filters[]=" + value)).join("&"));
+          }
+    console.log(["jobStore.js, loadJobs, urlSufixArray = ", urlSuffixArray])
     const getJobs = () => {
-      const urlSuffix = 'jobs?by_job_type=' + jobType + "&offset_by=" + ((pageMin - 1) * itemsPerPage);
+      const urlSuffix = 'jobs?' + urlSuffixArray.join("&");
+      console.log("jobStore.js, loadJob, urlSuffix = " + urlSuffix);
       Http.request(urlSuffix).then(res => {
         if (!res.ok) console.log(['res is not ok, logging res inside Jobs.js refresh() fetch()', res]);
         return res.json();
@@ -76,6 +84,7 @@ class JobStore extends Reflux.Store {
             // console.log(["jobs = ", jobs]);
             s.jobs[jobType].error = null;
             s.jobs[jobType].totalPages = Math.ceil(d.total_count / itemsPerPage);
+            s.filters = filter;
             if (!s.jobs[jobType].loadedPages) s.jobs[jobType].loadedPages = [];
             if (!s.jobs[jobType].data) s.jobs[jobType].data = new Array(s.jobs[jobType].totalPages);
             if (pageMin <= s.jobs[jobType].totalPages) {

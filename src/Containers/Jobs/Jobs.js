@@ -2,8 +2,8 @@ import React from 'react';
 import Reflux from 'reflux';
 import { Image } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
-let Loading = require('react-loading');
 const queryString = require('query-string');
+let Loading = require('react-loading');
 
 import './styles/jobs.css';
 import Job from './Job';
@@ -13,6 +13,7 @@ import JobStore, { JobActions } from '../../stores/jobStore';
 import AdStore from '../../stores/adStore';
 
 import { log } from '../../services/http';
+import { queryStringOption } from '../../services/var';
 
 const NoListing = () => (
   <div className="flex-row flex-vhCenter" style={{minHeight: "200px", padding: "20px"}}>
@@ -30,25 +31,29 @@ class Jobs extends Reflux.Component {
   componentDidMount() {
     super.componentWillMount.call(this);
     const jobType = this.props.match.params.jobType
-    const page = queryString.parse(this.props.location.search).page || 1;
-    this.loadJobsIfNeeded(jobType, page);
+    const queryObj = queryString.parse(this.props.location.search);
+    const page = +queryObj.page || 1;
+    const nextFilter = queryObj.filter || null;
+
+    this.loadJobs(jobType, page, nextFilter);
   }
 
   componentWillReceiveProps(nextProps) {
     // this.checkForServerCall(nextProps);
-    // console.log(["logging this.props, nextprops : ", this.props, nextProps]);
+    console.log(["logging this.props, nextprops : ", this.props, nextProps]);
     const urlChanged = (
       this.props.location.pathname !== nextProps.location.pathname ||
       this.props.location.search !== nextProps.location.search
     );
+    console.log("urlChanged = " + urlChanged)
     if (urlChanged) {
       window.scrollTo(0, 0);
-      const page = +queryString.parse(nextProps.location.search).page || 1;
-      this.loadJobsIfNeeded(nextProps.match.params.jobType, page);
+      this.loadJobsIfNeeded(nextProps.match.params.jobType, this.props, nextProps);
     }
   }
 
   componentWillUpdate(nextProps, nextState) {
+    // log ad
     if (
       !!nextState.ad.current &&
       (
@@ -65,22 +70,40 @@ class Jobs extends Reflux.Component {
     }
   }
 
-  loadJobsIfNeeded(jobType, page) {
-    if (this.loadJobsIsNeeded(jobType, +page)) {
-      JobActions.loadJobs(jobType, +page);
-    }
-  }
-
-  loadJobsIsNeeded(jobType, page) {
+  loadJobsIfNeeded(jobType, thisProps, nextProps) {
+    const nextQueryObj = queryString.parse(nextProps.location.search, queryStringOption);
+    const page = +nextQueryObj.page || 1;
+    const nextFilter = nextQueryObj.filter || null;
+    const thisQueryObj = queryString.parse(this.props.location.search, queryStringOption);
+    const thisFilter = thisQueryObj.filter || null;
     const jobs = this.state.jobs[jobType];
-    return (
+
+    const loadJobIsNeeded =  (
       jobs.loading !== true && (
+        thisProps.location.pathname !== nextProps.location.pathname ||
         jobs.data === null ||
         !jobs.totalPages === null ||
-        jobs.loadedPages.indexOf(+page) === -1
+        jobs.loadedPages.indexOf(+page) === -1 ||
+        ( // nextFilter is different from thisFilter, if filter exists
+          (!!nextFilter && !thisFilter) ||
+          (!nextFilter && !!thisFilter) ||
+          (
+            (!!nextFilter && !!thisFilter) &&
+            (
+              nextFilter.reduce((result, value) => (result && (thisFilter.indexOf(value) === -1)), true) ||
+              thisFilter.reduce((result, value) => (result && (nextFilter.indexOf(value) === -1)), true)
+            )
+          )
+        )
       )
     );
+
+    console.log(["loadJobIfNeeded, logging thisFilter, nextFilter", thisFilter, nextFilter])
+
+    if (loadJobIsNeeded) this.loadJobs(jobType, +page, nextFilter);
   }
+
+  loadJobs(jobType, page, nextFilter) {JobActions.loadJobs(jobType, +page, nextFilter);}
 
   /** @return {array} */
   sliceJobs(jobs, page) {

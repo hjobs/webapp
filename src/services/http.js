@@ -70,4 +70,14 @@ const Http = {
   log
 };
 
+export const generateNewLocation = (oldLocation, newInfo) => {
+  const newLocation = {};
+  for (let key in oldLocation) {
+    if (oldLocation.hasOwnProperty(key)) {
+      newLocation[key] = newInfo[key] || oldLocation[key];
+    }
+  }
+  return newLocation;
+}
+
 export default Http;

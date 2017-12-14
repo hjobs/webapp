@@ -52,6 +52,18 @@ export const jobTagTranslations = {
     "travel": {
       "en": "Tourism",
       "zh-HK": "旅遊"
+    },
+    "fulltime": {
+      "en": "FullTime",
+      "zh-HK": "全職"
+    },
+    "parttime": {
+      "en": "PartTime",
+      "zh-HK": "兼職"
+    },
+    "freelance": {
+      "en": "FreeLance",
+      "zh-HK": "FreeLance"
     }
   }
 };

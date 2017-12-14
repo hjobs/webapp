@@ -9,6 +9,7 @@ const queryString = require("query-string");
 
 import Jobs from './Jobs';
 import JobSearchBar from './JobSearchBar';
+import Filter from '../../Components/Job/Filter';
 import ApplyModal from './ApplyModal';
 import Description from '../../Components/Traffic/Description';
 import PageNumber from '../../Components/Utilities/PageNumber';
@@ -218,6 +219,7 @@ class Browse extends Reflux.Component {
           changeViewType={(str) => { this.props.changeViewType(str); }}
           t={this.props.t}
         />
+        <Filter />
         {jobType === 'quick' ? <Description /> : <div style={{minHeight: "15px"}} />}
         <Jobs />
         {
