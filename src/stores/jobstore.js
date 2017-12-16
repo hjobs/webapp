@@ -48,14 +48,28 @@ class JobStore extends Reflux.Store {
           loading: false,
           error: null
         },
+        loading: false,
         filters: [],
         itemsPerPage
       }
     };
   }
 
+  /** @param {JobType} jobType **/
+  clearJobs(jobType) {
+    this.setState(s => {
+      if (!!jobType) {
+        s.jobs[jobType].data = null;
+        s.jobs[jobType].totalPages = null;
+        s.jobs[jobType].loadedPages = null;
+        s.jobs[jobType].loading = false;
+        s.jobs[jobType].error = null;
+      }
+    })
+  }
+
   /** @param {JobType} jobType @param {number} page */
-  loadJobs(jobType, page, filter) {
+  loadJobs(jobType, page, filter, clearData) {
     // console.log("page = " + page);
     page = !page ? 1 : +page;
     const pageIsEven = page % 2 === 0,
@@ -79,14 +93,13 @@ class JobStore extends Reflux.Store {
         console.log(d);
         if (!!d && !d.error) {
           this.setState(s => {
-            const jobs = this.processJobsDataFromHttp(d.jobs);
-            // const s.jobs[jobType] = s.jobs[jobType];
-            // console.log(["jobs = ", jobs]);
+            const jobs = this.processJobsDataFromHttp(d.jobs),
+                  totalPages = Math.ceil(d.total_count / itemsPerPage);
             s.jobs[jobType].error = null;
-            s.jobs[jobType].totalPages = Math.ceil(d.total_count / itemsPerPage);
+            s.jobs[jobType].totalPages = totalPages;
             s.filters = filter;
             if (!s.jobs[jobType].loadedPages) s.jobs[jobType].loadedPages = [];
-            if (!s.jobs[jobType].data) s.jobs[jobType].data = new Array(s.jobs[jobType].totalPages);
+            if (!s.jobs[jobType].data || clearData === true) s.jobs[jobType].data = new Array(s.jobs[jobType].totalPages);
             if (pageMin <= s.jobs[jobType].totalPages) {
               s.jobs[jobType].data[pageMin - 1] = jobs.slice(0, itemsPerPage);
               s.jobs[jobType].loadedPages.push(pageMin)
@@ -96,6 +109,7 @@ class JobStore extends Reflux.Store {
               s.jobs[jobType].loadedPages.push(pageMax);
             }
             s.jobs[jobType].loading = false;
+            console.log(["inside loadJobs, logging d and s in setState", d, s]);
             return s;
           });
         } else throw Error("Server error.")
@@ -106,9 +120,9 @@ class JobStore extends Reflux.Store {
         return s;
       }) });
     };
-    this.setState(s => { s.jobs[jobType].loading = true; return s; }, getJobs());
+    this.setState(s => { s.jobs.loading = true; return s; }, getJobs());
   }
-
+  
   /** @param {number} num */
   goToPage(page) {
     if (!this.state.jobs.all || !this.state.jobs.all[page - 1]) {

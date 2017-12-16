@@ -6,6 +6,7 @@ import Reflux from 'reflux';
 import 'whatwg-fetch';
 // import { Row, Col } from 'react-bootstrap';
 const queryString = require("query-string");
+import { theme } from '../../styles/theme'
 
 import Jobs from './Jobs';
 import JobSearchBar from './JobSearchBar';
@@ -219,7 +220,19 @@ class Browse extends Reflux.Component {
           changeViewType={(str) => { this.props.changeViewType(str); }}
           t={this.props.t}
         />
-        <Filter />
+        <div className="flex-row flex-hCenter">
+          <Filter
+            style={{
+              backgroundColor: theme.colors.white,
+              width: "100%",
+              maxWidth: 600,
+              padding: 5,
+              margin: 5,
+              borderRadius: 5,
+              boxShadow: "0px 0px 15px white"
+            }}
+          />
+        </div>
         {jobType === 'quick' ? <Description /> : <div style={{minHeight: "15px"}} />}
         <Jobs />
         {

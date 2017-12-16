@@ -1,20 +1,33 @@
 export const jobTags = [
   {
-    type: "industry",
-    codes: ["hotel", "restaurant", "bar", "clubnight", "clubmembers", "travel"]
+    group: "industry",
+    codes: [
+      {id: 1000, code: "hotel"},
+      {id: 1002, code: "restaurant"},
+      {id: 1003, code: "bar"},
+      {id: 1004, code: "clubnight"},
+      {id: 1005, code: "clubmembers"},
+      {id: 1006, code: "tourism"},
+      {id: 1007, code: "academic"}
+    ]
   },
   // {
-  //   type: "role",
+  //   group: "role",
   //   codes: ["barista", "bartender", "housekeeper"]
   // },
   {
-    type: "commitment",
-    codes: ["fulltime", "parttime", "freelance"]
+    group: "commitment",
+    codes: [
+      {id: 3000, code: "parttime"},
+      {id: 3001, code: "fulltime"},
+      {id: 3002, code: "casual"}, 
+      {id: 3003, code: "freelance"}
+    ] 
   }
 ];
 
 export const jobTagTranslations = {
-  type: {
+  group: {
     industry: {
       "en": "Industry",
       "zh-HK": "行業"
@@ -49,9 +62,13 @@ export const jobTagTranslations = {
       "en": "Members club",
       "zh-HK": "會員俱樂部"
     },
-    "travel": {
+    "tourism": {
       "en": "Tourism",
       "zh-HK": "旅遊"
+    },
+    "academic": {
+      "en": "Academic",
+      "zh-HK": "學術研究"
     },
     "fulltime": {
       "en": "FullTime",
@@ -60,6 +77,10 @@ export const jobTagTranslations = {
     "parttime": {
       "en": "PartTime",
       "zh-HK": "兼職"
+    },
+    "casual": {
+      "en": "Casual",
+      "zh-HK": "欺工"
     },
     "freelance": {
       "en": "FreeLance",

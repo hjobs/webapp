@@ -9,29 +9,28 @@ import { jobTags, jobTagTranslations } from '../../stores/data/jobTags';
 import { generateNewLocation } from '../../services/http';
 import { queryStringOption } from '../../services/var';
 
-// const tStrings = {
-//   "en": {
-//     shareIn: "Share in",
-//     or: "or",
-//     copyToClipboard: "copy link",
-//     copied: "Copied!"
-//   },
-//   "zh-HK": {
-//     shareIn: "分享",
-//     or: "或",
-//     copyToClipboard: "複製連結",
-//     copied: "已複製!"
-//   }
-// }
+const tStrings = {
+  "en": {
+    filterShow: "Show filter",
+    filterHide: "Hide filter"
+  },
+  "zh-HK": {
+    filterShow: "顯示進階搜尋",
+    filterHide: "隱藏進階搜尋"
+  }
+};
 
 class Filter extends Reflux.Component {
   constructor(props) {
     super(props);
+    const queryObj = queryString.parse(props.location.search, queryStringOption),
+          noFilter = !queryObj.filter || queryObj.filter.length <= 0;
+    this.state = {filterShown: !noFilter};
     this.stores = [JobStore, TranslationStore];
     this.storeKeys = ["locale"];
   }
 
-  handleChange(type, code) {
+  handleChange(group, code) {
     const queryObj = queryString.parse(this.props.location.search, queryStringOption),
           { history, location } = this.props;
     if (!queryObj.filter || queryObj.filter.length <= 0) {
@@ -52,28 +51,49 @@ class Filter extends Reflux.Component {
   }
 
   render() {
-    const locale = this.state.locale || "en";
-    const filters = queryString.parse(this.props.location.search, queryStringOption).filter || [];
+    const locale = this.state.locale || "en",
+          filters = queryString.parse(this.props.location.search, queryStringOption).filter || [],
+          filterShown = this.state.filterShown,
+          t = tStrings[locale];
     // console.log(["filters = ",filters]);
     return (
       <div className="flex-col flex-vhCenter" style={this.props.style}>
-        <div>
+        <div
+          className="link"
+          onClick={() => { this.setState(s => { s.filterShown = !filterShown }) }}
+        >
+          {filterShown ? t.filterHide : t.filterShow}
+        </div>
+        <div style={{display: filterShown ? "block" : "none"}}>
           {
             jobTags.map((tagGroup) => (
-              <div key={'tagGroup_' + tagGroup.type}>
-                <label>{jobTagTranslations.type[tagGroup.type][locale]}:</label>{' '}
+              <div
+                key={'tagGroup_' + tagGroup.group}
+                className="flex-row flex-vCenter"
+                style={{flexWrap: "nowrap", padding: "7px 0px"}}
+              >
+                <div style={{padding: "0px 7px"}}>
+                  <label>{jobTagTranslations.group[tagGroup.group][locale]}:</label>{' '}
+                </div>
+                <div
+                  className="flex-row flex-vCenter"
+                  style={{flexWrap: "wrap", padding: "0px 3px"}}>
                 {
-                  tagGroup.codes.map((code) => (
-                    <span key={'tag_' + code} style={{padding: "0px 5px"}}>
+                  tagGroup.codes.map((codeObj) => (
+                    <div
+                      key={'tag_' + codeObj.code}
+                      style={{padding: "0px 5px"}}
+                    >
                       <input
                         type="checkbox"
-                        checked={(filters.indexOf(code) !== -1)}
-                        onClick={() => this.handleChange(tagGroup.type, code)}
+                        checked={(filters.indexOf(codeObj.code) !== -1)}
+                        onClick={() => this.handleChange(tagGroup.group, codeObj.code)}
                       />
-                      {jobTagTranslations.code[code][locale]}
-                    </span>
+                      {' ' + jobTagTranslations.code[codeObj.code][locale]}
+                    </div>
                   ))
                 }
+                </div>
               </div>
             ))
           }

@@ -117,11 +117,11 @@ section {
 .red-text {
   color: #f06060; }
 
-p.link, span.link, span[link] {
+p.link, span.link, span[link], div.link, div[link] {
   color: #337ab7;
   cursor: pointer; }
 
-p.link:hover, span.link:hover, span[link]:hover {
+p.link:hover, span.link:hover, span[link]:hover, div.link:hover, div[link]:hover {
   text-decoration: underline; }
 
 .ui.green.button {
@@ -142,16 +142,18 @@ p.link:hover, span.link:hover, span[link]:hover {
 
 .modal-footer {
   padding: 8px 8px 8px 8px !important; }
-  .modal-footer button {
-    margin-left: 5px;
-    margin-right: 5px; }
+
+.modal-footer button {
+  margin-left: 5px;
+  margin-right: 5px; }
 
 div.separator-container {
   padding: 0px 10px 0px 10px; }
-  div.separator-container div.separator {
-    border: 0.5px solid #F0F0F0;
-    background-color: #F0F0F0;
-    width: calc(100% - 122.5px); }
+
+div.separator-container div.separator {
+  border: 0.5px solid #F0F0F0;
+  background-color: #F0F0F0;
+  width: calc(100% - 122.5px); }
 
 /*********TEXT*********/
 h1, h2, h3, h4, h5, h6 {
@@ -167,12 +169,14 @@ p {
   font-size: 16px;
   font-weight: 300;
   padding: 0px 10px 20px 10px; }
-  .search .search-view-type span.link {
-    margin: auto 5px;
-    display: inline-block;
-    text-decoration: underline; }
-  .search .search-view-type span.active {
-    font-weight: 400; }
+
+.search .search-view-type span.link {
+  margin: auto 5px;
+  display: inline-block;
+  text-decoration: underline; }
+
+.search .search-view-type span.active {
+  font-weight: 400; }
 
 .social-button, .social-button:active, .social-button:visited {
   font-size: 22px;
@@ -188,27 +192,31 @@ p {
   z-index: 7;
   color: #101010;
   background-color: rgba(245, 245, 245, 0.5); }
-  .job-search-bar .job-type-container {
-    flex-wrap: nowrap;
-    height: 100%;
-    min-width: 330px;
-    overflow: visible; }
-  .job-search-bar .title {
-    padding: 0px 10px;
-    height: 100%;
-    font-size: 12px;
-    text-align: center; }
-  .job-search-bar .job-type {
-    padding: 0px 10px;
-    height: 100%;
-    font-size: 14px;
-    text-align: center;
-    cursor: pointer;
-    border-radius: 0px 0px 10px 10px;
-    white-space: nowrap; }
-  .job-search-bar .active {
-    background-color: #101010;
-    color: #F0F0F0; }
+
+.job-search-bar .job-type-container {
+  flex-wrap: nowrap;
+  height: 100%;
+  min-width: 330px;
+  overflow: visible; }
+
+.job-search-bar .title {
+  padding: 0px 10px;
+  height: 100%;
+  font-size: 12px;
+  text-align: center; }
+
+.job-search-bar .job-type {
+  padding: 0px 10px;
+  height: 100%;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 0px 0px 10px 10px;
+  white-space: nowrap; }
+
+.job-search-bar .active {
+  background-color: #101010;
+  color: #F0F0F0; }
 
 .page-number-container .page-number {
   display: inline-block;
