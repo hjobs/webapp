@@ -47,6 +47,7 @@ class Filter extends Reflux.Component {
     } else {
       queryObj.filter.push(code);
     }
+    if (!!queryObj.page) delete queryObj.page;
     history.push(generateNewLocation(location, {search: "?" + queryString.stringify(queryObj, queryStringOption)}));
   }
 
