@@ -6,8 +6,8 @@ import 'whatwg-fetch';
 const getToken = () => (localStorage.getItem("authToken") || null);
 
 // export const baseUrl = process.env.REACT_APP_BASEURL;
-// export const baseUrl = "https://api.hjobs.hk/";
-export const baseUrl = "https://dev.hjobs.hk/";
+export const baseUrl = "https://api.hjobs.hk/";
+// export const baseUrl = "https://dev.hjobs.hk/";
 // export const baseUrl = "http://localhost:9080/";
 
 /** param httpMethod defaults to 'GET', data defaults to null
