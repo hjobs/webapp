@@ -61,12 +61,12 @@ class Jobs extends Reflux.Component {
         this.state.ad.current.id !== nextState.ad.current.id
       )
     ) {
-      log({
+      /* log({
         name: "Ad",
         action: "Load",
         component: "Jobs",
         ad_id: nextState.ad.current.id
-      });
+      }); */
     }
   }
 
